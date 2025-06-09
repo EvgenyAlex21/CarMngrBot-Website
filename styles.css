@@ -776,6 +776,12 @@
     .footer-social {
       justify-content: center;
     }
+  
+    .feature-card {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: none !important;
+    }
   }
   
   /* ====== Кнопка "Наверх" ====== */
@@ -964,4 +970,11 @@
     .corporate-sidebar {
       width: 80%;
     }
+  
+    #instructions.corporate-section {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      animation: none !important;
+    }
+  
   }

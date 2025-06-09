@@ -156,23 +156,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Intersection Observer для секций
     function setupSectionObserver() {
         const options = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.05 // Уменьшил порог срабатывания
         };
-
+      
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                }
-            });
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target); // Прекращаем наблюдение после появления
+            }
+          });
         }, options);
-
-        DOM.sections.forEach(section => {
-            observer.observe(section);
+      
+        // Наблюдаем за всеми секциями, включая инструкции
+        document.querySelectorAll('.corporate-section').forEach(section => {
+          observer.observe(section);
         });
-    }
+      }
 
     // Подсветка активного раздела
     function highlightActiveSection() {
@@ -240,16 +242,23 @@ document.addEventListener('DOMContentLoaded', function() {
         DOM.instructionBlocks.forEach(block => {
             const header = block.querySelector('h2, h3');
             const content = block.querySelector('.instruction-content, .agreement-content, .privacy-content');
-
+    
             if (header && content) {
                 const icon = document.createElement('i');
                 icon.className = 'fas fa-chevron-down';
                 header.prepend(icon);
-
-                block.classList.add('active');
-                content.classList.add('active');
-                icon.className = 'fas fa-chevron-down';
-
+    
+                // Открываем "Инструкцию" по умолчанию, если это первый блок или секция instructions
+                if (block.closest('#instructions')) {
+                    block.classList.add('active');
+                    content.classList.add('active');
+                    icon.className = 'fas fa-chevron-down';
+                    // Прокрутка к секции после инициализации
+                    setTimeout(() => {
+                        block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+    
                 header.addEventListener('click', () => {
                     const isActive = block.classList.contains('active');
                     block.classList.toggle('active');
@@ -257,13 +266,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     icon.className = isActive ? 'fas fa-chevron-right' : 'fas fa-chevron-down';
                 });
             } else {
-                console.warn('Header or content not found in block:', block);
+                console.warn('// Header or content not found in block:', block);
             }
         });
     }
 
     // Анимация карточек при прокрутке
     function animateOnScroll() {
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) return; // Пропускаем анимацию на мобильных
+    
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -273,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }, { threshold: 0.1 });
-
+    
         DOM.featureCards.forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(20px)';
