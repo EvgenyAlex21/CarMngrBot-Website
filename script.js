@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
         instructionBlocks: document.querySelectorAll('.instruction-block, .agreement-block, .privacy-block')
     };
 
+    // Управление модальным окном для входа администратора
+    setupAdminLogin();    
+
     // Состояние приложения
     const state = {
         activeCard: null,
@@ -18,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentActiveMenuItem: null // Добавляем отслеживание текущего активного элемента меню
     };
 
-    // Создаем оверлей, если его нет
+    // Обеспечиваем создание оверлея
     function ensureOverlayExists() {
         if (!document.querySelector('.sidebar-overlay')) {
             const overlay = document.createElement('div');
@@ -38,6 +41,73 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         return document.querySelector('.sidebar-overlay');
+    }
+
+    // Функция для настройки формы входа администратора
+    function setupAdminLogin() {
+        const adminLoginBtn = document.getElementById('adminLoginBtn');
+        const adminLoginModal = document.getElementById('adminLoginModal');
+        const closeModalBtn = adminLoginModal.querySelector('.close-modal');
+        const loginForm = document.getElementById('adminLoginForm');
+        const loginError = document.getElementById('loginError');
+        
+        // Открытие модального окна
+        adminLoginBtn.addEventListener('click', function() {
+            adminLoginModal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Запрет прокрутки страницы
+        });
+        
+        // Закрытие модального окна по клику на крестик
+        closeModalBtn.addEventListener('click', function() {
+            adminLoginModal.style.display = 'none';
+            document.body.style.overflow = ''; // Восстановление прокрутки
+            loginError.textContent = ''; // Очистка ошибок
+            loginForm.reset(); // Очистка формы
+        });
+        
+        // Закрытие модального окна по клику вне его содержимого
+        window.addEventListener('click', function(event) {
+            if (event.target === adminLoginModal) {
+                adminLoginModal.style.display = 'none';
+                document.body.style.overflow = '';
+                loginError.textContent = '';
+                loginForm.reset();
+            }
+        });
+        
+        // Обработка отправки формы
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Проверка учетных данных
+            if (username === 'EACMB' && password === 'EA!04!CMB!25') {
+                // Успешный вход
+                loginError.textContent = '';
+                loginError.style.color = 'var(--success-color)';
+                loginError.textContent = 'Вход выполнен успешно! Перенаправление...';
+                
+                // Сохранение состояния авторизации в localStorage
+                localStorage.setItem('adminLoggedIn', 'true');
+                
+                // Перенаправление на страницу админа через 1 секунду
+                setTimeout(function() {
+                    window.location.href = 'admin.html';
+                }, 1000);
+            } else {
+                // Неверные учетные данные
+                loginError.style.color = 'var(--danger-color)';
+                loginError.textContent = 'Неверный логин или пароль!';
+                
+                // Анимация ошибки
+                loginForm.classList.add('error-shake');
+                setTimeout(function() {
+                    loginForm.classList.remove('error-shake');
+                }, 500);
+            }
+        });
     }
 
     // Инициализация при загрузке
@@ -416,23 +486,13 @@ function handleScroll() {
         }
     }
     
-    // Проверяем, не дошли ли мы до футера
+    // Если футер виден, останавливаем автоматическую анимацию секций
     const footer = document.querySelector('.corporate-footer');
-    const sidebar = document.querySelector('.corporate-sidebar');
-    
-    if (footer && sidebar) {
-        // Полностью пересчитываем высоту сайдбара на основе положения футера
-        const sidebarTop = sidebar.getBoundingClientRect().top + window.pageYOffset;
-        const footerTop = footer.getBoundingClientRect().top + window.pageYOffset;
+    if (footer) {
+        const footerRect = footer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
         
-        // Вычисляем точную высоту для сайдбара, чтобы он заканчивался у футера
-        const exactHeight = footerTop - sidebarTop;
-        
-        // Применяем фиксированную высоту, сайдбар будет точно заканчиваться у футера
-        sidebar.style.height = `${exactHeight}px`;
-        
-        // Если футер виден, останавливаем автоматическую анимацию секций
-        if (footer.getBoundingClientRect().top <= window.innerHeight) {
+        if (footerRect.top <= windowHeight) {
             document.querySelectorAll('.corporate-section:not(.in-view)').forEach(section => {
                 section.classList.add('in-view');
             });
