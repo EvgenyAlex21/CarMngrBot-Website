@@ -1,0 +1,267 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0078D7;
+    color: white;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+/* Заголовок */
+.header-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Гамбургер */
+.hamburger {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+/* Меню */
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu li:not(:last-child)::after {
+    content: "|";
+    position: absolute;
+    right: -15px;
+    color: white;
+    font-size: 18px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    background-color: #0056A3;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.menu a:hover {
+    background-color: #003E70;
+    transform: scale(1.05);
+}
+
+/* Основной контент */
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding-top: 70px;
+}
+
+main section {
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fefefe;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+main section h1 {
+    color: #0078D7;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+main section h2 {
+    color: #0056A3;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Кнопка "Наверх" */
+#scrollToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0078D7;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#scrollToTop:hover {
+    background-color: #0056A3;
+    transform: scale(1.1);
+}
+
+/* Адаптивное меню */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        background-color: #0078D7;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        padding: 10px 0;
+        z-index: 1000;
+    }
+
+    .menu.active {
+        display: flex;
+    }
+
+    .menu li {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .menu li:not(:last-child)::after {
+        content: none;
+    }
+
+    /* Кнопки в гамбургере */
+    .menu a {
+        padding: 15px;
+        margin: 5px 10px;
+        background-color: #0056A3;
+        color: white;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .menu a:hover {
+        background-color: #003E70;
+        transform: scale(1.05);
+    }
+
+    .menu a:active {
+        transform: scale(0.95);
+        background-color: #002C50;
+    }
+}
+
+.update {
+    text-align: right;
+    font-style: italic;
+}
+
+/* Стили для блока содержания */
+#content-block {
+    background: #ffffff; /* Белый фон */
+    border: 1px solid #ddd; /* Легкая рамка */
+    padding: 20px;
+    margin: 20px auto; /* Выравнивание по центру */
+    max-width: 800px; /* Максимальная ширина */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+    border-radius: 8px; /* Скругленные углы */
+    text-align: center; /* Центрирование текста */
+}
+
+/* Заголовок */
+#content-block h2 {
+    font-family: 'Arial', sans-serif; /* Стиль шрифта */
+    font-size: 1.8rem;
+    color: #333; /* Темно-серый цвет */
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Верхний регистр */
+    letter-spacing: 2px; /* Расстояние между буквами */
+}
+
+/* Навигация */
+#content-block nav ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0;
+    margin: 0;
+    text-align: left; /* Текст в списке выровнен влево */
+}
+
+#content-block nav ul li {
+    margin: 10px 0;
+}
+
+#content-block nav ul ul {
+    margin-left: 20px; /* Отступ для вложенных списков */
+}
+
+#content-block nav a {
+    text-decoration: none; /* Убираем подчеркивание */
+    font-size: 1rem;
+    color: #0066cc; /* Синий цвет ссылок */
+    transition: color 0.3s; /* Анимация при наведении */
+}
+
+#content-block nav a:hover {
+    color: #ff6600; /* Цвет при наведении */
+}
+
+/* Основные разделы жирным */
+#content-block nav a strong {
+    font-size: 1.1rem; /* Увеличенный размер */
+    color: #333; /* Темный цвет для выделения */
+}
+
+/* Подсветка активной ссылки */
+#content-block nav a.active {
+    font-weight: bold;
+    color: #ff6600; /* Оранжевый цвет */
+    text-decoration: underline;
+}
