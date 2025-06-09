@@ -27,11 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Добавляем слушатель на оверлей для закрытия меню
             overlay.addEventListener('click', function() {
-                if (DOM.menu && DOM.menu.classList.contains('active')) {
+                const menu = document.querySelector('.corporate-nav ul.menu');
+                const sidebar = document.querySelector('.corporate-sidebar');
+                
+                if (menu && menu.classList.contains('active')) {
                     toggleMenu();
                 }
                 
-                const sidebar = document.querySelector('.corporate-sidebar');
                 if (sidebar && sidebar.classList.contains('active')) {
                     toggleSidebar();
                 }
@@ -381,6 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (DOM.hamburger) {
             DOM.hamburger.addEventListener('click', function(e) {
                 e.stopPropagation();
+                e.preventDefault(); // Добавляем preventDefault
                 toggleMenu();
             });
             console.log('✅ Гамбургер меню настроено');
@@ -521,17 +524,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const overlay = ensureOverlayExists();
         
         if (DOM.menu) {
+            const wasActive = DOM.menu.classList.contains('active');
+            
             DOM.menu.classList.toggle('active');
             if (DOM.hamburger) {
                 DOM.hamburger.classList.toggle('active');
             }
-            overlay.classList.toggle('active');
+            
+            // Управляем оверлеем только для меню, не для сайдбара
+            const sidebar = document.querySelector('.corporate-sidebar');
+            const sidebarActive = sidebar && sidebar.classList.contains('active');
             
             if (DOM.menu.classList.contains('active')) {
+                overlay.classList.add('active', 'menu-overlay');
                 document.body.style.overflow = 'hidden';
-            } else {
+            } else if (!sidebarActive) {
+                // Убираем оверлей только если сайдбар тоже не активен
+                overlay.classList.remove('active', 'menu-overlay');
                 document.body.style.overflow = '';
-                // При закрытии меню сбрасываем состояния выпадающих подменю
+            }
+            
+            // При закрытии меню сбрасываем состояния выпадающих подменю
+            if (wasActive) {
                 resetDropdowns();
             }
         }
@@ -556,9 +570,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const overlay = ensureOverlayExists();
         
         if (sidebar) {
+            const wasActive = sidebar.classList.contains('active');
             sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+            
+            // Управляем оверлеем только для сайдбара, не для меню
+            const menu = document.querySelector('.corporate-nav ul.menu');
+            const menuActive = menu && menu.classList.contains('active');
+            
+            if (sidebar.classList.contains('active')) {
+                overlay.classList.add('active', 'sidebar-overlay-active');
+                document.body.style.overflow = 'hidden';
+            } else if (!menuActive) {
+                // Убираем оверлей только если меню тоже не активно
+                overlay.classList.remove('active', 'sidebar-overlay-active');
+                document.body.style.overflow = '';
+            }
         }
     }
 
@@ -787,15 +813,21 @@ function handleScroll() {
     // Хэндлер для закрытия активных элементов при клике вне меню
     function setupClickOutsideHandler() {
         document.addEventListener('click', function(e) {
-            // Закрываем меню и сайдбар если клик был вне их области
-            const isMenuClick = e.target.closest('.corporate-nav') || e.target.closest('.hamburger');
-            const isSidebarClick = e.target.closest('.corporate-sidebar') || e.target.closest('.sidebar-toggle');
+            // Проверяем клики более точно
+            const isMenuClick = e.target.closest('.corporate-nav') || 
+                               e.target.closest('.hamburger') ||
+                               e.target === DOM.hamburger;
+            const isSidebarClick = e.target.closest('.corporate-sidebar') || 
+                                  e.target.closest('.sidebar-toggle');
+            const isOverlayClick = e.target.classList.contains('sidebar-overlay');
             
-            if (!isMenuClick && DOM.menu && DOM.menu.classList.contains('active')) {
+            // Закрываем меню если клик был вне его области или на оверлее
+            if ((!isMenuClick || isOverlayClick) && DOM.menu && DOM.menu.classList.contains('active')) {
                 toggleMenu();
             }
             
-            if (!isSidebarClick) {
+            // Закрываем сайдбар если клик был вне его области или на оверлее
+            if ((!isSidebarClick || isOverlayClick)) {
                 const sidebar = document.querySelector('.corporate-sidebar');
                 if (sidebar && sidebar.classList.contains('active')) {
                     toggleSidebar();
@@ -1081,7 +1113,9 @@ function handleScroll() {
             if (menu) menu.classList.remove('active');
             if (hamburger) hamburger.classList.remove('active');
             if (sidebar) sidebar.classList.remove('active');
-            if (overlay) overlay.classList.remove('active');
+            if (overlay) {
+                overlay.classList.remove('active', 'menu-overlay', 'sidebar-overlay-active');
+            }
             document.body.style.overflow = '';
             
             // Сбрасываем стили выпадающих меню при переходе к десктопной версии

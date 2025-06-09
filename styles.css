@@ -95,7 +95,7 @@
   .content-wrapper {
     display: flex;
     flex: 1;
-    margin-top: var(--header-height);
+    margin-top: 0; /* ИЗМЕНЕНО: убираем отступ, так как шапка sticky */
     position: relative;
     min-height: calc(100vh - var(--header-height));
   }
@@ -217,7 +217,7 @@
     left: 0;
     right: 0;
     height: var(--header-height);
-    z-index: 100;
+    z-index: 1000; /* Увеличиваем z-index для шапки */
     box-shadow: var(--box-shadow);
     transition: all var(--transition-speed) var(--transition-easing);
   }
@@ -284,6 +284,7 @@
     display: none;
     padding: 0.5rem;
     transition: transform 0.3s ease;
+    z-index: 1010; /* Добавляем z-index для гамбургера */
   }
   
   .hamburger.active {
@@ -1323,12 +1324,12 @@
     animation: none;
   }
   
-  /* ====== Бейджи ====== */
-  .premium-badge,
-  .free-badge,
-  .mixed-badge,
-  .system-badge,
-  .subscription-badge {
+  /* ====== Бейджи для карточек функций ====== */
+  .feature-card .premium-badge,
+  .feature-card .free-badge,
+  .feature-card .mixed-badge,
+  .feature-card .system-badge,
+  .feature-card .subscription-badge {
     position: absolute;
     top: 0;
     right: 0;
@@ -1336,12 +1337,66 @@
     font-size: 0.75rem;
     font-weight: bold;
     border-radius: 0 var(--border-radius) 0 var(--border-radius);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     gap: 5px;
     transform: translateY(-1px) translateX(1px);
     z-index: 2;
+  }
+  
+  /* ====== Бейджи для инструкций (меньшего размера) ====== */
+  .instruction-block .premium-badge,
+  .instruction-block .free-badge,
+  .instruction-block .system-badge,
+  .instruction-block .subscription-badge,
+  .agreement-block .premium-badge,
+  .agreement-block .free-badge,
+  .agreement-block .system-badge,
+  .agreement-block .subscription-badge,
+  .privacy-block .premium-badge,
+  .privacy-block .free-badge,
+  .privacy-block .system-badge,
+  .privacy-block .subscription-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 8px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    border-radius: 0 var(--border-radius) 0 var(--border-radius);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    transform: translateY(-1px) translateX(1px);
+    z-index: 2;
+  }
+  
+  /* Специальные стили для mixed-badge в инструкциях */
+  .instruction-block .mixed-badge,
+  .agreement-block .mixed-badge,
+  .privacy-block .mixed-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0; /* Убираем padding для mixed-badge в инструкциях */
+    font-size: 0.65rem;
+    font-weight: bold;
+    border-radius: 0 var(--border-radius) 0 var(--border-radius);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0; /* Убираем gap для плотного прилегания частей */
+    transform: translateY(-1px) translateX(1px);
+    z-index: 2;
+    overflow: hidden;
   }
   
   .premium-badge {
@@ -1355,12 +1410,21 @@
   }
   
   .mixed-badge {
-    display: flex;
+    display: flex; /* Убеждаемся что flex остается */
     border-radius: 0 var(--border-radius) 0 var(--border-radius);
     overflow: hidden;
+    padding: 0; /* Убираем padding для mixed-badge, так как он применяется к дочерним элементам */
+    gap: 0; /* Убираем gap для плотного прилегания частей */
   }
   
-  .mixed-badge .free-part {
+  .feature-card .mixed-badge {
+    padding: 0;
+    gap: 0;
+    overflow: hidden; /* Для консистентности и правильного обрезания дочерних элементов */
+  }
+  
+  /* Части mixed-badge для карточек функций */
+  .feature-card .mixed-badge .free-part {
     background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
     color: white;
     padding: 4px 8px;
@@ -1369,13 +1433,36 @@
     gap: 3px;
   }
   
-  .mixed-badge .premium-part {
+  .feature-card .mixed-badge .premium-part {
     background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
     color: white;
     padding: 4px 8px;
     display: flex;
     align-items: center;
     gap: 3px;
+  }
+  
+  /* Части mixed-badge для инструкций (меньшего размера) */
+  .instruction-block .mixed-badge .free-part,
+  .agreement-block .mixed-badge .free-part,
+  .privacy-block .mixed-badge .free-part {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+    padding: 2px 6px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  
+  .instruction-block .mixed-badge .premium-part,
+  .agreement-block .mixed-badge .premium-part,
+  .privacy-block .mixed-badge .premium-part {
+    background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
+    color: white;
+    padding: 2px 6px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
   }
   
   .system-badge {
@@ -1388,14 +1475,37 @@
     color: white;
   }
   
-  .premium-badge i,
-  .free-badge i,
-  .mixed-badge i,
-  .system-badge i,
-  .subscription-badge i {
+  /* Иконки в бейджах для карточек функций */
+  .feature-card .premium-badge i,
+  .feature-card .free-badge i,
+  .feature-card .mixed-badge i,
+  .feature-card .system-badge i,
+  .feature-card .subscription-badge i {
     font-size: 0.8rem;
     color: white;
     margin-right: 2px;
+    margin-bottom: 0;
+  }
+  
+  /* Иконки в бейджах для инструкций (меньшего размера) */
+  .instruction-block .premium-badge i,
+  .instruction-block .free-badge i,
+  .instruction-block .mixed-badge i,
+  .instruction-block .system-badge i,
+  .instruction-block .subscription-badge i,
+  .agreement-block .premium-badge i,
+  .agreement-block .free-badge i,
+  .agreement-block .mixed-badge i,
+  .agreement-block .system-badge i,
+  .agreement-block .subscription-badge i,
+  .privacy-block .premium-badge i,
+  .privacy-block .free-badge i,
+  .privacy-block .mixed-badge i,
+  .privacy-block .system-badge i,
+  .privacy-block .subscription-badge i {
+    font-size: 0.7rem;
+    color: white;
+    margin-right: 1px;
     margin-bottom: 0;
   }
   
@@ -1806,15 +1916,26 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 890; /* Меньше z-index меню и сайдбара, но больше основного контента */
+    z-index: 950; /* Устанавливаем z-index ниже меню и сайдбара */
     visibility: hidden;
     opacity: 0;
     transition: all var(--transition-speed) var(--transition-easing);
+    pointer-events: none; /* Добавляем это для предотвращения блокировки событий */
   }
   
   .sidebar-overlay.active {
     visibility: visible;
     opacity: 1;
+    pointer-events: all; /* Включаем события только когда активен */
+  }
+  
+  /* Специальные классы для разных типов оверлея */
+  .sidebar-overlay.menu-overlay {
+    z-index: 980; /* Для мобильного меню */
+  }
+  
+  .sidebar-overlay.sidebar-overlay-active {
+    z-index: 950; /* Для боковой панели */
   }
   
   /* ====== Адаптивность ====== */
@@ -1850,6 +1971,7 @@
     }
   
     .content-wrapper {
+      margin-top: 0;
       display: block;
     }
   }
@@ -1869,11 +1991,12 @@
       transform: translateY(-100%);
       opacity: 0;
       visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 900;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 990;
       padding: 0.5rem 0;
       overflow-y: auto;
       max-height: calc(100vh - var(--header-height));
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
     .corporate-nav ul.menu.active {
@@ -1891,18 +2014,26 @@
       width: 100%;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
-      justify-content: space-between;
+      /* заменяем space-between на flex-start со смещением текста */
+      justify-content: flex-start;
       align-items: center;
+      /* добавляем отступ между стрелкой и текстом */
+      gap: 10px;
     }
     
+    /* ИСПРАВЛЕНИЕ: Улучшенные стили для стрелок в мобильном меню */
     .corporate-nav .dropdown-toggle i {
       transition: transform 0.3s ease;
       margin-left: 0.5rem;
+      color: white !important; /* Явно указываем белый цвет */
+      font-size: 0.9rem !important; /* Увеличиваем размер */
+      opacity: 1 !important; /* Убеждаемся что стрелка видна */
     }
     
     .corporate-nav .dropdown.active .dropdown-toggle i,
     .corporate-nav .dropdown.mobile-active .dropdown-toggle i {
       transform: rotate(180deg);
+      color: white !important; /* Белый цвет при повороте */
     }
     
     /* Выпадающие подменю */
@@ -1912,7 +2043,9 @@
       visibility: visible;
       transform: none;
       box-shadow: none;
-      display: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       width: 100%;
       border: none;
       border-radius: 0;
@@ -1922,23 +2055,41 @@
       border-left: 3px solid var(--secondary-color);
     }
     
+    /* Активное выпадающее меню */
     .dropdown.active .dropdown-menu,
     .dropdown.mobile-active .dropdown-menu {
-      display: block;
+      max-height: 2000px;
     }
     
-    .dropdown-menu li {
-      width: 100%;
-    }
-    
+    /* ИСПРАВЛЕНИЕ: Элементы выпадающего меню с уменьшенными отступами */
     .dropdown-menu li a {
-      padding-left: 2.5rem !important;
+      padding-left: 1.8rem !important; /* УМЕНЬШЕНО с 2.5rem до 1.8rem */
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
       color: rgba(255, 255, 255, 0.8) !important;
-      font-size: 0.9rem;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.5rem !important;
+      font-size: 0.9rem !important; /* Немного уменьшаем размер шрифта */
     }
     
-    .dropdown-menu li a:hover {
-      background-color: rgba(255, 255, 255, 0.1) !important;
+    /* Иконки в выпадающем меню */
+    .dropdown-menu li a i {
+      color: rgba(255, 255, 255, 0.6) !important;
+      font-size: 0.8rem !important;
+      min-width: 16px !important;
+    }
+    
+    /* Стили для стрелок в выпадающем меню */
+    .dropdown-toggle i.fa-chevron-down {
+      margin-left: auto;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: white !important;
+      font-size: 0.9rem !important;
+    }
+    
+    .dropdown.active .dropdown-toggle i.fa-chevron-down,
+    .dropdown.mobile-active .dropdown-toggle i.fa-chevron-down {
+      transform: rotate(180deg);
       color: white !important;
     }
     
@@ -1947,6 +2098,11 @@
       opacity: 1;
       visibility: visible;
       transform: none;
+    }
+    
+    /* Только для активных дропдаунов показываем подменю */
+    .dropdown.active .dropdown-menu {
+      max-height: 2000px;
     }
   }
   
@@ -2004,6 +2160,7 @@
       text-align: center;
     }
     
+     
     .footer-policy, .admin-login-container {
       margin: 0.5rem auto;
     }
@@ -2044,7 +2201,7 @@
     }
   
     .content-wrapper {
-      margin-top: var(--header-height);
+      margin-top: 0;
     }
   
     .logo-icon {
@@ -2121,13 +2278,30 @@
       margin-bottom: 0.6rem;
     }
     
-    /* Улучшение бейджей */
-    .premium-badge,
-    .free-badge,
-    .system-badge,
-    .subscription-badge {
+    /* Улучшение бейджей для карточек на мобильных */
+    .feature-card .premium-badge,
+    .feature-card .free-badge,
+    .feature-card .system-badge,
+    .feature-card .subscription-badge {
       padding: 3px 8px;
       font-size: 0.7rem;
+    }
+    
+    /* Улучшение бейджей для инструкций на мобильных (еще меньше) */
+    .instruction-block .premium-badge,
+    .instruction-block .free-badge,
+    .instruction-block .system-badge,
+    .instruction-block .subscription-badge,
+    .agreement-block .premium-badge,
+    .agreement-block .free-badge,
+    .agreement-block .system-badge,
+    .agreement-block .subscription-badge,
+    .privacy-block .premium-badge,
+    .privacy-block .free-badge,
+    .privacy-block .system-badge,
+    .privacy-block .subscription-badge {
+      padding: 1px 6px;
+      font-size: 0.6rem;
     }
     
     /* Оптимизация модальных окон */
@@ -2187,7 +2361,7 @@
       transform: translateX(-100%);
       transition: transform 0.3s ease;
       height: 100vh;
-      z-index: 900; /* Увеличиваем z-index для перекрытия */
+      z-index: 960; /* Устанавливаем выше оверлея, но ниже мобильного меню */
       padding-top: var(--header-height);
       top: 0;
       overflow-x: hidden;
@@ -2200,7 +2374,7 @@
       transform: translateX(0);
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     }
-    
+  
     /* Улучшение стилей для содержания сайдбара */
     .sidebar-header {
       padding: 1rem 1.5rem 0.8rem 1.2rem;
@@ -2239,7 +2413,7 @@
   @media (max-width: 1024px) {
     .hamburger {
       display: block;
-      z-index: 910;
+      z-index: 1010; /* Убеждаемся что гамбургер выше всего */
     }
     
     /* Исправление для корректной работы мобильного меню */
@@ -2255,11 +2429,12 @@
       transform: translateY(-100%);
       opacity: 0;
       visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 900;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Улучшаем анимацию */
+      z-index: 990; /* Устанавливаем выше оверлея, но ниже гамбургера */
       padding: 0.5rem 0;
       overflow-y: auto;
       max-height: calc(100vh - var(--header-height));
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Добавляем тень */
     }
     
     .corporate-nav ul.menu.active {
@@ -2277,8 +2452,11 @@
       width: 100%;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
-      justify-content: space-between; /* Для размещения стрелки справа */
+      /* заменяем space-between на flex-start со смещением текста */
+      justify-content: flex-start;
       align-items: center;
+      /* добавляем отступ между стрелкой и текстом */
+      gap: 10px;
     }
     
     /* Стили для кнопки "Содержание" в мобильном меню */
@@ -2314,7 +2492,7 @@
     /* Активное выпадающее меню */
     .dropdown.active .dropdown-menu,
     .dropdown.mobile-active .dropdown-menu {
-      max-height: 2000px; /* Достаточно большое значение для любого количества подпунктов */
+      max-height: 2000px;
     }
     
     /* Элементы выпадающего меню */
@@ -2336,12 +2514,16 @@
     
     /* Стили для стрелок в выпадающем меню */
     .dropdown-toggle i.fa-chevron-down {
+      margin-left: auto;
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: white !important;
+      font-size: 0.9rem !important;
     }
     
     .dropdown.active .dropdown-toggle i.fa-chevron-down,
     .dropdown.mobile-active .dropdown-toggle i.fa-chevron-down {
       transform: rotate(180deg);
+      color: white !important;
     }
     
     /* Отключаем hover эффекты для мобильных */
@@ -2361,7 +2543,7 @@
   @media (max-width: 768px) {
     /* Улучшение структуры контента */
     .content-wrapper {
-      margin-top: var(--header-height);
+      margin-top: 0;
       display: block;
       padding-bottom: 1rem;
     }
