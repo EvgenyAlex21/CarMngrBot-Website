@@ -720,6 +720,18 @@
     background-color: rgba(52, 152, 219, 0.05);
   }
   
+  .instruction-content h3:hover,
+  .agreement-content h3:hover,
+  .privacy-content h3:hover {
+    color: var(--secondary-color);
+  }
+  
+  .instruction-content h4:hover,
+  .agreement-content h4:hover,
+  .privacy-content h4:hover {
+    color: var(--secondary-color);
+  }
+  
   .instruction-content,
   .agreement-content,
   .privacy-content {
@@ -752,6 +764,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
+    transition: color var(--transition-speed) var(--transition-easing);
   }
   
   .instruction-content h4,
@@ -760,6 +774,8 @@
     font-size: 1.1rem;
     margin: 1.2rem 0 0.6rem;
     color: var(--dark-color);
+    cursor: pointer;
+    transition: color var(--transition-speed) var(--transition-easing);
   }
   
   .instruction-content ul,
