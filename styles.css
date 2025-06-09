@@ -306,13 +306,11 @@
     color: var(--secondary-color);
   }
   
-  /* 
   .sidebar-nav a.active {
     background-color: rgba(52, 152, 219, 0.15);
     color: var(--secondary-color);
     font-weight: 500;
-  } 
-  */
+  }
   
   .sidebar-nav a strong {
     font-weight: 600;
@@ -324,11 +322,9 @@
     transition: transform 0.2s ease;
   }
   
-  /* 
   .sidebar-nav a.active i.fas {
     color: var(--secondary-color);
-  } 
-  */
+  }
   
   /* ====== Основное содержимое ====== */
   .corporate-main {
