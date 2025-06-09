@@ -756,6 +756,41 @@
     padding: 0.5rem;
   }
   
+  .instruction-block.active .instruction-content {
+    max-height: none !important; /* Убираем ограничение высоты */
+    overflow: auto !important; /* Добавляем прокрутку при необходимости */
+    height: auto !important;
+    padding: 0.5rem !important;
+    border-radius: 0 0 var(--border-radius) var(--border-radius) !important; /* Скругляем только нижние углы */
+    margin-bottom: 0.5rem !important; /* Небольшой отступ снизу */
+  }
+  
+  /* Дополнительные стили для улучшения отображения списков в блоках инструкций */
+  .instruction-block.active .instruction-content ol,
+  .instruction-block.active .instruction-content ul {
+    margin: 0.5rem 0 0.5rem 1.5rem;
+    padding-left: 0.5rem;
+    width: calc(100% - 2rem); /* Ограничиваем ширину списка */
+  }
+  
+  .instruction-block.active .instruction-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    width: 100%; /* Контролируем ширину элементов списка */
+    overflow-wrap: break-word; /* Разрешаем переносы длинных слов */
+  }
+  
+  /* Стили для примечаний */
+  .instruction-block .info-note {
+    background-color: rgba(52, 152, 219, 0.05);
+    border-left: 3px solid var(--info-color);
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    width: calc(100% - 1rem); /* Контролируем ширину примечаний */
+  }
+  
   .instruction-content h3,
   .agreement-content h3,
   .privacy-content h3 {
