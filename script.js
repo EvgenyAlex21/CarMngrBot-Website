@@ -403,19 +403,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function handleScroll() {
-        const currentScrollPosition = window.pageYOffset;
-        state.scrollDirection = currentScrollPosition > state.lastScrollPosition ? 'down' : 'up';
-        state.lastScrollPosition = currentScrollPosition;
+function handleScroll() {
+    const currentScrollPosition = window.pageYOffset;
+    state.scrollDirection = currentScrollPosition > state.lastScrollPosition ? 'down' : 'up';
+    state.lastScrollPosition = currentScrollPosition;
 
-        if (DOM.scrollToTopBtn) {
-            if (currentScrollPosition > 300) {
-                DOM.scrollToTopBtn.classList.add('show');
-            } else {
-                DOM.scrollToTopBtn.classList.remove('show');
-            }
+    if (DOM.scrollToTopBtn) {
+        if (currentScrollPosition > 300) {
+            DOM.scrollToTopBtn.classList.add('show');
+        } else {
+            DOM.scrollToTopBtn.classList.remove('show');
         }
     }
+    
+    // Проверяем, не дошли ли мы до футера
+    const footer = document.querySelector('.corporate-footer');
+    const sidebar = document.querySelector('.corporate-sidebar');
+    
+    if (footer && sidebar) {
+        // Полностью пересчитываем высоту сайдбара на основе положения футера
+        const sidebarTop = sidebar.getBoundingClientRect().top + window.pageYOffset;
+        const footerTop = footer.getBoundingClientRect().top + window.pageYOffset;
+        
+        // Вычисляем точную высоту для сайдбара, чтобы он заканчивался у футера
+        const exactHeight = footerTop - sidebarTop;
+        
+        // Применяем фиксированную высоту, сайдбар будет точно заканчиваться у футера
+        sidebar.style.height = `${exactHeight}px`;
+        
+        // Если футер виден, останавливаем автоматическую анимацию секций
+        if (footer.getBoundingClientRect().top <= window.innerHeight) {
+            document.querySelectorAll('.corporate-section:not(.in-view)').forEach(section => {
+                section.classList.add('in-view');
+            });
+        }
+    }
+}
 
     // Intersection Observer для секций
     function setupSectionObserver() {
