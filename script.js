@@ -10,9 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
         instructionBlocks: document.querySelectorAll('.instruction-block, .agreement-block, .privacy-block')
     };
 
-    // Управление модальным окном для входа администратора
-    setupAdminLogin();    
-
     // Состояние приложения
     const state = {
         activeCard: null,
@@ -113,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация при загрузке
     function init() {
         ensureOverlayExists();
+        setupAdminLogin(); // Перемещаем сюда вызов setupAdminLogin
         if (DOM.hamburger && DOM.menu) setupMobileMenu();
         setupSmoothScroll();
         if (DOM.scrollToTopBtn) setupScrollToTop();
@@ -132,13 +130,97 @@ document.addEventListener('DOMContentLoaded', function() {
         // УБИРАЕМ вызов collapseAllMenuItems() - не сворачиваем меню при загрузке
         // collapseAllMenuItems(); // Закомментировали эту строку
         expandMenuItemByHash(); // Только разворачиваем нужное
+        
+        // Добавляем глобальный обработчик для всех ссылок с якорями
+        setupGlobalAnchorLinks();
     }
-
+    
+    // Новая функция для обработки всех якорных ссылок глобально
+    function setupGlobalAnchorLinks() {
+        // Ищем все якорные ссылки в футере и других частях сайта (кроме меню)
+        document.querySelectorAll('a[href^="#"]:not(.sidebar-nav a):not(.corporate-nav a)').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                
+                // Проверяем, не пустой ли якорь
+                if (targetId === '#') return;
+                
+                // Обновляем URL
+                window.location.hash = targetId.substring(1);
+                
+                // Находим целевой элемент
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Прокручиваем к элементу
+                    scrollToElement(targetElement);
+                    
+                    // Подсвечиваем и убеждаемся, что элемент видим
+                    setTimeout(() => {
+                        ensureElementVisible(targetElement);
+                        highlightElement(targetElement);
+                    }, 700);
+                }
+            });
+        });
+    }
+    
     // Функция для сворачивания всех пунктов меню в сайдбаре
     function collapseAllMenuItems() {
         // Сворачиваем все вложенные ul в сайдбаре
         document.querySelectorAll('.sidebar-nav ul ul').forEach(ul => {
             ul.style.display = 'none';
+        });
+    }
+
+    // Улучшенная функция для работы с сайдбаром - добавляем кликабельность к родительским элементам
+    function setupSidebarNavigation() {
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav > ul > li > a');
+        
+        sidebarLinks.forEach(link => {
+            const parentLi = link.parentElement;
+            const nestedUl = parentLi.querySelector('ul');
+            
+            if (nestedUl) {
+                // Добавляем стрелку для обозначения раскрывающегося меню
+                if (!link.querySelector('.expand-arrow')) {
+                    const arrow = document.createElement('i');
+                    arrow.className = 'fas fa-chevron-right expand-arrow';
+                    arrow.style.marginLeft = 'auto';
+                    arrow.style.transition = 'transform 0.3s ease';
+                    link.appendChild(arrow);
+                }
+                
+                // Изначально скрываем вложенные меню
+                nestedUl.style.display = 'none';
+                
+                // Добавляем обработчик клика
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 1024) { // Только на мобильных
+                        e.preventDefault();
+                        
+                        const arrow = this.querySelector('.expand-arrow');
+                        const isExpanded = nestedUl.style.display === 'block';
+                        
+                        if (isExpanded) {
+                            nestedUl.style.display = 'none';
+                            if (arrow) arrow.style.transform = 'rotate(0deg)';
+                        } else {
+                            // Сворачиваем другие открытые меню
+                            document.querySelectorAll('.sidebar-nav ul ul').forEach(ul => {
+                                if (ul !== nestedUl) {
+                                    ul.style.display = 'none';
+                                    const otherArrow = ul.parentElement.querySelector('a .expand-arrow');
+                                    if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
+                                }
+                            });
+                            
+                            nestedUl.style.display = 'block';
+                            if (arrow) arrow.style.transform = 'rotate(90deg)';
+                        }
+                    }
+                });
+            }
         });
     }
 
@@ -292,31 +374,150 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
     
-    // Мобильное меню - исправлено
+    // Мобильное меню - улучшенная версия с отладкой
     function setupMobileMenu() {
+        console.log('🔧 Инициализация мобильного меню...');
+        
         if (DOM.hamburger) {
             DOM.hamburger.addEventListener('click', function(e) {
-                e.stopPropagation(); // Предотвращаем всплытие события
+                e.stopPropagation();
                 toggleMenu();
             });
+            console.log('✅ Гамбургер меню настроено');
         }
 
-        if (DOM.menu) {
-            const links = DOM.menu.querySelectorAll('a');
-            if (links.length) {
-                links.forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (window.innerWidth <= 1024) {
-                            toggleMenu();
+        // Добавляем обработку выпадающих меню для мобильных устройств
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        console.log(`🔍 Найдено ${dropdownToggles.length} выпадающих меню`);
+        
+        dropdownToggles.forEach((toggle, index) => {
+            console.log(`📋 Настройка меню ${index + 1}: ${toggle.textContent.trim()}`);
+            
+            toggle.addEventListener('click', function(e) {
+                console.log(`📱 Клик по меню: ${this.textContent.trim()}, ширина: ${window.innerWidth}px`);
+                
+                // Только для мобильных устройств
+                if (window.innerWidth <= 1024) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const parent = this.parentElement;
+                    const dropdownMenu = parent.querySelector('.dropdown-menu');
+                    
+                    console.log(`🎯 Родительский элемент:`, parent);
+                    console.log(`📋 Выпадающее меню:`, dropdownMenu);
+                    
+                    if (!dropdownMenu) {
+                        console.warn('⚠️ Выпадающее меню не найдено!');
+                        return;
+                    }
+                    
+                    // Закрываем другие открытые выпадающие меню с анимацией
+                    dropdownToggles.forEach(otherToggle => {
+                        if (otherToggle !== toggle) {
+                            const otherParent = otherToggle.parentElement;
+                            const otherMenu = otherParent.querySelector('.dropdown-menu');
+                            if (otherMenu && otherParent.classList.contains('mobile-active')) {
+                                console.log('🔒 Закрываем другое меню');
+                                otherParent.classList.remove('mobile-active');
+                                // Плавное закрытие
+                                otherMenu.style.maxHeight = '0';
+                            }
                         }
                     });
+                    
+                    // Переключаем текущее выпадающее меню с анимацией
+                    const wasActive = parent.classList.contains('mobile-active');
+                    parent.classList.toggle('mobile-active');
+                    
+                    if (parent.classList.contains('mobile-active')) {
+                        console.log('🔓 Открываем меню');
+                        // Плавное открытие
+                        setTimeout(() => {
+                            dropdownMenu.style.maxHeight = dropdownMenu.scrollHeight + 'px';
+                        }, 10);
+                    } else {
+                        console.log('🔒 Закрываем меню');
+                        // Плавное закрытие
+                        dropdownMenu.style.maxHeight = '0';
+                    }
+                } else {
+                    console.log('🖥️ Десктопная версия - стандартное поведение');
+                }
+            });
+        });
+
+        // Обрабатываем клики по ВСЕМ ссылкам в мобильном меню
+        if (DOM.menu) {
+            const links = DOM.menu.querySelectorAll('a');
+            console.log(`🔗 Настройка ${links.length} ссылок в меню`);
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 1024) {
+                        const href = this.getAttribute('href');
+                        
+                        // Если это выпадающее меню, пропускаем обработку
+                        if (this.classList.contains('dropdown-toggle')) {
+                            return;
+                        }
+                        
+                        // Если это кнопка "Содержание"
+                        if (this.classList.contains('sidebar-menu-toggle')) {
+                            e.preventDefault();
+                            console.log('📋 Открываем боковую панель');
+                            
+                            // Закрываем мобильное меню
+                            toggleMenu();
+                            
+                            // Открываем боковую панель через небольшую задержку
+                            setTimeout(() => {
+                                toggleSidebar();
+                            }, 300);
+                            return;
+                        }
+                        
+                        // Если это якорная ссылка
+                        if (href && href.startsWith('#')) {
+                            e.preventDefault();
+                            
+                            // Запоминаем целевую секцию
+                            const targetId = href.substring(1);
+                            console.log(`🎯 Переход к секции: ${targetId}`);
+                            
+                            // Сначала закрываем меню
+                            toggleMenu();
+                            
+                            // Ждем завершения анимации закрытия меню и потом скроллим
+                            setTimeout(() => {
+                                const targetElement = document.getElementById(targetId);
+                                if (targetElement) {
+                                    // Обновляем хеш
+                                    window.location.hash = href;
+                                    
+                                    // Разворачиваем меню сайдбара если нужно
+                                    expandMenuItemByHash();
+                                    
+                                    // Прокручиваем к элементу
+                                    scrollToElement(targetElement);
+                                    
+                                    // Обеспечиваем видимость элемента
+                                    setTimeout(() => {
+                                        ensureElementVisible(targetElement);
+                                        highlightElement(targetElement);
+                                    }, 700);
+                                }
+                            }, 300); // Ждем завершения анимации закрытия меню
+                        }
+                    }
                 });
-            }
+            });
         }
+        
+        console.log('✅ Мобильное меню полностью настроено');
     }
 
     function toggleMenu() {
-        // Упрощенная версия без лишних проверок
         const overlay = ensureOverlayExists();
         
         if (DOM.menu) {
@@ -325,8 +526,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 DOM.hamburger.classList.toggle('active');
             }
             overlay.classList.toggle('active');
-            document.body.style.overflow = DOM.menu.classList.contains('active') ? 'hidden' : '';
+            
+            if (DOM.menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+                // При закрытии меню сбрасываем состояния выпадающих подменю
+                resetDropdowns();
+            }
         }
+    }
+
+    // Функция для сброса всех выпадающих меню с анимацией
+    function resetDropdowns() {
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+            dropdown.classList.remove('mobile-active');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            if (menu) {
+                // Плавное закрытие
+                menu.style.maxHeight = '0';
+            }
+        });
     }
 
     // Переключение боковой панели
@@ -343,7 +564,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Плавная прокрутка
     function setupSmoothScroll() {
-        const anchors = document.querySelectorAll('a[href^="#"]');
+        const anchors = document.querySelectorAll('.sidebar-nav a[href^="#"]');
         if (anchors.length) {
             anchors.forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -351,19 +572,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     const targetId = this.getAttribute('href');
                     
                     // Обновляем URL, чтобы правильно сработала функция по хэшу
-                    window.location.hash = targetId.substring(1);
-                    
-                    // НЕ сворачиваем все меню, только разворачиваем нужное
-                    expandMenuItemByHash();
-                    
-                    // Прокручиваем к выбранному элементу
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        scrollToElement(targetElement);
-                        setTimeout(() => {
-                            ensureElementVisible(targetElement);
-                            highlightElement(targetElement);
-                        }, 700);
+                    if (targetId !== "#") {
+                        window.location.hash = targetId.substring(1);
+                        
+                        // НЕ сворачиваем все меню, только разворачиваем нужное
+                        expandMenuItemByHash();
+                        
+                        // Прокручиваем к выбранному элементу
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            scrollToElement(targetElement);
+                            setTimeout(() => {
+                                ensureElementVisible(targetElement);
+                                highlightElement(targetElement);
+                            }, 700);
+                        }
                     }
                 });
             });
@@ -561,8 +784,30 @@ function handleScroll() {
         });
     }
 
+    // Хэндлер для закрытия активных элементов при клике вне меню
     function setupClickOutsideHandler() {
-        // Пустая функция, если нужна
+        document.addEventListener('click', function(e) {
+            // Закрываем меню и сайдбар если клик был вне их области
+            const isMenuClick = e.target.closest('.corporate-nav') || e.target.closest('.hamburger');
+            const isSidebarClick = e.target.closest('.corporate-sidebar') || e.target.closest('.sidebar-toggle');
+            
+            if (!isMenuClick && DOM.menu && DOM.menu.classList.contains('active')) {
+                toggleMenu();
+            }
+            
+            if (!isSidebarClick) {
+                const sidebar = document.querySelector('.corporate-sidebar');
+                if (sidebar && sidebar.classList.contains('active')) {
+                    toggleSidebar();
+                }
+            }
+            
+            // Закрываем активную карточку
+            if (state.activeCard && !e.target.closest('.feature-card')) {
+                state.activeCard.classList.remove('active');
+                state.activeCard = null;
+            }
+        });
     }
 
     // Сворачиваемые блоки
@@ -825,14 +1070,29 @@ function handleScroll() {
         };
     }
 
+    // Обработчик изменения размера окна
     window.addEventListener('resize', function() {
         const menu = document.querySelector('.corporate-nav ul.menu');
         const sidebar = document.querySelector('.corporate-sidebar');
         const hamburger = document.querySelector('.hamburger');
-        if (window.innerWidth > 1024 && menu && sidebar && hamburger) {
-            menu.classList.remove('active');
-            hamburger.classList.remove('active');
-            sidebar.classList.remove('active');
+        const overlay = document.querySelector('.sidebar-overlay');
+        
+        if (window.innerWidth > 1024) {
+            if (menu) menu.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
+            if (sidebar) sidebar.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Сбрасываем стили выпадающих меню при переходе к десктопной версии
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.style.maxHeight = '';
+            });
+            
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+                dropdown.classList.remove('mobile-active');
+            });
         }
     });
 
@@ -843,12 +1103,36 @@ function handleScroll() {
     window.addEventListener('hashchange', function() {
         // НЕ сворачиваем все, только разворачиваем нужное
         expandMenuItemByHash();
+        
+        // Добавляем прокрутку к элементу по хэшу
+        const hash = window.location.hash;
+        if (hash) {
+            const targetElement = document.querySelector(hash);
+            if (targetElement) {
+                setTimeout(() => {
+                    scrollToElement(targetElement);
+                    setTimeout(() => {
+                        ensureElementVisible(targetElement);
+                        highlightElement(targetElement);
+                    }, 400);
+                }, 200);
+            }
+        }
     });
     
     // Сразу вызываем функцию для первоначального разворачивания блоков
     if (window.location.hash) {
         setTimeout(() => {
             expandMenuItemByHash();
-        }, 100);
+            // Также добавляем прокрутку к начальному хэшу
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                scrollToElement(targetElement);
+                setTimeout(() => {
+                    ensureElementVisible(targetElement);
+                    highlightElement(targetElement);
+                }, 600);
+            }
+        }, 300);
     }
 });
