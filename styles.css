@@ -301,6 +301,13 @@
     font-size: 0.95rem;
   }
   
+  /* Новый стиль для выделения главных пунктов меню */
+  .sidebar-nav > ul > li > a {
+    font-weight: bold; /* Делаем текст жирным (можно также использовать 700) */
+    font-size: 1rem;   
+    color: var(--primary-color); 
+  }
+  
   .sidebar-nav a:hover {
     background-color: rgba(52, 152, 219, 0.1);
     color: var(--secondary-color);
@@ -485,7 +492,7 @@
   }
   
   .feature-card.active .instruction-content {
-    max-height: 2000px;
+    max-height: 10000px;
     padding: 1rem;
     margin-top: 1rem;
   }
@@ -545,7 +552,7 @@
   .instruction-content.active,
   .agreement-content.active,
   .privacy-content.active {
-    max-height: 2000px; /* Достаточно большое значение для контента */
+    max-height: 10000px; /* Достаточно большое значение для контента */
     padding: 0.5rem;
   }
   

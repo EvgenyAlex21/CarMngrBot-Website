@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const state = {
         activeCard: null,
         lastScrollPosition: 0,
-        scrollDirection: 'down'
+        scrollDirection: 'down',
+        currentActiveMenuItem: null // Добавляем отслеживание текущего активного элемента меню
     };
 
     // Создаем оверлей, если его нет
@@ -57,38 +58,173 @@ document.addEventListener('DOMContentLoaded', function() {
         if (sidebarToggle) {
             sidebarToggle.addEventListener('click', toggleSidebar);
         }
+
+        // УБИРАЕМ вызов collapseAllMenuItems() - не сворачиваем меню при загрузке
+        // collapseAllMenuItems(); // Закомментировали эту строку
+        expandMenuItemByHash(); // Только разворачиваем нужное
     }
 
-    // Обработчик кликов вне элементов
-    function setupClickOutsideHandler() {
-        document.addEventListener('click', function(e) {
-            const sidebar = document.querySelector('.corporate-sidebar');
-            const menu = document.querySelector('.corporate-nav ul.menu');
-            const hamburger = document.querySelector('.hamburger');
-            const overlay = document.querySelector('.sidebar-overlay');
-
-            if (menu && hamburger && overlay && sidebar) {
-                if (
-                    !e.target.closest('.corporate-sidebar') &&
-                    !e.target.closest('.corporate-nav ul.menu') &&
-                    !e.target.closest('.hamburger') &&
-                    !e.target.closest('.sidebar-toggle')
-                ) {
-                    if (menu.classList.contains('active')) {
-                        menu.classList.remove('active');
-                        hamburger.classList.remove('active');
-                        overlay.classList.remove('active');
-                    }
-                    if (sidebar.classList.contains('active')) {
-                        sidebar.classList.remove('active');
-                        overlay.classList.remove('active');
-                    }
-                    document.body.style.overflow = '';
-                }
-            }
+    // Функция для сворачивания всех пунктов меню в сайдбаре
+    function collapseAllMenuItems() {
+        // Сворачиваем все вложенные ul в сайдбаре
+        document.querySelectorAll('.sidebar-nav ul ul').forEach(ul => {
+            ul.style.display = 'none';
         });
     }
 
+    // Изменяем функцию для работы без предварительного сворачивания
+    function expandMenuItemByHash() {
+        // Получаем текущий хэш из URL
+        const hash = window.location.hash;
+        if (!hash) return;
+        
+        // Ищем ссылку в сайдбаре, соответствующую текущему хэшу
+        const targetLink = document.querySelector(`.sidebar-nav a[href="${hash}"]`);
+        if (!targetLink) return;
+        
+        // Сохраняем текущий активный элемент
+        if (state.currentActiveMenuItem) {
+            state.currentActiveMenuItem.classList.remove('active-menu-item');
+        }
+        targetLink.classList.add('active-menu-item');
+        state.currentActiveMenuItem = targetLink;
+        
+        // Разворачиваем только родительские ul элементы для целевой ссылки
+        let parent = targetLink.parentElement;
+        while (parent && !parent.classList.contains('sidebar-nav')) {
+            if (parent.tagName === 'LI') {
+                const childUl = parent.querySelector(':scope > ul');
+                if (childUl) {
+                    childUl.style.display = 'block';
+                }
+            }
+            
+            if (parent.tagName === 'UL') {
+                parent.style.display = 'block';
+            }
+            
+            parent = parent.parentElement;
+        }
+        
+        // Разворачиваем соответствующий блок инструкции в основном контенте
+        const targetId = hash.substring(1); // Удаляем символ #
+        expandOnlyTargetInstructionBlock(targetId);
+    }
+    
+    // Функция для разворачивания только целевого блока инструкций в основном контенте
+    function expandOnlyTargetInstructionBlock(targetId) {
+        console.log('Разворачиваем блок:', targetId); // Для отладки
+        
+        // Сворачиваем все блоки инструкций
+        document.querySelectorAll('.instruction-block .instruction-content').forEach(content => {
+            content.style.display = 'none';
+        });
+        
+        // Сворачиваем все элементы после заголовков
+        document.querySelectorAll('.instruction-block h2, .instruction-block h3, .instruction-block h4').forEach(header => {
+            let sibling = header.nextElementSibling;
+            while (sibling && !['H2','H3','H4'].includes(sibling.tagName)) {
+                sibling.style.display = 'none';
+                sibling = sibling.nextElementSibling;
+            }
+            
+            // Поворачиваем стрелки в исходное положение
+            const icon = header.querySelector('.toggle-icon');
+            if (icon) {
+                icon.style.transform = 'rotate(0deg)';
+            }
+        });
+        
+        // Находим целевой блок инструкции
+        const targetBlock = document.getElementById(targetId);
+        if (!targetBlock) {
+            console.log('Блок не найден:', targetId);
+            return;
+        }
+        
+        console.log('Найден блок:', targetBlock); // Для отладки
+        
+        // Разворачиваем целевой блок
+        if (targetBlock.classList.contains('instruction-content')) {
+            targetBlock.style.display = 'block';
+            
+            // Найдем родительский instruction-block
+            const parentBlock = targetBlock.closest('.instruction-block');
+            if (parentBlock) {
+                const header = parentBlock.querySelector(':scope > h2, :scope > h3, :scope > h4');
+                if (header) {
+                    const icon = header.querySelector('.toggle-icon');
+                    if (icon) {
+                        icon.style.transform = 'rotate(90deg)';
+                    }
+                }
+            }
+        } else {
+            // Если целевой блок - это instruction-block
+            const content = targetBlock.querySelector(':scope > .instruction-content');
+            if (content) {
+                content.style.display = 'block';
+            }
+            
+            // Разворачиваем элементы после заголовка
+            const header = targetBlock.querySelector(':scope > h2, :scope > h3, :scope > h4');
+            if (header) {
+                let sibling = header.nextElementSibling;
+                while (sibling && !['H2','H3','H4'].includes(sibling.tagName)) {
+                    sibling.style.display = 'block';
+                    sibling = sibling.nextElementSibling;
+                }
+                
+                const icon = header.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.style.transform = 'rotate(90deg)';
+                }
+            }
+        }
+        
+        // Разворачиваем родительские instruction-block
+        let block = targetBlock.parentElement;
+        while (block) {
+            if (block.classList.contains('instruction-block')) {
+                const content = block.querySelector(':scope > .instruction-content');
+                if (content) {
+                    content.style.display = 'block';
+                }
+                
+                // Разворачиваем элементы после заголовка родительского блока
+                const header = block.querySelector(':scope > h2, :scope > h3, :scope > h4');
+                if (header) {
+                    let sibling = header.nextElementSibling;
+                    while (sibling && !['H2','H3','H4'].includes(sibling.tagName)) {
+                        sibling.style.display = 'block';
+                        sibling = sibling.nextElementSibling;
+                    }
+                    
+                    const icon = header.querySelector('.toggle-icon');
+                    if (icon) {
+                        icon.style.transform = 'rotate(90deg)';
+                    }
+                }
+            }
+            
+            // Прерываем цикл, если дошли до section-content или corporate-main
+            if (block.classList.contains('section-content') || block.classList.contains('corporate-main')) {
+                break;
+            }
+            
+            block = block.parentElement;
+        }
+        
+        // После разворачивания, делаем блок видимым на экране
+        setTimeout(() => {
+            const element = document.getElementById(targetId);
+            if (element) {
+                ensureElementVisible(element);
+                highlightElement(element);
+            }
+        }, 100);
+    }
+    
     // Мобильное меню - исправлено
     function setupMobileMenu() {
         if (DOM.hamburger) {
@@ -146,17 +282,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
+                    
+                    // Обновляем URL, чтобы правильно сработала функция по хэшу
+                    window.location.hash = targetId.substring(1);
+                    
+                    // НЕ сворачиваем все меню, только разворачиваем нужное
+                    expandMenuItemByHash();
+                    
+                    // Прокручиваем к выбранному элементу
                     const targetElement = document.querySelector(targetId);
-
                     if (targetElement) {
-                        // Прокрутка к элементу
                         scrollToElement(targetElement);
-                        
-                        // Проверяем видимость после прокрутки
                         setTimeout(() => {
                             ensureElementVisible(targetElement);
                             highlightElement(targetElement);
-                        }, 700); // Увеличиваем задержку для завершения прокрутки
+                        }, 700);
                     }
                 });
             });
@@ -303,31 +443,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       }
 
-    // Подсветка активного раздела
-    /* Закомментировано
-    function highlightActiveSection() {
-        window.addEventListener('scroll', throttle(() => {
-            let current = '';
-
-            DOM.sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-
-                if (pageYOffset >= (sectionTop - 150)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            DOM.navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        }, 100));
-    }
-    */
-
     // Карточки функций
     function setupFeatureCards() {
         DOM.featureCards.forEach(card => {
@@ -364,6 +479,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 state.activeCard = null;
             }
         });
+    }
+
+    function setupClickOutsideHandler() {
+        // Пустая функция, если нужна
     }
 
     // Сворачиваемые блоки
@@ -486,4 +605,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Запуск приложения
     init();
+    
+    // Добавляем обработчик изменения хэша в URL
+    window.addEventListener('hashchange', function() {
+        // НЕ сворачиваем все, только разворачиваем нужное
+        expandMenuItemByHash();
+    });
+    
+    // Сразу вызываем функцию для первоначального разворачивания блоков
+    if (window.location.hash) {
+        setTimeout(() => {
+            expandMenuItemByHash();
+        }, 100);
+    }
 });
