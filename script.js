@@ -244,29 +244,74 @@ document.addEventListener('DOMContentLoaded', function() {
         DOM.instructionBlocks.forEach(block => {
             const header = block.querySelector('h2, h3');
             const content = block.querySelector('.instruction-content, .agreement-content, .privacy-content');
-    
-            if (header && content) {
+
+            // Если нет заголовка или контента - пропускаем блок без вывода предупреждений
+            if (!header || !content) {
+                // Можно автоматически создать отсутствующие элементы
+                if (block.id) {
+                    if (!header) {
+                        // Создаем заголовок, если его нет
+                        const newHeader = document.createElement('h2');
+                        // Преобразуем id в текст заголовка (например, "buy-subscription" -> "Покупка подписки")
+                        const title = block.id
+                            .split('-')
+                            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                            .join(' ');
+                        newHeader.innerHTML = `<i class="fas fa-info-circle"></i> ${title}`;
+                        block.prepend(newHeader);
+                    }
+                    
+                    if (!content) {
+                        // Создаем контейнер для контента, если его нет
+                        const contentClass = block.classList.contains('privacy-block') ? 'privacy-content' : 
+                                           block.classList.contains('agreement-block') ? 'agreement-content' : 
+                                           'instruction-content';
+                        const newContent = document.createElement('div');
+                        newContent.className = contentClass;
+                        newContent.innerHTML = '<p>Информация будет добавлена позднее.</p>';
+                        block.appendChild(newContent);
+                    }
+                    
+                    // Рекурсивно вызываем setupCollapsibleBlocks снова для этого блока
+                    setupCollapsibleBlock(block);
+                } else {
+                    return; // Пропускаем блок без id
+                }
+            } else {
+                setupCollapsibleBlock(block);
+            }
+        });
+
+        // Вспомогательная функция для настройки одного блока
+        function setupCollapsibleBlock(block) {
+            const header = block.querySelector('h2, h3');
+            const content = block.querySelector('.instruction-content, .agreement-content, .privacy-content');
+            
+            if (!header || !content) return;
+            
+            // Добавляем иконку в заголовок, если её ещё нет
+            if (!header.querySelector('.fas')) {
                 const icon = document.createElement('i');
                 icon.className = 'fas fa-chevron-down';
                 header.prepend(icon);
-    
-                // Открываем "Инструкцию" по умолчанию, если это первый блок или секция instructions
-                if (block.closest('#instructions')) {
-                    block.classList.add('active');
-                    content.classList.add('active');
-                    icon.className = 'fas fa-chevron-down';
-                }
-    
-                header.addEventListener('click', () => {
-                    const isActive = block.classList.contains('active');
-                    block.classList.toggle('active');
-                    content.classList.toggle('active');
-                    icon.className = isActive ? 'fas fa-chevron-right' : 'fas fa-chevron-down';
-                });
-            } else {
-                console.warn('// Header or content not found in block:', block);
             }
-        });
+
+            // Открываем раздел "Инструкции" по умолчанию, если это первый блок или секция instructions
+            if (block.closest('#instructions') && !document.querySelector('.instruction-block.active')) {
+                block.classList.add('active');
+                content.classList.add('active');
+                const icon = header.querySelector('.fas');
+                if (icon) icon.className = 'fas fa-chevron-down';
+            }
+
+            header.addEventListener('click', () => {
+                const isActive = block.classList.contains('active');
+                block.classList.toggle('active');
+                content.classList.toggle('active');
+                const icon = header.querySelector('.fas');
+                if (icon) icon.className = isActive ? 'fas fa-chevron-right' : 'fas fa-chevron-down';
+            });
+        }
     }
 
     // Анимация карточек при прокрутке
