@@ -424,24 +424,23 @@
   /* ====== Боковая панель ====== */
   .corporate-sidebar {
     width: var(--sidebar-width);
-    height: calc(100vh - var(--header-height)); /* ВОЗВРАЩАЕМ calc для учета высоты хедера */
-    max-height: calc(100vh - var(--header-height)); /* ВОЗВРАЩАЕМ calc */
+    height: calc(100vh - var(--header-height));
+    max-height: calc(100vh - var(--header-height));
     background-color: white;
     box-shadow: 2px 0 10px var(--shadow-color);
     padding: 1.5rem 0;
     position: sticky;
-    top: var(--header-height); /* ВОЗВРАЩАЕМ отступ сверху равный высоте хедера */
+    top: var(--header-height);
     left: 0;
     overflow-y: auto;
-    z-index: 90; /* УСТАНАВЛИВАЕМ z-index меньше чем у хедера */
+    z-index: 90;
     border-right: 1px solid var(--border-color);
     flex-shrink: 0;
     align-self: flex-start;
   }
   
-  /* Убираем дополнительный отступ сверху в header */
   .sidebar-header {
-    padding: 1.5rem 1.8rem 1rem 1.5rem; /* ВОЗВРАЩАЕМ обычный padding */
+    padding: 1.5rem 1.8rem 1rem 1.5rem;
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 1rem;
   }
@@ -506,9 +505,10 @@
     color: var(--secondary-color);
   }
   
+  /* ИСПРАВЛЯЕМ цвет иконок в сайдбаре - делаем их голубыми как в карточках */
   .sidebar-nav i.fas {
     font-size: 0.8rem;
-    color: var(--text-light);
+    color: var(--secondary-color); /* ИЗМЕНЕНО: было var(--text-light), теперь голубой */
     transition: transform 0.2s ease;
   }
   
@@ -793,7 +793,38 @@
     padding-left: 0.5rem;
     margin-bottom: 0.6rem;
     font-size: 0.95rem;
-    line-height: 1.6;
+  }
+  
+  /* Исправление маркеров в списках - убираем синие точки */
+  .agreement-content li::before,
+  .privacy-content li::before {
+    /* Удаляем псевдоэлемент с точкой */
+    content: none;
+  }
+  
+  /* Восстанавливаем стандартные маркеры для списков */
+  .agreement-content ul,
+  .privacy-content ul {
+    margin: 1rem 0 1.5rem 1.5rem;
+    padding-left: 0.5rem;
+    list-style-type: disc; /* Стандартный маркер списка */
+  }
+  
+  .agreement-content ol,
+  .privacy-content ol {
+    margin: 1rem 0 1.5rem 1.5rem;
+    padding-left: 0.5rem;
+    list-style-type: decimal; /* Для нумерованных списков */
+  }
+  
+  /* Корректируем отступы элементов списка */
+  .agreement-content li,
+  .privacy-content li {
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    padding-left: 0;
+    margin-left: 0;
   }
   
   .instruction-content code,
@@ -2777,4 +2808,264 @@
   
   .error-shake {
     animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  }
+  
+  /* ИСПРАВЛЯЕМ цвет иконок в блоках инструкций - делаем их голубыми */
+  .instruction-block h2 i,
+  .agreement-block h2 i,
+  .privacy-block h2 i {
+    color: var(--secondary-color) !important; /* Голубой цвет для иконок в заголовках блоков инструкций */
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+  }
+  
+  /* Также исправляем иконки в содержимом инструкций */
+  .instruction-content h3 i,
+  .agreement-content h3 i,
+  .privacy-content h3 i {
+    color: var(--secondary-color) !important; /* Голубой цвет для иконок в подзаголовках */
+    font-size: 1rem;
+    margin-right: 0.5rem;
+  }
+  
+  /* ====== Улучшенные стили для блоков соглашения и политики ====== */
+  .agreement-block,
+  .privacy-block {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(255, 255, 255, 0.9) 100%);
+    border-left: 4px solid var(--secondary-color);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.1);
+    padding: 1.2rem;
+    margin-bottom: 2rem;
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-speed) var(--transition-easing);
+  }
+  
+  .agreement-block::before,
+  .privacy-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+  }
+  
+  .agreement-block:hover,
+  .privacy-block:hover {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.08) 0%, rgba(255, 255, 255, 0.95) 100%);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.15);
+    transform: translateY(-2px);
+  }
+  
+  .agreement-block h2,
+  .privacy-block h2 {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    padding: 0.7rem 1rem;
+    background-color: rgba(52, 152, 219, 0.08);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-easing);
+    position: relative;
+  }
+  
+  .agreement-block h2:hover,
+  .privacy-block h2:hover {
+    color: var(--secondary-color);
+    background-color: rgba(52, 152, 219, 0.12);
+  }
+  
+  .agreement-content,
+  .privacy-content {
+    padding: 0.5rem 1rem;
+    position: relative;
+    max-height: 10000px;
+  }
+  
+  .agreement-content h3,
+  .privacy-content h3 {
+    font-size: 1.15rem;
+    margin: 1.8rem 0 1rem;
+    color: var(--primary-color);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(52, 152, 219, 0.2);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all var(--transition-speed) var(--transition-easing);
+  }
+  
+  .agreement-content h3:hover,
+  .privacy-content h3:hover {
+    color: var(--secondary-color);
+    border-bottom-color: var(--secondary-color);
+  }
+  
+  .agreement-content p,
+  .privacy-content p {
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 0.97rem;
+  }
+  
+  .agreement-content ul,
+  .privacy-content ul {
+    margin: 1rem 0 1.5rem 1.5rem;
+    padding-left: 0.5rem;
+    list-style-type: disc; /* Стандартный маркер списка */
+  }
+  
+  .agreement-content ol,
+  .privacy-content ol {
+    margin: 1rem 0 1.5rem 1.5rem;
+    padding-left: 0.5rem;
+    list-style-type: decimal; /* Для нумерованных списков */
+  }
+  
+  .agreement-content li,
+  .privacy-content li {
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    padding-left: 0;
+    margin-left: 0;
+  }
+  
+  .agreement-content a,
+  .privacy-content a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--transition-speed) var(--transition-easing);
+    border-bottom: 1px dashed rgba(52, 152, 219, 0.4);
+  }
+  
+  .agreement-content a:hover,
+  .privacy-content a:hover {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+  }
+  
+  .agreement-content small,
+  .privacy-content small {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    display: block;
+    background-color: rgba(52, 152, 219, 0.05);
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    border-left: 3px solid rgba(52, 152, 219, 0.3);
+    margin: 1.2rem 0;
+  }
+  
+  /* Улучшенные стили для вложенных блоков */
+  .agreement-block .agreement-block,
+  .privacy-block .privacy-block {
+    margin: 1.5rem 0 2rem 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-left: 3px solid rgba(52, 152, 219, 0.5);
+    box-shadow: 0 3px 10px rgba(52, 152, 219, 0.08);
+  }
+  
+  .agreement-block .agreement-block:hover,
+  .privacy-block .privacy-block:hover {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.12);
+  }
+  
+  .agreement-block .agreement-block::before,
+  .privacy-block .privacy-block::before {
+    height: 3px;
+    background: rgba(52, 152, 219, 0.4);
+  }
+  
+  .agreement-block .agreement-block h3,
+  .privacy-block .privacy-block h3 {
+    font-size: 1.1rem;
+    padding: 0.4rem 0.8rem;
+    background-color: rgba(52, 152, 219, 0.05);
+    border-radius: var(--border-radius);
+    margin: 0 0 1rem 0;
+    border-bottom: none;
+  }
+  
+  /* Анимация появления контента */
+  @keyframes fadeInContent {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .agreement-content,
+  .privacy-content {
+    animation: fadeInContent 0.4s ease-out;
+  }
+  
+  /* Адаптивные стили */
+  @media (max-width: 768px) {
+    .agreement-block,
+    .privacy-block {
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .agreement-block h2,
+    .privacy-block h2 {
+      font-size: 1.2rem;
+      padding: 0.6rem 0.8rem;
+    }
+    
+    .agreement-content h3,
+    .privacy-content h3 {
+      font-size: 1.1rem;
+      margin: 1.5rem 0 0.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .agreement-block,
+    .privacy-block {
+      padding: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+    
+    .agreement-block h2,
+    .privacy-block h2 {
+      font-size: 1.1rem;
+      padding: 0.5rem 0.7rem;
+    }
+    
+    .agreement-content,
+    .privacy-content {
+      padding: 0.4rem 0.6rem;
+    }
+    
+    .agreement-content h3,
+    .privacy-content h3 {
+      font-size: 1rem;
+    }
+    
+    .agreement-content p,
+    .privacy-content p,
+    .agreement-content li,
+    .privacy-content li {
+      font-size: 0.9rem;
+    }
+    
+    .agreement-content small,
+    .privacy-content small {
+      padding: 0.6rem;
+      font-size: 0.85rem;
+    }
   }
