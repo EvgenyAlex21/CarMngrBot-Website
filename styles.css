@@ -1083,3 +1083,379 @@
   .instruction-block .instruction-block.active > .instruction-content {
       animation: none;
   }
+  
+  /* Стили для значка премиум-функции */
+  .premium-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
+    color: white;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 0 var(--border-radius) 0 var(--border-radius);
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transform: translateY(-1px) translateX(1px);
+    z-index: 2;
+  }
+  
+  .premium-badge i {
+    font-size: 0.8rem;
+    color: white;
+    margin-right: 2px;
+    margin-bottom: 0;
+  }
+  
+  .premium-text {
+    color: var(--accent-color);
+    font-weight: 500;
+  }
+  
+  /* Обеспечиваем правильное позиционирование компонентов в карточке */
+  .feature-card {
+    position: relative;
+    overflow: visible;
+  }
+  
+  /* Стили для бейджа бесплатных функций */
+  .free-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 0 var(--border-radius) 0 var(--border-radius);
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transform: translateY(-1px) translateX(1px);
+    z-index: 2;
+  }
+  
+  .free-badge i {
+    font-size: 0.8rem;
+    color: white;
+    margin-right: 2px;
+    margin-bottom: 0;
+  }
+  
+  .free-text {
+    color: #2ecc71;
+    font-weight: 500;
+  }
+  
+  /* Стили для смешанного бейджа (бесплатно/премиум) */
+  .mixed-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    border-radius: 0 var(--border-radius) 0 var(--border-radius);
+    overflow: hidden;
+    font-size: 0.75rem;
+    font-weight: bold;
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    transform: translateY(-1px) translateX(1px);
+  }
+  
+  .mixed-badge .free-part {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  
+  .mixed-badge .premium-part {
+    background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
+    color: white;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: S3px;
+  }
+  
+  .mixed-badge i {
+    font-size: 0.8rem;
+    margin-right: 2px;
+  }
+  
+  .note-text {
+    font-style: italic;
+    font-weight: 500;
+  }
+  
+  .free-marker {
+    color: #2ecc71;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .premium-marker {
+    color: #f39c12;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .legend {
+    background-color: rgba(0,0,0,0.05);
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+  }
+  
+  .legend p {
+    margin: 3px 0;
+  }
+  
+  /* Стили для системного бейджа */
+  .system-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+    color: white;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 0 var(--border-radius) 0 var(--border-radius);
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transform: translateY(-1px) translateX(1px);
+    z-index: 2;
+  }
+  
+  .system-badge i {
+    font-size: 0.8rem;
+    color: white;
+    margin-right: 2px;
+    margin-bottom: 0;
+  }
+  
+  .system-text {
+    color: #3498db;
+    font-weight: 500;
+  }
+  
+  /* Дополнительные стили для карточки системной функции */
+  .feature-card:has(.system-badge) {
+    background: linear-gradient(to bottom, #f8f9fa, #edf2f7);
+    border-left: 3px solid #3498db;
+  }
+  
+  /* Стили для карточки подписок */
+  .subscription-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    color: white;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 0 var(--border-radius) 0 var(--border-radius);
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transform: translateY(-1px) translateX(1px);
+    z-index: 2;
+  }
+  
+  .subscription-badge i {
+    font-size: 0.8rem;
+    color: white;
+    margin-right: 2px;
+    margin-bottom: 0;
+  }
+  
+  .subscription-text {
+    color: #9b59b6;
+    font-weight: 500;
+  }
+  
+  .subscription-card {
+    position: relative;
+    border: 1px solid #e0e0e0;
+    border-image: linear-gradient(to bottom, #9b59b6, #3498db) 1;
+    box-shadow: 0 3px 10px rgba(155, 89, 182, 0.1);
+  }
+  
+  .subscription-card:hover {
+    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.2);
+  }
+  
+  .subscription-card i.fas.fa-crown {
+    color: #9b59b6;
+  }
+  
+  .subscription-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #9b59b6, #3498db);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+  }
+  
+  /* Вертикальные полосы для разных типов карточек */
+  
+  /* Для бесплатных функций - зеленая полоса */
+  .feature-card:has(.free-badge) {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(255, 255, 255, 0.8) 100%);
+    border-left: 3px solid #2ecc71;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.15);
+  }
+  
+  .feature-card:has(.free-badge):hover {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.15) 0%, rgba(255, 255, 255, 0.9) 100%);
+    box-shadow: 0 6px 18px rgba(46, 204, 113, 0.2);
+  }
+  
+  .feature-card:has(.free-badge)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #2ecc71, #1abc9c);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+  }
+  
+  /* Для премиум функций - оранжево-красный градиент */
+  .feature-card:has(.premium-badge) {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(255, 255, 255, 0.8) 100%);
+    border-left: 3px solid #e74c3c;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.15);
+  }
+  
+  .feature-card:has(.premium-badge):hover {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.15) 0%, rgba(255, 255, 255, 0.9) 100%);
+    box-shadow: 0 6px 18px rgba(231, 76, 60, 0.2);
+  }
+  
+  .feature-card:has(.premium-badge)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #e74c3c, #f39c12);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+  }
+  
+  /* Для карточки подписок - фиолетовый градиент */
+  .feature-card:has(.subscription-badge) {
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(255, 255, 255, 0.8) 100%);
+    border-left: 3px solid #9b59b6;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.15);
+  }
+  
+  .feature-card:has(.subscription-badge):hover {
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(255, 255, 255, 0.9) 100%);
+    box-shadow: 0 6px 18px rgba(155, 89, 182, 0.2);
+  }
+  
+  .feature-card:has(.subscription-badge)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #9b59b6, #8e44ad);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+  }
+  
+  /* Для смешанных функций - градиентная полоса от зеленого к оранжевому */
+  .feature-card:has(.mixed-badge) {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.05) 0%, rgba(243, 156, 18, 0.05) 50%, rgba(255, 255, 255, 0.8) 100%);
+    border-left: 3px solid;
+    border-image: linear-gradient(to bottom, #2ecc71, #f39c12) 1;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.1), 0 4px 15px rgba(243, 156, 18, 0.1);
+  }
+  
+  .feature-card:has(.mixed-badge):hover {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(243, 156, 18, 0.1) 50%, rgba(255, 255, 255, 0.9) 100%);
+    box-shadow: 0 6px 18px rgba(46, 204, 113, 0.15), 0 6px 18px rgba(243, 156, 18, 0.15);
+  }
+  
+  .feature-card:has(.mixed-badge)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #2ecc71, #f39c12);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+  }
+  
+  /* Для системных функций - синий градиент */
+  .feature-card:has(.system-badge) {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.08) 0%, rgba(255, 255, 255, 0.8) 100%);
+    border-left: 3px solid #3498db;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.15);
+  }
+  
+  .feature-card:has(.system-badge):hover {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.12) 0%, rgba(255, 255, 255, 0.9) 100%);
+    box-shadow: 0 6px 18px rgba(52, 152, 219, 0.2);
+  }
+  
+  .feature-card:has(.system-badge)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #3498db, #2c3e50);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+  }
+  
+  /* Унификация размеров плашек заголовков */
+  .primary-header {
+      width: 100%;
+      padding: 1.5rem 2rem;
+  }
+  
+  /* Увеличение отступов между секциями */
+  .corporate-section {
+      margin-bottom: 4rem !important;
+  }
+  
+  /* Увеличение отступа после кнопки "Начать использование" */
+  .cta-button-container {
+      margin: 2.5rem 0 4rem !important;
+  }
+  
+  /* Исправление размеров заголовков h1 в шапке секций */
+  .section-header h1 {
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+      color: white;
+      margin-bottom: 0;
+      width: 100%;
+  }

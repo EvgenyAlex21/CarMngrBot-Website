@@ -243,76 +243,66 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Сворачиваемые блоки
     function setupCollapsibleBlocks() {
-        const blocks = document.querySelectorAll('.instruction-block');
-        
-        blocks.forEach(block => {
-            const headers = block.querySelectorAll('h2, h3, h4');
-            
-            headers.forEach(header => {
-                // Добавляем иконку стрелки
-                if (!header.querySelector('.toggle-icon')) {
-                    const toggleIcon = document.createElement('i');
-                    toggleIcon.className = 'fas fa-chevron-right toggle-icon';
-                    toggleIcon.style.marginLeft = '10px';
-                    toggleIcon.style.transition = 'transform 0.3s ease';
-                    header.appendChild(toggleIcon);
-                }
-
-                // Находим ближайший контент после заголовка
-                const content = header.nextElementSibling;
-                if (content) {
-                    // Изначально скрываем все подсекции (h3, h4)
-                    if (header.tagName === 'H3' || header.tagName === 'H4') {
-                        content.style.display = 'none';
-                        header.parentElement.classList.remove('active');
+        // Добавляем стрелки ко всем h2, h3, h4
+        document.querySelectorAll('.instruction-block h2, .instruction-block h3, .instruction-block h4').forEach(header => {
+            // Удаляем существующую стрелку, если она есть
+            const existingIcon = header.querySelector('.toggle-icon');
+            if (existingIcon) existingIcon.remove();
+    
+            // Создаем новую стрелку с правильным позиционированием
+            const toggleIcon = document.createElement('i');
+            toggleIcon.className = 'fas fa-chevron-right toggle-icon';
+            toggleIcon.style.cssText = 'margin-left: 10px; transition: transform 0.3s ease; float: right;';
+            header.appendChild(toggleIcon);
+        });
+    
+        // Скрываем все .instruction-content и все элементы после h3/h4/h2 до следующего такого же или выше уровня
+        document.querySelectorAll('.instruction-block').forEach(block => {
+            // Скрываем .instruction-content если есть
+            const content = block.querySelector(':scope > .instruction-content');
+            if (content) content.style.display = 'none';
+    
+            // Скрываем всё после h3/h4/h2 до следующего такого же или выше уровня
+            ['h2','h3','h4'].forEach(tag => {
+                const header = block.querySelector(':scope > ' + tag);
+                if (header) {
+                    let sibling = header.nextElementSibling;
+                    while (sibling && !['H2','H3','H4'].includes(sibling.tagName)) {
+                        sibling.style.display = 'none';
+                        sibling = sibling.nextElementSibling;
                     }
-
-                    header.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        const parentBlock = header.closest('.instruction-block');
-                        const wasActive = parentBlock.classList.contains('active');
-
-                        // Закрываем все блоки на том же уровне
-                        if (parentBlock) {
-                            const siblings = Array.from(parentBlock.parentElement.children)
-                                .filter(child => child.classList.contains('instruction-block'));
-                            
-                            siblings.forEach(sibling => {
-                                if (sibling !== parentBlock) {
-                                    sibling.classList.remove('active');
-                                    const siblingIcon = sibling.querySelector('.toggle-icon');
-                                    if (siblingIcon) {
-                                        siblingIcon.style.transform = 'rotate(0deg)';
-                                    }
-                                    const siblingContent = sibling.querySelector('.instruction-content');
-                                    if (siblingContent) {
-                                        siblingContent.style.display = 'none';
-                                    }
-                                }
-                            });
-                        }
-
-                        // Переключаем состояние текущего блока
-                        parentBlock.classList.toggle('active');
-                        
-                        // Показываем/скрываем контент
-                        if (content) {
-                            content.style.display = wasActive ? 'none' : 'block';
-                        }
-
-                        // Поворачиваем иконку
-                        const toggleIcon = header.querySelector('.toggle-icon');
-                        if (toggleIcon) {
-                            toggleIcon.style.transform = wasActive ? 'rotate(0deg)' : 'rotate(90deg)';
-                        }
-                    });
                 }
             });
         });
+    
+        // Обработка клика по заголовкам
+        document.querySelectorAll('.instruction-block h2, .instruction-block h3, .instruction-block h4').forEach(header => {
+            header.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+    
+                // Определяем, что раскрывать: .instruction-content или элементы после заголовка
+                let toToggle = [];
+                let sibling = header.nextElementSibling;
+                while (sibling && !['H2','H3','H4'].includes(sibling.tagName)) {
+                    toToggle.push(sibling);
+                    sibling = sibling.nextElementSibling;
+                }
+                // Если есть .instruction-content прямо под этим блоком — тоже добавим
+                const parentBlock = header.closest('.instruction-block');
+                const content = parentBlock.querySelector(':scope > .instruction-content');
+                if (content) toToggle.push(content);
+    
+                // Переключаем видимость
+                const isOpen = toToggle.some(el => el.style.display === 'block');
+                toToggle.forEach(el => el.style.display = isOpen ? 'none' : 'block');
+    
+                // Поворачиваем стрелку
+                const icon = header.querySelector('.toggle-icon');
+                if (icon) icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
+            });
+        });
     }
-
     // Анимация карточек при прокрутке
     function animateOnScroll() {
         const isMobile = window.innerWidth <= 768;
