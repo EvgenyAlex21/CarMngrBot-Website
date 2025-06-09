@@ -20,11 +20,52 @@
             <nav class="corporate-nav">
                 <button class="hamburger"><i class="fas fa-bars"></i></button>
                 <ul class="menu">
-                    <li><a href="#about"><i class="fas fa-info-circle"></i> О боте</a></li>
-                    <li><a href="#function"><i class="fas fa-layer-group"></i> Функции</a></li>
-                    <li><a href="#instructions"><i class="fas fa-book"></i> Инструкция</a></li>
-                    <li><a href="#agreement"><i class="fas fa-file-alt"></i> Соглашение</a></li>
-                    <li><a href="#privacy"><i class="fas fa-shield-alt"></i> Конфиденциальность</a></li>
+                    <li><a href="#about">О боте</a></li>
+                    <li class="dropdown">
+                        <a href="#function" class="dropdown-toggle">
+                            Функции <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#function-main">Основные</a></li>
+                            <li><a href="#function-subscription">Подписка на бота</a></li>
+                            <li><a href="#function-calculators">Калькуляторы</a></li>
+                            <li><a href="#function-expenses">Траты и ремонты</a></li>
+                            <li><a href="#function-misc">Прочее</a></li>
+                            <li><a href="#function-auxiliary">Вспомогательные</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#instructions" class="dropdown-toggle">
+                            Инструкция <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#instructions">Основная</a></li>
+                            <li><a href="#instruction-start">Как начать использовать бота</a></li>
+                            <li><a href="#instruction-subscription">Подписка на бота</a></li>
+                            <li><a href="#instruction-calculators">Калькуляторы</a></li>
+                            <li><a href="#instruction-expenses-repairs">Траты и ремонты</a></li>
+                            <li><a href="#instruction-findvehicle">Найти транспорт</a></li>
+                            <li><a href="#instruction-findplaces">Поиск мест</a></li>
+                            <li><a href="#instruction-weather">Погода</a></li>
+                            <li><a href="#instruction-fuelprices">Цены на топливо</a></li>
+                            <li><a href="#instruction-regioncode">Код региона</a></li>
+                            <li><a href="#instruction-obd2">Коды OBD2</a></li>
+                            <li><a href="#instruction-reminders">Напоминания</a></li>
+                            <li><a href="#instruction-antiradar">Антирадар</a></li>
+                            <li><a href="#instruction-misc">Прочее</a></li>
+                            <li><a href="#instruction-auxiliary">Вспомогательные функции</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            Документы <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#agreement">Соглашение</a></li>
+                            <li><a href="#privacy">Конфиденциальность</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#contact">Контакты</a></li>
                 </ul>
             </nav>
         </div>
@@ -265,6 +306,9 @@
                             <li><a href="#privacy-final"><i class="fas fa-check-circle"></i> Заключительные положения</a></li>
                         </ul>
                     </li>
+
+                    <!-- Контактная информация -->
+                    <li><a href="#contact"><i class="fas fa-shield-alt"></i> Контакты</a></li>
                 </ul>
             </nav>
         </aside>
@@ -4647,11 +4691,54 @@
                         </div>
                     </section>
 
-                    <section class="contact-section">
-                        <h2><i class="fas fa-address-book"></i> Контактная информация</h2>
-                        <div class="contact-links">
-                            <a href="https://t.me/x_evgenyalex_x" class="contact-link"><i class="fab fa-telegram-plane"></i> @x_evgenyalex_x</a>
-                            <a href="https://t.me/evgeny.alexandrin" class="contact-link"><i class="fab fa-vk"></i> @evgeny.alexandrin</a>
+                    <section class="contact-section" id="contact">
+                        <div class="section-header">
+                            <h1><i class="fas fa-address-book"></i> Контактная информация</h1>
+                            <div class="update-text">Свяжитесь с нами удобным для вас способом</div>
+                        </div>
+                        
+                        <div class="section-content">
+                            <div class="contact-cards">
+                                <div class="contact-card">
+                                    <div class="contact-icon">
+                                        <i class="fab fa-telegram-plane"></i>
+                                    </div>
+                                    <div class="contact-info">
+                                        <h3>Telegram</h3>
+                                        <a href="https://t.me/x_evgenyalex_x" class="contact-link">@x_evgenyalex_x</a>
+                                        <p class="contact-desc">Техническая поддержка и вопросы по боту</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-card">
+                                    <div class="contact-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </div>
+                                    <div class="contact-info">
+                                        <h3>ВКонтакте</h3>
+                                        <a href="https://vk.com/evgeny.alexandrin" class="contact-link">@evgeny.alexandrin</a>
+                                        <p class="contact-desc">Сотрудничество и партнерские предложения</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-card">
+                                    <div class="contact-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-info">
+                                        <h3>Email</h3>
+                                        <a href="mailto:support@carmanagerbot.com" class="contact-link">support@carmanagerbot.com</a>
+                                        <p class="contact-desc">Для официальных запросов и предложений</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-cta">
+                                <p>Используйте бота для прямой связи с администратором:</p>
+                                <a href="https://t.me/CarManagerBot" class="cta-button contact-button">
+                                    <i class="fas fa-robot"></i> Открыть бота
+                                </a>
+                            </div>
                         </div>
                     </section>
                 </main>
