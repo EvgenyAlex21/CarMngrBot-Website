@@ -52,6 +52,13 @@
     -moz-osx-font-smoothing: grayscale;
   }
   
+  /* Стили для иконок */
+  .fas {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+  }
+  
   /* ====== Типография ====== */
   h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
@@ -90,6 +97,36 @@
     position: relative;
   }
   
+  /* ====== Кнопка "Начать использование" ====== */
+  .cta-button-container {
+    text-align: center;
+    margin: 2rem 0 3rem;
+  }
+  
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--corporate-gradient);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--transition-speed) var(--transition-easing);
+    box-shadow: var(--box-shadow);
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-color);
+  }
+  
+  .cta-button i {
+    font-size: 1.2rem;
+  }
+  
   /* ====== Шапка ====== */
   .corporate-header {
     background: var(--corporate-gradient);
@@ -102,6 +139,19 @@
     z-index: 1000;
     box-shadow: var(--box-shadow);
     transition: all var(--transition-speed) var(--transition-easing);
+  }
+  
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    text-decoration: none;
+    transition: color var(--transition-speed) var(--transition-easing);
+  }
+  
+  .logo-link:hover {
+    color: var(--light-color);
   }
   
   .header-container {
@@ -178,7 +228,7 @@
   /* ====== Боковая панель ====== */
   .corporate-sidebar {
     width: var(--sidebar-width);
-    height: calc(100vh - var(--header-height) - 20px);
+    height: calc(100vh - var(--header-height));
     background-color: white;
     box-shadow: 2px 0 10px var(--shadow-color);
     padding: 1.5rem 0;
@@ -256,11 +306,13 @@
     color: var(--secondary-color);
   }
   
+  /* 
   .sidebar-nav a.active {
     background-color: rgba(52, 152, 219, 0.15);
     color: var(--secondary-color);
     font-weight: 500;
-  }
+  } 
+  */
   
   .sidebar-nav a strong {
     font-weight: 600;
@@ -272,9 +324,11 @@
     transition: transform 0.2s ease;
   }
   
+  /* 
   .sidebar-nav a.active i.fas {
     color: var(--secondary-color);
-  }
+  } 
+  */
   
   /* ====== Основное содержимое ====== */
   .corporate-main {
@@ -634,50 +688,50 @@
   
   /* ====== Подвал ====== */
   .corporate-footer {
-    background-color: var(--dark-color);
-    position: relative;
-    z-index: 10;
-    margin-top: 0;
-    padding: 2rem 0 0;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    padding: 2rem 0;
+    margin-top: auto;
   }
   
   .footer-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
+    align-items: center;
   }
   
   .footer-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 1.3rem;
-    font-weight: 700;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    justify-content: flex-start;
+    margin-left: -1rem;
   }
   
   .footer-logo i {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
   
   .footer-links {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 1rem;
   }
   
   .footer-links a {
-    color: white;
+    color: var(--dark-color);
     text-decoration: none;
     transition: color var(--transition-speed) var(--transition-easing);
-    font-size: 0.95rem;
   }
   
   .footer-links a:hover {
-    color: var(--secondary-color);
+    color: var(--primary-color);
   }
   
   .footer-social {
@@ -686,23 +740,52 @@
   }
   
   .social-icon {
-    color: white;
-    font-size: 1.3rem;
+    color: var(--dark-color);
+    font-size: 1.5rem;
     transition: color var(--transition-speed) var(--transition-easing);
   }
   
   .social-icon:hover {
-    color: var(--secondary-color);
+    color: var(--primary-color);
   }
   
   .footer-copyright {
     text-align: center;
-    padding: 1.5rem;
-    margin-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-light);
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-    width: 100%;
+  }
+  
+  /* ====== Адаптивность ====== */
+  @media (max-width: 768px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 1.5rem;
+    }
+    
+    .footer-logo {
+      margin-left: 0;
+      justify-content: center;
+    }
+    
+    .footer-links {
+      flex-direction: row;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+  
+    .footer-social {
+      justify-content: center;
+    }
+  
+    .feature-card {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: none !important;
+    }
   }
   
   /* ====== Кнопка "Наверх" ====== */
@@ -891,4 +974,11 @@
     .corporate-sidebar {
       width: 80%;
     }
+  
+    #instructions.corporate-section {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      animation: none !important;
+    }
+  
   }
