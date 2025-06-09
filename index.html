@@ -3,477 +3,952 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAR MANAGER</title>
+    <title>CAR MANAGER BOT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <span class="header-title">CAR MANAGER BOT</span>
-            <button class="hamburger" onclick="toggleMenu()">☰</button>
-            <ul class="menu">
-				<li><a href="#content-block">Содержание</a></li>
-                <li><a href="#about">О боте</a></li>
-                <li><a href="#instructions">Инструкция</a></li>
-                <li><a href="#agreement">Пользовательское соглашение</a></li>
-                <li><a href="#privacy">Политика конфиденциальности</a></li>
-            </ul>
-        </nav>
+    <header class="corporate-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <i class="fas fa-car logo-icon"></i>
+                <span class="header-title">CAR MANAGER BOT</span>
+            </div>
+            <button class="hamburger" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="corporate-nav">
+                <ul class="menu">
+                    <li><a href="#content-block"><i class="fas fa-list"></i> Содержание</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> О боте</a></li>
+                    <li><a href="#instructions"><i class="fas fa-book"></i> Инструкция</a></li>
+                    <li><a href="#agreement"><i class="fas fa-file-contract"></i> Соглашение</a></li>
+                    <li><a href="#privacy"><i class="fas fa-shield-alt"></i> Конфиденциальность</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-		<!-- Содержание -->
-		<aside id="content-block">
-			<h2>Содержание</h2>
-			<nav>
-				<ul>
-					<li><a href="#about"><strong>О боте</strong></a></li>
-					<li>
-						<a href="#instructions"><strong>Инструкция</strong></a>
-						<ul>
-							<li><a href="#start">1. Как начать использовать бота</a></li>
-							<li><a href="#functions">2. Описание функций</a>
-								<ul>
-									<li><a href="#fuelsave">2.1. Расчет топлива и сохранение поездок</a></li>
-									<li><a href="#transport">2.2. Ваш транспорт</a></li>
-									<li><a href="#expenses">2.3. Траты и ремонты</a></li>
-									<li><a href="#find-transport">2.4. Поиск транспорта</a></li>
-									<li><a href="#find-places">2.5. Поиск мест</a></li>
-									<li><a href="#weather">2.6. Погода</a></li>
-									<li><a href="#fuel-prices">2.7. Цены на топливо</a></li>
-									<li><a href="#region-code">2.8. Код региона</a></li>
-									<li><a href="#anti-radar">2.9. Анти-радар</a></li>
-									<li><a href="#reminders">2.10. Напоминания</a></li>
-									<li><a href="#obd2-codes">2.11. Коды ошибок OBD2</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="#agreement"><strong>Пользовательское соглашение</strong></a>
-						<ul>
-							<li><a href="#general-terms">1. Общие положения</a></li>
-							<li><a href="#main-functions">2. Основные функции</a></li>
-							<li><a href="#user-obligations">3. Обязанности пользователя</a></li>
-							<li><a href="#confidens">4. Конфиденциальность</a></li>
-							<li><a href="#liability-limits">5. Ограничение ответственности</a></li>
-							<li><a href="#agreement-changes">6. Изменения условий соглашения</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#privacy"><strong>Политика конфиденциальности</strong></a>
-						<ul>
-							<li><a href="#data-collection">1. Сбор и использование данных</a>
-								<ul>
-									<li><a href="#data-types">1.1. Категории данных</a></li>
-									<li><a href="#data-purposes">1.2. Цели сбора данных</a></li>
-									<li><a href="#data-sources">1.3. Источники данных</a></li>
-								</ul>
-							</li>
-							<li><a href="#data-protection">2. Защита данных</a>
-								<ul>
-									<li><a href="#security-measures">2.1. Меры защиты данных</a></li>
-									<li><a href="#user-responsibility">2.2. Риски и ограничения</a></li>
-								</ul>
-							</li>
-							<li><a href="#data-disclosure">3. Разглашение данных</a></li>
-							<li><a href="#data-storage">4. Обработка и хранение данных</a>
-								<ul>
-									<li><a href="#data-retention">4.1. Сроки хранения данных</a></li>
-									<li><a href="#data-deletion">4.2. Удаление данных</a></li>
-								</ul>
-							</li>
-							<li><a href="#user-rights">5. Права пользователя</a></li>
-							<li><a href="#policy-changes">6. Изменения политики</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</aside>
+        <div class="content-wrapper">
+        <div class="sidebar-overlay"></div>
+        <aside id="content-block" class="corporate-sidebar">
+            <div class="sidebar-header">
+            <h2><i class="fas fa-list"></i> Содержание</h2>
+            <button class="sidebar-toggle" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            </div>
+            <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#about"><i class="fas fa-chevron-right"></i> <strong>О боте</strong></a></li>
+                <li>
+                <a href="#instructions"><i class="fas fa-chevron-right"></i> <strong>Инструкция</strong></a>
+                <ul>
+                    <li><a href="#start"><i class="fas fa-chevron-right"></i> 1. Как начать</a></li>
+                    <li>
+                    <a href="#subscription"><i class="fas fa-chevron-right"></i> 2. Подписка</a>
+                    <ul>
+                        <li><a href="#buy-subscription"><i class="fas fa-chevron-right"></i> 2.1. Покупка</a></li>
+                        <li><a href="#cancel-subscription"><i class="fas fa-chevron-right"></i> 2.2. Отмена</a></li>
+                        <li><a href="#view-subscription"><i class="fas fa-chevron-right"></i> 2.3. Просмотр</a></li>
+                        <li><a href="#referral-system"><i class="fas fa-chevron-right"></i> 2.4. Рефералы</a></li>
+                    </ul>
+                    </li>
+                    <li>
+                    <a href="#functions"><i class="fas fa-chevron-right"></i> 3. Функции</a>
+                    <ul>
+                        <li><a href="#fuelsave"><i class="fas fa-chevron-right"></i> 3.1. Расчет топлива</a></li>
+                        <li><a href="#transport"><i class="fas fa-chevron-right"></i> 3.2. Транспорт</a></li>
+                        <li><a href="#expenses"><i class="fas fa-chevron-right"></i> 3.3. Траты</a></li>
+                        <li><a href="#find-transport"><i class="fas fa-chevron-right"></i> 3.4. Поиск транспорта</a></li>
+                        <li><a href="#find-places"><i class="fas fa-chevron-right"></i> 3.5. Поиск мест</a></li>
+                        <li><a href="#weather"><i class="fas fa-chevron-right"></i> 3.6. Погода</a></li>
+                        <li><a href="#fuel-prices"><i class="fas fa-chevron-right"></i> 3.7. Цены на топливо</a></li>
+                        <li><a href="#region-code"><i class="fas fa-chevron-right"></i> 3.8. Код региона</a></li>
+                        <li><a href="#anti-radar"><i class="fas fa-chevron-right"></i> 3.9. Анти-радар</a></li>
+                        <li><a href="#reminders"><i class="fas fa-chevron-right"></i> 3.10. Напоминания</a></li>
+                        <li><a href="#obd2-codes"><i class="fas fa-chevron-right"></i> 3.11. OBD2</a></li>
+                        <li>
+                        <a href="#additional-functions"><i class="fas fa-chevron-right"></i> 3.12. Дополнительно</a>
+                        <ul>
+                            <li><a href="#news"><i class="fas fa-chevron-right"></i> 3.12.1. Новости</a></li>
+                            <li><a href="#ad-requests"><i class="fas fa-chevron-right"></i> 3.12.2. Реклама</a></li>
+                            <li><a href="#admin-chat"><i class="fas fa-chevron-right"></i> 3.12.3. Чат с админом</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+                    </li>
+                    <li>
+                    <a href="#notification-system"><i class="fas fa-chevron-right"></i> 4. Уведомления</a>
+                    <ul>
+                        <li><a href="#inactivity-notifications"><i class="fas fa-chevron-right"></i> 4.1. Неактивность</a></li>
+                        <li><a href="#weather-fuel-notifications"><i class="fas fa-chevron-right"></i> 4.2. Погода и топливо</a></li>
+                    </ul>
+                    </li>
+                </ul>
+                </li>
+                <li>
+                <a href="#agreement"><i class="fas fa-chevron-right"></i> <strong>Соглашение</strong></a>
+                <ul>
+                    <li><a href="#general-terms"><i class="fas fa-chevron-right"></i> 1. Общие положения</a></li>
+                    <li><a href="#main-functions"><i class="fas fa-chevron-right"></i> 2. Основные функции</a></li>
+                    <li><a href="#additional-functions"><i class="fas fa-chevron-right"></i> 3. Дополнительные функции</a></li>
+                    <li><a href="#notification-system"><i class="fas fa-chevron-right"></i> 4. Уведомления</a></li>
+                    <li><a href="#admin-functions"><i class="fas fa-chevron-right"></i> 5. Административные</a></li>
+                    <li><a href="#user-obligations"><i class="fas fa-chevron-right"></i> 6. Обязанности</a></li>
+                    <li><a href="#confidens"><i class="fas fa-chevron-right"></i> 7. Конфиденциальность</a></li>
+                    <li><a href="#liability-limits"><i class="fas fa-chevron-right"></i> 8. Ответственность</a></li>
+                    <li><a href="#agreement-changes"><i class="fas fa-chevron-right"></i> 9. Изменения</a></li>
+                </ul>
+                </li>
+                <li>
+                <a href="#privacy"><i class="fas fa-chevron-right"></i> <strong>Конфиденциальность</strong></a>
+                <ul>
+                    <li>
+                    <a href="#data-collection"><i class="fas fa-chevron-right"></i> 1. Сбор данных</a>
+                    <ul>
+                        <li><a href="#data-types"><i class="fas fa-chevron-right"></i> 1.1. Категории</a></li>
+                        <li><a href="#data-purposes"><i class="fas fa-chevron-right"></i> 1.2. Цели</a></li>
+                        <li><a href="#data-sources"><i class="fas fa-chevron-right"></i> 1.3. Источники</a></li>
+                    </ul>
+                    </li>
+                    <li>
+                    <a href="#data-protection"><i class="fas fa-chevron-right"></i> 2. Защита</a>
+                    <ul>
+                        <li><a href="#security-measures"><i class="fas fa-chevron-right"></i> 2.1. Меры</a></li>
+                        <li><a href="#user-responsibility"><i class="fas fa-chevron-right"></i> 2.2. Риски</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="#data-disclosure"><i class="fas fa-chevron-right"></i> 3. Разглашение</a></li>
+                    <li>
+                    <a href="#data-storage"><i class="fas fa-chevron-right"></i> 4. Хранение</a>
+                    <ul>
+                        <li><a href="#data-retention"><i class="fas fa-chevron-right"></i> 4.1. Сроки</a></li>
+                        <li><a href="#data-deletion"><i class="fas fa-chevron-right"></i> 4.2. Удаление</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="#user-rights"><i class="fas fa-chevron-right"></i> 5. Права</a></li>
+                    <li><a href="#policy-changes"><i class="fas fa-chevron-right"></i> 6. Изменения</a></li>
+                </ul>
+                </li>
+            </ul>
+            </nav>
+        </aside>
 
-    <main>
-        <!-- Раздел "О боте" -->
-		<section id="about">
-			<h1>Информация о боте</h1>
-			<p>
-				<strong>CAR MANAGER <em>(<a href="https://t.me/CarMngrBot">@CarMngrBot</a>)</em></strong> — это мессенджерный многофункциональный Telegram бот для автомобилистов, который упрощает повседневные задачи, связанные с использованием и обслуживанием автомобиля.  
-				Бот создан для повышения удобства планирования поездок, учета расходов и ремонтов, диагностики транспорта и получения актуальной информации о погоде, ценах на топливо, маршрутах и других важных аспектах.
-			</p>
-			<h2>Основные функции</h2>
-			<ul>
-				<li id="fuel">
-					<strong>Расчет топлива:</strong> бот помогает рассчитать количество топлива для поездки с учетом расстояния, расхода топлива транспорта, цены на топливо и количества пассажиров. 
-					Также доступен просмотр и удаление ранее сохранённых поездок.
-				</li>
+        <main class="corporate-main">
+            <!-- Раздел "О боте" -->
+            <section id="about" class="corporate-section">
+                <div class="section-header">
+                    <h1><i class="fas fa-info-circle"></i> Информация о боте</h1>
+                </div>
+                <div class="section-content">
+                    <p class="lead-text">
+                        <strong> CAR MANAGER BOT <em>(<a href="https://t.me/CarMngrBot" class="telegram-link">@CarMngrBot</a>)</em></strong> — это мессенджерный многофункциональный Telegram бот для автомобилистов, который упрощает повседневные задачи, связанные с использованием и обслуживанием автомобиля.
+                    </p>
+                    <p>
+                        Бот создан для повышения удобства планирования поездок, учета расходов и ремонтов, диагностики транспорта и получения актуальной информации о погоде, ценах на топливо, маршрутах и других важных аспектах.
+                    </p>
+                    
+                    <div class="feature-card-container">
+                        <h2><i class="fas fa-star"></i> Основные функции</h2>
+                        <div class="feature-grid">
+                            <!-- Карточка "Расчет топлива" -->
+                            <div class="feature-card" data-instruction="fuel-instruction">
+                                <i class="fas fa-gas-pump"></i>
+                                <h3>Расчет топлива</h3>
+                                <p>Расчет количества топлива для поездки с учетом расстояния, расхода топлива и других параметров.</p>
+                                <div class="instruction-content" id="fuel-instruction">
+                                    <h4>Инструкция по расчету топлива:</h4>
+                                    <ol>
+                                        <li>Выберите пункт <strong>«Расчет топлива»</strong> в меню</li>
+                                        <li>Укажите начальное и конечное местоположение</li>
+                                        <li>Введите дату поездки в формате ДД.ММ.ГГГГ</li>
+                                        <li>Укажите расстояние поездки в километрах</li>
+                                        <li>Выберите тип топлива (АИ-92, ДТ, ГАЗ и др.)</li>
+                                        <li>Введите цену топлива за литр</li>
+                                        <li>Укажите расход топлива на 100 км</li>
+                                        <li>Введите количество пассажиров</li>
+                                        <li>Бот рассчитает и покажет детализированный отчет</li>
+                                    </ol>
+                                    <p>Для просмотра сохраненных поездок выберите <strong>«Просмотр поездок»</strong>, для удаления - <strong>«Удалить поездку»</strong>.</p>
+                                </div>
+                            </div>
 
-				<li>
-					<strong>Ваш транспорт:</strong> добавляйте данные о вашем транспорте (марка, модель, год выпуска, госномер РФ), удаляйте ненужные записи и просматривайте список сохранённых транспортов.
-				</li>
+                            <!-- Карточка "Ваш транспорт" -->
+                            <div class="feature-card" data-instruction="transport-instruction">
+                                <i class="fas fa-car"></i>
+                                <h3>Ваш транспорт</h3>
+                                <p>Управление данными о вашем транспорте (марка, модель, год выпуска, госномер).</p>
+                                <div class="instruction-content" id="transport-instruction">
+                                    <h4>Инструкция по управлению транспортом:</h4>
+                                    <ol>
+                                        <li>Выберите пункт <strong>«Ваш транспорт»</strong> в меню</li>
+                                        <li>Для добавления транспорта:
+                                            <ul>
+                                                <li>Введите марку транспорта</li>
+                                                <li>Укажите модель транспорта</li>
+                                                <li>Введите год выпуска</li>
+                                                <li>Добавьте госномер в формате РФ</li>
+                                            </ul>
+                                        </li>
+                                        <li>Для удаления транспорта выберите его из списка</li>
+                                        <li>Для просмотра списка транспорта нажмите <strong>«Посмотреть транспорт»</strong></li>
+                                    </ol>
+                                </div>
+                            </div>
 
+                            <!-- Карточка "Траты и ремонт" -->
+                            <div class="feature-card" data-instruction="expenses-instruction">
+                                <i class="fas fa-wrench"></i>
+                                <h3>Траты и ремонт</h3>
+                                <p>Учет расходов на транспорт и ремонты по категориям с возможностью анализа.</p>
+                                <div class="instruction-content" id="expenses-instruction">
+                                    <h4>Инструкция по учету трат и ремонтов:</h4>
+                                    <ol>
+                                        <li>Для записи новой траты используйте команду <strong>«Записать трату»</strong></li>
+                                        <li>Для записи нового ремонта используйте команду <strong>«Записать ремонт»</strong></li>
+                                        <li>Введите данные:
+                                            <ul>
+                                                <li>Выберите транспорт</li>
+                                                <li>Укажите категорию (можно добавить свою)</li>
+                                                <li>Введите название траты/ремонта</li>
+                                                <li>Укажите дату в формате ДД.ММ.ГГГГ</li>
+                                                <li>Введите сумму</li>
+                                                <li>Добавьте описание (опционально)</li>
+                                            </ul>
+                                        </li>
+                                        <li>Для просмотра:
+                                            <ul>
+                                                <li>Выберите <strong>«Посмотреть траты»</strong> или <strong>«Посмотреть ремонты»</strong></li>
+                                                <li>Можно фильтровать по категории, месяцу, году или за все время</li>
+                                            </ul>
+                                        </li>
+                                        <li>Для удаления:
+                                            <ul>
+                                                <li>Выберите <strong>«Удалить траты»</strong> или <strong>«Удалить ремонты»</strong></li>
+                                                <li>Выберите критерий удаления (по категории, за месяц, за год или все)</li>
+                                            </ul>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
 
-				<li>
-					<strong>Траты и ремонт:</strong> фиксируйте расходы на транспорт и ремонты по категориям, анализируйте данные, просматривайте и удаляйте записи.
-				</li>
-				
-				<li>
-					<strong>Поиск транспорта:</strong> сохраните геопозицию вашего транспорта и получите ссылку на маршрут к вашему текущему местоположению. Это поможет, если вы забыли, где припарковались.
-				</li>				
+                            <!-- Остальные карточки с инструкциями -->
+                            <!-- Карточка "Поиск транспорта" -->
+                            <div class="feature-card" data-instruction="find-transport-instruction">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <h3>Поиск транспорта</h3>
+                                <p>Сохранение местоположения транспорта и получение маршрута к нему.</p>
+                                <div class="instruction-content" id="find-transport-instruction">
+                                    <h4>Инструкция по поиску транспорта:</h4>
+                                    <ol>
+                                        <li>Выберите команду <strong>«Найти транспорт»</strong></li>
+                                        <li>Укажите геопозицию транспорта (отправьте местоположение)</li>
+                                        <li>Отправьте свою текущую геопозицию</li>
+                                        <li>Бот предоставит ссылку на маршрут для поиска</li>
+                                    </ol>
+                                </div>
+                            </div>
 
-				<li>
-					<strong>Поиск мест:</strong> найдите ближайшие интересующие вас места на основе вашей текущей геопозиции, например, авто заправочные станции, автомойки, автосервисы и так далее.
-				</li>
-				
-				<li>
-					<strong>Погода:</strong> отправьте свою геопозицию, чтобы получить прогноз погоды на сегодня, завтра, неделю или месяц. Это удобно для планирования дальних поездок.
-				</li>
-				
-				<li>
-					<strong>Цены на топливо:</strong> бот предоставляет актуальную информацию о стоимости различных видов топлива (АИ-92, АИ-95, АИ-98, АИ-100, ДТ, ГАЗ) в вашем городе.
-				</li>
-				
-				<li>
-					<strong>Код региона:</strong> определите регион транспортного средства по госномеру РФ или узнайте региона по его коду.
-				</li>
+                            <!-- Карточка "Поиск мест" -->
+                            <div class="feature-card" data-instruction="find-places-instruction">
+                                <i class="fas fa-search-location"></i>
+                                <h3>Поиск мест</h3>
+                                <p>Поиск ближайших АЗС, моек, сервисов на основе вашей геопозиции.</p>
+                                <div class="instruction-content" id="find-places-instruction">
+                                    <h4>Инструкция по поиску мест:</h4>
+                                    <ol>
+                                        <li>Выберите команду <strong>«Поиск мест»</strong></li>
+                                        <li>Выберите категорию для поиска (АЗС, мойки и т.д.)</li>
+                                        <li>Отправьте свою текущую геопозицию</li>
+                                        <li>Бот предложит список ближайших мест с маршрутами</li>
+                                    </ol>
+                                </div>
+                            </div>
 
-				<li>
-					<strong>Анти-радар:</strong> бот может отображать камеры видеофиксации нарушений ПДД, предупреждая о возможных штрафах. Геопозиция обновляется вручную.
-				</li>				
+                            <!-- Карточка "Погода" -->
+                            <div class="feature-card" data-instruction="weather-instruction">
+                                <i class="fas fa-cloud-sun"></i>
+                                <h3>Погода</h3>
+                                <p>Прогноз погоды на сегодня, завтра, неделю или месяц для планирования поездок.</p>
+                                <div class="instruction-content" id="weather-instruction">
+                                    <h4>Инструкция по получению прогноза погоды:</h4>
+                                    <ol>
+                                        <li>Выберите команду <strong>«Погода»</strong></li>
+                                        <li>Отправьте свою текущую геопозицию</li>
+                                        <li>Выберите период прогноза:
+                                            <ul>
+                                                <li>На сегодня</li>
+                                                <li>На завтра</li>
+                                                <li>На неделю</li>
+                                                <li>На месяц</li>
+                                            </ul>
+                                        </li>
+                                        <li>Бот предоставит прогноз погоды на выбранный период</li>
+                                    </ol>
+                                </div>
+                            </div>
 
-				<li>
-					<strong>Напоминания:</strong> создавайте напоминания о важных задачах или событиях, связанных с автомобилем, указывая дату, время и текст. Можно просматривать и удалять напоминания.
-				</li>
-				
-				<li>
-					<strong>Коды ошибок OBD2:</strong> поддерживает диагностику автомобиля через поиск и расшифровку кодов ошибок OBD2. Удобно для владельцев, желающих самостоятельно понять причину неисправности.
-				</li>
+                            <!-- Карточка "Цены на топливо" -->
+                            <div class="feature-card" data-instruction="fuel-prices-instruction">
+                                <i class="fas fa-dollar-sign"></i>
+                                <h3>Цены на топливо</h3>
+                                <p>Актуальная информация о стоимости различных видов топлива в вашем городе.</p>
+                                <div class="instruction-content" id="fuel-prices-instruction">
+                                    <h4>Инструкция по получению цен на топливо:</h4>
+                                    <ol>
+                                        <li>Выберите команду <strong>«Цены на топливо»</strong></li>
+                                        <li>Укажите название вашего города</li>
+                                        <li>Выберите тип топлива:
+                                            <ul>
+                                                <li>АИ-92</li>
+                                                <li>АИ-95</li>
+                                                <li>АИ-98</li>
+                                                <li>АИ-100</li>
+                                                <li>ДТ</li>
+                                                <li>ГАЗ</li>
+                                            </ul>
+                                        </li>
+                                        <li>Бот предоставит актуальные цены на выбранное топливо</li>
+                                    </ol>
+                                </div>
+                            </div>
 
-			</ul>
-			<h2>Контактная информация</h2>
-			<p>Если у вас есть вопросы, предложения или требуется помощь, свяжитесь с нами:</p>
-			<ul>
-				<li>Telegram: <a href="https://t.me/x_evgenyalex_x">@x_evgenyalex_x</a></li>
-				<li>ВКонтакте: <a href="https://vk.com/evgeny.alexandrin">@evgeny.alexandrin</a></li>
-			</ul>
-		</section>
+                            <!-- Карточка "Код региона" -->
+                            <div class="feature-card" data-instruction="region-code-instruction">
+                                <i class="fas fa-id-card"></i>
+                                <h3>Код региона</h3>
+                                <p>Определение региона по госномеру или коду региона.</p>
+                                <div class="instruction-content" id="region-code-instruction">
+                                    <h4>Инструкция по работе с кодами регионов:</h4>
+                                    <ol>
+                                        <li>Выберите команду <strong>«Код региона»</strong></li>
+                                        <li>Для определения региона по номеру:
+                                            <ul>
+                                                <li>Введите госномер автомобиля в формате РФ</li>
+                                            </ul>
+                                        </li>
+                                        <li>Для поиска информации по коду региона:
+                                            <ul>
+                                                <li>Укажите номер региона</li>
+                                            </ul>
+                                        </li>
+                                        <li>Бот предоставит информацию о транспорте или регионе</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- Карточка "Анти-радар" -->
+                            <div class="feature-card" data-instruction="anti-radar-instruction">
+                                <i class="fas fa-camera"></i>
+                                <h3>Анти-радар</h3>
+                                <p>Отображение камер видеофиксации нарушений ПДД.</p>
+                                <div class="instruction-content" id="anti-radar-instruction">
+                                    <h4>Инструкция по использованию анти-радара:</h4>
+                                    <ol>
+                                        <li>Выберите команду <strong>«Анти-радар»</strong></li>
+                                        <li>Отправьте свою текущую геопозицию</li>
+                                        <li>Бот покажет ближайшие камеры на основе вашего местоположения</li>
+                                        <li>Для обновления данных отправьте новую геопозицию</li>
+                                    </ol>
+                                    <p><em>Примечание:</em> Обновление геопозиции происходит вручную.</p>
+                                </div>
+                            </div>
+
+                            <!-- Карточка "Напоминания" -->
+                            <div class="feature-card" data-instruction="reminders-instruction">
+                                <i class="fas fa-bell"></i>
+                                <h3>Напоминания</h3>
+                                <p>Создание напоминаний о важных задачах или событиях.</p>
+                                <div class="instruction-content" id="reminders-instruction">
+                                    <h4>Инструкция по работе с напоминаниями:</h4>
+                                    <ol>
+                                        <li>Выберите команду <strong>«Напоминания»</strong></li>
+                                        <li>Введите название напоминания</li>
+                                        <li>Укажите дату напоминания</li>
+                                        <li>Введите время напоминания</li>
+                                        <li>Бот отправит уведомление в установленное время</li>
+                                        <li>Для просмотра напоминаний выберите соответствующий пункт в меню</li>
+                                        <li>Для удаления напоминания выберите его из списка</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- Карточка "Коды ошибок OBD2" -->
+                            <div class="feature-card" data-instruction="obd2-codes-instruction">
+                                <i class="fas fa-engine-warning"></i>
+                                <h3>Коды ошибок OBD2</h3>
+                                <p>Диагностика автомобиля через поиск и расшифровку кодов ошибок OBD2.</p>
+                                <div class="instruction-content" id="obd2-codes-instruction">
+                                    <h4>Инструкция по диагностике OBD2:</h4>
+                                    <ol>
+                                        <li>Выберите команду <strong>«Коды OBD2»</strong></li>
+                                        <li>Введите код ошибки, полученный через диагностический прибор</li>
+                                        <li>Бот предоставит расшифровку введенного кода</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- Карточка "Новости" -->
+                            <div class="feature-card" data-instruction="news-instruction">
+                                <i class="fas fa-newspaper"></i>
+                                <h3>Новости</h3>
+                                <p>Просмотр актуальных новостей в режиме реального времени.</p>
+                                <div class="instruction-content" id="news-instruction">
+                                    <h4>Инструкция по работе с новостями:</h4>
+                                    <ol>
+                                        <li>Выберите соответствующий интерактивный элемент интерфейса</li>
+                                        <li>Просматривайте актуальные новости</li>
+                                        <li>Новости обновляются администратором в режиме реального времени</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- Карточка "Рекламные заявки" -->
+                            <div class="feature-card" data-instruction="ad-requests-instruction">
+                                <i class="fas fa-ad"></i>
+                                <h3>Рекламные заявки</h3>
+                                <p>Подача заявки на размещение рекламы с уведомлением администратора.</p>
+                                <div class="instruction-content" id="ad-requests-instruction">
+                                    <h4>Инструкция по подаче рекламных заявок:</h4>
+                                    <ol>
+                                        <li>Выберите соответствующий пункт в меню</li>
+                                        <li>Заполните форму заявки на размещение рекламы</li>
+                                        <li>После отправки администратор получит уведомление</li>
+                                        <li>Вы можете просматривать список своих заявок</li>
+                                        <li>При необходимости можно отозвать заявку</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- Карточка "Чат с администратором" -->
+                            <div class="feature-card" data-instruction="admin-chat-instruction">
+                                <i class="fas fa-headset"></i>
+                                <h3>Чат с администратором</h3>
+                                <p>Инициация чата с администратором для решения критических вопросов.</p>
+                                <div class="instruction-content" id="admin-chat-instruction">
+                                    <h4>Инструкция по чату с администратором:</h4>
+                                    <ol>
+                                        <li>Выберите соответствующий пункт в меню</li>
+                                        <li>Вы можете инициировать чат с администратором до 3 раз в 24 часа</li>
+                                        <li>Функция предназначена для решения критических вопросов</li>
+                                        <li>Несоответствующие заявки будут отклонены</li>
+                                        <li>Администратор может связаться с вами напрямую</li>
+                                        <li>Вы можете принять или отклонить запрос на чат</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Дополнительные функции -->
+                    <div class="feature-card-container">
+                        <h2><i class="fas fa-bell"></i> Система уведомлений</h2>
+                        <div class="feature-grid">
+                            <!-- Карточка "Уведомления о неактивности" -->
+                            <div class="feature-card" data-instruction="inactivity-notifications-instruction">
+                                <i class="fas fa-hourglass-end"></i>
+                                <h3>Уведомления о неактивности</h3>
+                                <p>Уведомление при неактивности более 3 дней, удаление данных через месяц.</p>
+                                <div class="instruction-content" id="inactivity-notifications-instruction">
+                                    <h4>Информация о уведомлениях:</h4>
+                                    <ul>
+                                        <li>Система отслеживает вашу активность</li>
+                                        <li>При неактивности более 3 дней вы получите уведомление</li>
+                                        <li>Данные будут удалены через 1 месяц, если активность не возобновится</li>
+                                        <li>Отсчет начинается с момента первого уведомления</li>
+                                        <li>После удаления данные восстановить невозможно</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Карточка "Погода и топливо" -->
+                            <div class="feature-card" data-instruction="weather-fuel-notifications-instruction">
+                                <i class="fas fa-cloud-sun-rain"></i>
+                                <h3>Погода и топливо</h3>
+                                <p>Персонализированные уведомления о погоде и ценах на топливо.</p>
+                                <div class="instruction-content" id="weather-fuel-notifications-instruction">
+                                    <h4>Информация о уведомлениях:</h4>
+                                    <ul>
+                                        <li>Уведомления формируются на основе ваших данных</li>
+                                        <li>Если указана только геопозиция - получаете уведомления о погоде</li>
+                                        <li>Если указан только город - получаете цены на топливо</li>
+                                        <li>Если указаны оба параметра - получаете комбинированные уведомления</li>
+                                        <li>Данные берутся из внешних источников в автоматическом режиме</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
         <!-- Раздел "Инструкция" -->
-		<section id="instructions">
-			<h1>Инструкция по использованию бота</h1>
+        <section id="instructions" class="corporate-section">
+            <div class="section-header">
+                <h1><i class="fas fa-book"></i> Инструкция по использованию бота</h1>
+            </div>
+            <div class="section-content">
+                <div class="instruction-block">
+                    <h2 id="start"><i class="fas fa-play-circle"></i> 1. Как начать использовать бота</h2>
+                    <div class="instruction-content">
+                        <p>Чтобы начать использовать бота, отправьте команду <code>/start</code>. Если вы новый пользователь и не подписаны на Telegram-канал, необходимо подписаться на него и ознакомиться с информацией по использованию бота на сайте. После активации бота вам предоставляется <strong>3 пробных дня</strong> использования. По истечении пробного периода необходимо приобрести подписку для дальнейшего использования бота.</p>
+                    </div>
+                </div>
 
-			<h2 id="start">1. Как начать использовать бота</h2>
-			<p>Чтобы начать использовать бота, отправьте команду <code>/start</code>. Это откроет меню с доступными действиями. После активации бота следуйте текстовым инструкциям для выполнения нужных действий.</p>
+                <div class="instruction-block">
+                    <h2 id="subscription"><i class="fas fa-crown"></i> 2. Подписка на бота</h2>
+                    <div class="instruction-content">
+                        <h3 id="buy-subscription">2.1. Покупка подписки</h3>
+                        <p>Чтобы приобрести подписку, выберите период <strong>(неделя, месяц, год)</strong>. При покупке вы автоматически соглашаетесь с условиями использования бота. Администрация не несет ответственности за потраченные вами средства.</p>
+                        <p>После оплаты активируется оплаченный период. Подписка действует следующим образом: сначала заканчивается пробный период, а затем начинается оплаченный. Дни всех подписок суммируются.</p>
 
-			<h2 id="functions">2. Описание функций</h2>
- 
-			<h3 id="fuelsave">2.1. Расчет топлива и сохранение поездок</h3>
-			<p>Для расчета расхода топлива выберите пункт <strong>«Расчет топлива»</strong> в меню. Затем отправьте следующие данные:</p>
-			<ul>
-				<li><strong>Начальное местоположение:</strong> укажите ваше начальное местоположение.</li>
-				<li><strong>Конечное местоположение:</strong> укажите конечное местоположение.</li>
-				<li><strong>Дата поездки:</strong> укажите дату поездки в формате ДД.ММ.ГГГГ.</li>
-				<li><strong>Расстояние:</strong> укажите расстояние поездки в километрах.</li>
-				<li><strong>Тип топлива:</strong> укажите тип топлива (например, АИ-92, ДТ, ГАЗ).</li>
-				<li><strong>Цена топлива за литр:</strong> укажите цену за литр топлива в рублях.</li>
-				<li><strong>Расход топлива на 100 км:</strong> укажите расход топлива вашего автомобиля на 100 км.</li>
-				<li><strong>Количество пассажиров:</strong> укажите количество пассажиров в автомобиле.</li>
-			</ul>
-			<p>После того как вы отправите все данные, бот произведет расчет и предоставит вам детализированный отчет о расходах на топливо для вашей поездки. Также у вас будет возможность сохранить поездку для дальнейшего просмотра или анализа.</p>
-			<p>Для просмотра сохраненных поездок выберите пункт <strong>«Просмотр поездок»</strong> в меню.</p>
-			<p>Если вы хотите удалить сохраненную поездку, выберите пункт <strong>«Удалить поездку»</strong> и следуйте инструкциям бота.</p>
+                        <h3 id="cancel-subscription">2.2. Отмена подписки</h3>
+                        <p>Чтобы отменить подписку, выберите её из списка <i>(*исключения: пробный период, бесплатный день за приглашенного реферала, а также подписка, назначенная администратором, если таковая имеется)</i>.</p>
+                        <p>После выбора подписки вы получите сообщение о возврате средств. Возврат осуществляется за вычетом неиспользованных дней. Если подписка была куплена сегодня, она считается использованной <strong>(= 1 день)</strong>, и средства за неё не возвращаются.</p>
 
-			<h3 id="transport">2.2. Ваш транспорт</h3>
-			<p>Чтобы управлять транспортом, выберите пункт <strong>«Ваш транспорт»</strong> в меню. В этом разделе доступны следующие функции:</p>
+                        <h3 id="view-subscription">2.3. Просмотр активных и истёкших подписок</h3>
+                        <p>Вы можете посмотреть свои активные подписки, нажав кнопку <strong>«Посмотреть подписку»</strong>. В разделе <strong>«История подписок»</strong> хранятся данные о ваших истёкших подписках.</p>
 
-			<ul>
-				<li><strong>Добавить транспорт:</strong> Введите данные вашего транспорта:
-					<ul>
-						<li><strong>Марка:</strong> укажите марку транспорта.</li>
-						<li><strong>Модель:</strong> укажите модель транспорта.</li>
-						<li><strong>Год выпуска:</strong> укажите год выпуска транспорта.</li>
-						<li><strong>Госномер:</strong> введите государственный регистрационный номер в формате РФ.</li>
-					</ul>
-				</li>
-				<li><strong>Удалить транспорт:</strong> Выберите транспорт, который вы хотите удалить, из списка сохраненных.</li>
-				<li><strong>Посмотреть транспорт:</strong> Получите список всех добавленных транспортных средств с их основными характеристиками.</li>
-			</ul>
+                        <h3 id="referral-system">2.4. Реферальная система</h3>
+                        <p>У вас есть реферальная ссылка, с помощью которой вы можете приглашать друзей и знакомых. За каждого приглашённого пользователя вы получаете <strong>+1 бесплатный день</strong> использования бота. Также вы можете просмотреть список приглашённых вами людей.</p>
+                    </div>
+                </div>
 
-			<p>После добавления транспорта он станет доступным для использования в других функциях бота, таких как траты и ремонты.</p>
+                <div class="instruction-block">
+                    <h2 id="functions"><i class="fas fa-list-alt"></i> 3. Описание функций</h2>
+                    <div class="instruction-content">
+                        <h3 id="fuelsave">3.1. Расчет топлива и сохранение поездок</h3>
+                        <p>Для расчета расхода топлива выберите пункт <strong>«Расчет топлива»</strong> в меню. Затем отправьте следующие данные:</p>
+                        <ul>
+                            <li><strong>Начальное местоположение:</strong> укажите ваше начальное местоположение.</li>
+                            <li><strong>Конечное местоположение:</strong> укажите конечное местоположение.</li>
+                            <li><strong>Дата поездки:</strong> укажите дату поездки в формате ДД.ММ.ГГГГ.</li>
+                            <li><strong>Расстояние:</strong> укажите расстояние поездки в километрах.</li>
+                            <li><strong>Тип топлива:</strong> укажите тип топлива (например, АИ-92, ДТ, ГАЗ).</li>
+                            <li><strong>Цена топлива за литр:</strong> укажите цену за литр топлива в рублях.</li>
+                            <li><strong>Расход топлива на 100 км:</strong> укажите расход топлива вашего автомобиля на 100 км.</li>
+                            <li><strong>Количество пассажиров:</strong> укажите количество пассажиров в автомобиле.</li>
+                        </ul>
+                        <p>После того как вы отправите все данные, бот произведет расчет и предоставит вам детализированный отчет о расходах на топливо для вашей поездки. Также у вас будет возможность сохранить поездку для дальнейшего просмотра или анализа.</p>
+                        <p>Для просмотра сохраненных поездок выберите пункт <strong>«Просмотр поездок»</strong> в меню.</p>
+                        <p>Если вы хотите удалить сохраненную поездку, выберите пункт <strong>«Удалить поездку»</strong> и следуйте инструкциям бота.</p>
 
-			<h3 id="expenses">2.3. Траты и ремонты</h3>
-			<p>Чтобы записать трату или ремонт, выберите соответствующую команду в меню:</p>
-			<ul>
-				<li>Для записи новой траты используйте команду <strong>«Записать трату»</strong>.</li>
-				<li>Для записи нового ремонта используйте команду <strong>«Записать ремонт»</strong>.</li>
-			</ul>
-			<p>Введите следующие данные:</p>
-			<ul>
-				<li><strong>Транспорт</strong> — выберите транспорт для записи.</li>
-				<li><strong>Категория</strong> — выберите категорию для записи (вы можете добавить свою категорию или удалить ее).</li>
-				<li><strong>Название</strong> траты или ремонта.</li>
-				<li><strong>Дата</strong> в формате ДД.ММ.ГГГГ.</li>
-				<li><strong>Сумма</strong> траты или ремонта.</li>
-				<li><strong>Описание</strong> для траты или ремонта.</li>
-			</ul>
+                        <h3 id="transport">3.2. Ваш транспорт</h3>
+                        <p>Чтобы управлять транспортом, выберите пункт <strong>«Ваш транспорт»</strong> в меню. В этом разделе доступны следующие функции:</p>
+                        <ul>
+                            <li><strong>Добавить транспорт:</strong> Введите данные вашего транспорта:
+                                <ul>
+                                    <li><strong>Марка:</strong> укажите марку транспорта.</li>
+                                    <li><strong>Модель:</strong> укажите модель транспорта.</li>
+                                    <li><strong>Год выпуска:</strong> укажите год выпуска транспорта.</li>
+                                    <li><strong>Госномер:</strong> введите государственный регистрационный номер в формате РФ.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Удалить транспорт:</strong> Выберите транспорт, который вы хотите удалить, из списка сохраненных.</li>
+                            <li><strong>Посмотреть транспорт:</strong> Получите список всех добавленных транспортных средств с их основными характеристиками.</li>
+                        </ul>
+                        <p>После добавления транспорта он станет доступным для использования в других функциях бота, таких как траты и ремонты.</p>
 
-			<p>Чтобы просмотреть свои траты и ремонты по конкретному транспорту, выберите команду <strong>«Посмотреть траты»</strong> или <strong>«Посмотреть ремонты»</strong>. Вы можете выбрать фильтрацию по:</p>
-			<ul>
-				<li><strong>«По категории»</strong> — для просмотра по конкретной категории.</li>
-				<li><strong>«За месяц»</strong> — для просмотра записей за конкретный месяц.</li>
-				<li><strong>«За год»</strong> — для записей за конкретный год.</li>
-				<li><strong>«За всё время»</strong> — для всех записей.</li>
-			</ul>
+                        <h3 id="expenses">3.3. Траты и ремонты</h3>
+                        <p>Чтобы записать трату или ремонт, выберите соответствующую команду в меню:</p>
+                        <ul>
+                            <li>Для записи новой траты используйте команду <strong>«Записать трату»</strong>.</li>
+                            <li>Для записи нового ремонта используйте команду <strong>«Записать ремонт»</strong>.</li>
+                        </ul>
+                        <p>Введите следующие данные:</p>
+                        <ul>
+                            <li><strong>Транспорт</strong> — выберите транспорт для записи.</li>
+                            <li><strong>Категория</strong> — выберите категорию для записи (вы можете добавить свою категорию или удалить ее).</li>
+                            <li><strong>Название</strong> траты или ремонта.</li>
+                            <li><strong>Дата</strong> в формате ДД.ММ.ГГГГ.</li>
+                            <li><strong>Сумма</strong> траты или ремонта.</li>
+                            <li><strong>Описание</strong> для траты или ремонта.</li>
+                        </ul>
+                        <p>Чтобы просмотреть свои траты и ремонты по конкретному транспорту, выберите команду <strong>«Посмотреть траты»</strong> или <strong>«Посмотреть ремонты»</strong>. Вы можете выбрать фильтрацию по:</p>
+                        <ul>
+                            <li><strong>«По категории»</strong> — для просмотра по конкретной категории.</li>
+                            <li><strong>«За месяц»</strong> — для просмотра записей за конкретный месяц.</li>
+                            <li><strong>«За год»</strong> — для записей за конкретный год.</li>
+                            <li><strong>«За всё время»</strong> — для всех записей.</li>
+                        </ul>
+                        <p>Чтобы удалить свои траты и ремонты по конкретному транспорту, выберите команду <strong>«Удалить траты»</strong> или <strong>«Удалить ремонты»</strong>. Затем выберите:</p>
+                        <ul>
+                            <li><strong>«По категории»</strong> — для удаления по конкретной категории.</li>
+                            <li><strong>«За месяц»</strong> — для удаления записей за определенный месяц.</li>
+                            <li><strong>«За год»</strong> — для удаления записей за год.</li>
+                            <li><strong>«За всё время»</strong> — для удаления всех записей.</li>
+                        </ul>
 
-			<p>Чтобы удалить свои траты и ремонты по конкретному транспорту, выберите команду <strong>«Удалить траты»</strong> или <strong>«Удалить ремонты»</strong>. Затем выберите:</p>
-			<ul>
-				<li><strong>«По категории»</strong> — для удаления по конкетной категории.</li>
-				<li><strong>«За месяц»</strong> — для удаления записей за определенный месяц.</li>
-				<li><strong>«За год»</strong> — для удаления записей за год.</li>
-				<li><strong>«За всё время»</strong> — для удаления всех записей.</li>
-			</ul>
+                        <h3 id="find-transport">3.4. Поиск транспорта</h3>
+                        <p>Для поиска транспорта выберите команду <strong>«Найти транспорт»</strong> и укажите следующие данные:</p>
+                        <ul>
+                            <li><strong>Геопозиция транспорта:</strong> отправьте местоположение транспорта.</li>
+                            <li><strong>Ваша геопозиция:</strong> отправьте свое текущее местоположение.</li>
+                        </ul>
+                        <p>Бот предоставит вам ссылку на маршрут для поиска.</p>
 
-			<h3 id="find-transport">2.4. Поиск транспорта</h3>
-			<p>Для поиска транспорта выберите команду <strong>«Найти транспорт»</strong> и укажите следующие данные:</p>
-			<ul>
-				<li><strong>Геопозиция транспорта:</strong> отправьте местоположение транспорта.</li>
-				<li><strong>Ваша геопозиция:</strong> отправьте свое текущее местоположение.</li>
-			</ul>
-			<p>Бот предоставит вам ссылку на маршрут для поиска.</p>
+                        <h3 id="find-places">3.5. Поиск мест</h3>
+                        <p>Для поиска ближайших мест выберите команду <strong>«Поиск мест»</strong> и выполните следующие действия:</p>
+                        <ul>
+                            <li><strong>Категория:</strong> выберите категориу для поиска.</li>
+                            <li><strong>Геопозиция:</strong> отправьте свою текущую геопозицию.</li>
+                        </ul>
+                        <p>Бот предложит вам список ближайших мест и выдаст ссылки с маршрутом на основе вашей локации.</p>
 
-			<h3 id="find-places">2.5. Поиск мест</h3>
-			<p>Для поиска ближайших мест выберите команду <strong>«Поиск мест»</strong> и выполните следующие действия:</p>
-			<ul>
-				<li><strong>Категория:</strong> выберите категорию для поиска.</li>
-				<li><strong>Геопозиция:</strong> отправьте свою текущую геопозицию.</li>
-			</ul>
-			<p>Бот предложит вам список ближайших мест и выдаст ссылки с маршрутом на основе вашей локации.</p>
+                        <h3 id="weather">3.6. Погода</h3>
+                        <p>Чтобы узнать прогноз погоды, выберите команду <strong>«Погода»</strong> и выполните следующие действия:</p>
+                        <ul>
+                            <li><strong>Геопозиция:</strong> отправьте свою текущую геопозицию.</li>
+                            <li><strong>Период прогноза:</strong> выберите один из доступных вариантов:</li>
+                            <ul>
+                                <li>На сегодня.</li>
+                                <li>На завтра.</li>
+                                <li>На неделю.</li>
+                                <li>На месяц.</li>
+                            </ul>
+                        </ul>
+                        <p>Бот предоставит прогноз погоды на выбранный период.</p>
 
-			<h3 id="weather">2.6. Погода</h3>
-			<p>Чтобы узнать прогноз погоды, выберите команду <strong>«Погода»</strong> и выполните следующие действия:</p>
-			<ul>
-				<li><strong>Геопозиция:</strong> отправьте свою текущую геопозицию.</li>
-				<li><strong>Период прогноза:</strong> выберите один из доступных вариантов:</li>
-				<ul>
-					<li>На сегодня.</li>
-					<li>На завтра.</li>
-					<li>На неделю.</li>
-					<li>На месяц.</li>
-				</ul>
-			</ul>
-			<p>Бот предоставит прогноз погоды на выбранный период.</p>
+                        <h3 id="fuel-prices">3.7. Цены на топливо</h3>
+                        <p>Для получения актуальных цен на топливо выберите команду <strong>«Цены на топливо»</strong> и выполните следующие действия:</p>
+                        <ul>
+                            <li><strong>Город:</strong> укажите название вашего города.</li>
+                            <li><strong>Тип топлива:</strong> выберите один из доступных вариантов:</li>
+                            <ul>
+                                <li>АИ-92.</li>
+                                <li>АИ-95.</li>
+                                <li>АИ-98.</li>
+                                <li>АИ-100.</li>
+                                <li>ДТ.</li>
+                                <li>ГАЗ.</li>
+                            </ul>
+                        </ul>
+                        <p>Бот предоставит актуальные цены на выбранное топливо в вашем городе.</p>
 
-			<h3 id="fuel-prices">2.7. Цены на топливо</h3>
-			<p>Для получения актуальных цен на топливо выберите команду <strong>«Цены на топливо»</strong> и выполните следующие действия:</p>
-			<ul>
-				<li><strong>Город:</strong> укажите название вашего города.</li>
-				<li><strong>Тип топлива:</strong> выберите один из доступных вариантов:</li>
-				<ul>
-					<li>АИ-92.</li>
-					<li>АИ-95.</li>
-					<li>АИ-98.</li>
-					<li>АИ-100.</li>
-					<li>ДТ.</li>
-					<li>ГАЗ.</li>
-				</ul>
-			</ul>
-			<p>Бот предоставит актуальные цены на выбранное топливо в вашем городе.</p>
+                        <h3 id="region-code">3.8. Код региона</h3>
+                        <p>Для получения информации о регионе по госномеру транспортного средства выберите команду <strong>«Код региона»</strong> и укажите следующие данные:</p>
+                        <ul>
+                            <li><strong>Государственный номер:</strong> введите номер автомобиля в формате РФ.</li>
+                            <li><strong>Регион:</strong> укажите номер региона.</li>
+                        </ul>
+                        <p>Бот предоставит информацию о транспорте или регионе на основе введенных данных.</p>
 
-			<h3 id="region-code">2.8. Код региона</h3>
-			<p>Для получения информации о регионе по госномеру транспортного средства выберите команду <strong>«Код региона»</strong> и укажите следующие данные:</p>
-			<ul>
-				<li><strong>Государственный номер:</strong> введите номер автомобиля в формате РФ.</li>
-				<li><strong>Регион:</strong> укажите номер региона.</li>
-			</ul>
-			<p>Бот предоставит информацию о транспорте или регионе на основе введенных данных.</p>
-			
-			<h3 id="anti-radar">2.9. Анти-радар</h3>
-			<p>Для получения информации о камерах видеонаблюдения, фиксирующих нарушения ПДД, выберите команду <strong>«Анти-радар»</strong> и выполните следующие действия:</p>
-			<ul>
-				<li><strong>Геопозиция:</strong> отправьте свою текущую геопозицию.</li>
-			</ul>
-			<p>Обновление геопозиции происходит вручную. Бот покажет ближайшие камеры на основе вашей геопозиции.</p>
+                        <h3 id="anti-radar">3.9. Анти-радар</h3>
+                        <p>Для получения информации о камерах видеонаблюдения, фиксирующих нарушения ПДД, выберите команду <strong>«Анти-радар»</strong> и выполните следующие действия:</p>
+                        <ul>
+                            <li><strong>Геопозиция:</strong> отправьте свою текущую геопозицию.</li>
+                        </ul>
+                        <p>Обновление геопозиции происходит вручную. Бот покажет ближайшие камеры на основе вашей геопозиции.</p>
 
-			<h3 id="reminders">2.10. Напоминания</h3>
-			<p>Чтобы установить напоминание, выберите команду <strong>«Напоминания»</strong> и укажите следующие данные:</p>
-			<ul>
-				<li><strong>Название:</strong> введите название напоминания.</li>
-				<li><strong>Дата:</strong> укажите дату напоминания.</li>
-				<li><strong>Время:</strong> укажите время напоминания.</li>
-			</ul>
-			<p>Бот отправит уведомление в установленное время. Вы также можете просматривать и удалять напоминания через меню.</p>
-			
-			<h3 id="obd2-codes">2.11. Коды ошибок OBD2</h3>
-			<p>Для диагностики автомобиля по кодам ошибок OBD2 выберите команду <strong>«Коды OBD2»</strong> и укажите следующие данные:</p>
-			<ul>
-				<li><strong>Код ошибки:</strong> введите код ошибки, полученный через диагностический прибор.</li>
-			</ul>
-			<p>Бот предоставит расшифровку введенного кода.</p>
-			
-		</section>
+                        <h3 id="reminders">3.10. Напоминания</h3>
+                        <p>Чтобы установить напоминание, выберите команду <strong>«Напоминания»</strong> и укажите следующие данные:</p>
+                        <ul>
+                            <li><strong>Название:</strong> введите название напоминания.</li>
+                            <li><strong>Дата:</strong> укажите дату напоминания.</li>
+                            <li><strong>Время:</strong> укажите время напоминания.</li>
+                        </ul>
+                        <p>Бот отправит уведомление в установленное время. Вы также можете просматривать и удалять напоминания через меню.</p>
+
+                        <h3 id="obd2-codes">3.11. Коды ошибок OBD2</h3>
+                        <p>Для диагностики автомобиля по кодам ошибок OBD2 выберите команду <strong>«Коды OBD2»</strong> и укажите следующие данные:</p>
+                        <ul>
+                            <li><strong>Код ошибки:</strong> введите код ошибки, полученный через диагностический прибор.</li>
+                        </ul>
+                        <p>Бот предоставит расшифровку введенного кода.</p>
+
+                        <h3 id="additional-functions">3.12. Дополнительные функции</h3>
+
+                        <h4 id="news">3.12.1. Новости</h4>
+                        <p>Пользователь имеет возможность ознакомиться с актуальными новостями, выбрав соответствующие интерактивные элементы интерфейса для их просмотра. Новости предоставляются в режиме реального времени и обновляются редактором.</p>
+
+                        <h4 id="ad-requests">3.12.2. Рекламные заявки</h4>
+                        <p>Пользователь может инициировать процесс подачи заявки на размещение рекламы. После отправки заявки администратору системы поступает соответствующее уведомление для дальнейшего рассмотрения и принятия решения. Пользователь также имеет возможность просматривать список своих заявок и отзывать их в случае изменения необходимости в рекламных услугах.</p>
+
+                        <h4 id="admin-chat">3.12.3. Чат с администратором</h4>
+                        <p>Пользователю предоставляется возможность инициировать чат с администратором системы <strong>до трех раз в течение 24 часов</strong>. Данная функция предназначена для решения критических вопросов, связанных с функциональностью продукта. Заявки на чат, не соответствующие установленной тематике, будут отклонены администратором.</p>
+                    </div>
+                </div>
+
+                <div class="instruction-block">
+                    <h2 id="notification-system"><i class="fas fa-bell"></i> 4. Система уведомлений</h2>
+                    <div class="instruction-content">
+                        <h3 id="inactivity-notifications">4.1. Уведомления о неактивности</h3>
+                        <p>Система отслеживает активность пользователя. В случае отсутствия активности в течение периода, <strong>превышающего или равного 3 дням</strong>, пользователю отправляется уведомление о неактивности. В уведомлении указывается, что данные пользователя будут удалены <strong>через 1 месяц</strong> при условии сохранения неактивности. Отсчет времени начинается с момента отправки <strong>первого уведомления</strong>. Если в течение указанного периода активность не возобновляется, данные пользователя удаляются без возможности восстановления.</p>
+
+                        <h3 id="weather-fuel-notifications">4.2. Уведомления о погоде и ценах на топливо</h3>
+                        <p>Система предоставляет пользователю персонализированные уведомления о погоде и ценах на топливо. Уведомления формируются на основе данных, предоставленных пользователем:</p>
+                        <ul>
+                            <li>Если пользователь указал только <strong>географические координаты (геопозицию)</strong>, уведомление будет содержать исключительно <strong>информацию о погоде</strong>.</li>
+                            <li>Если пользователь указал только <strong>город</strong>, уведомление будет содержать <strong>информацию о ценах на топливо</strong>.</li>
+                            <li>Если пользователь предоставил и <strong>географические координаты, и город</strong>, уведомление будет содержать <strong>комбинированную информацию о погоде и ценах на топливо</strong>.</li>
+                        </ul>
+                        <p>Данные уведомления отправляются автоматически на основе актуальных данных, полученных из внешних источников.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Раздел "Пользовательское соглашение" -->
-		<section id="agreement">
-			<h1>Пользовательское соглашение</h1>
-			<p class="update"> <strong>Последнее обновление:</strong> 01 января 2025 года</p>			
-			
-			<h2 id="general-terms">1. Общие положения</h2>
-			<p>
-				Настоящее пользовательское соглашение (далее — "Соглашение") регулирует отношения между вами (далее — "Пользователь") 
-				и разработчиком бота (далее — "Разработчик") в связи с использованием функционала бота в мессенджере Telegram.
-			</p>
-			<p>
-				Используя данного бота, вы подтверждаете свое согласие с условиями Соглашения. Если вы не согласны с какими-либо положениями, 
-				пожалуйста, прекратите использование бота.
-			</p>
+        <section id="agreement" class="corporate-section">
+            <div class="section-header">
+                <h1><i class="fas fa-file-contract"></i> Пользовательское соглашение</h1>
+                <p class="update-text"><i class="fas fa-history"></i> <strong>Последнее обновление:</strong> 01 января 2025 года</p>
+            </div>
+            <div class="section-content">
+                <div class="agreement-block">
+                    <h2 id="general-terms"><i class="fas fa-file-signature"></i> 1. Общие положения</h2>
+                    <div class="agreement-content">
+                        <p>Настоящее пользовательское соглашение (далее — "Соглашение") регулирует отношения между вами (далее — "Пользователь") и разработчиком бота (далее — "Разработчик") в связи с использованием функционала бота в мессенджере Telegram.</p>
+                        <p>Используя данного бота, вы подтверждаете свое согласие с условиями Соглашения. Если вы не согласны с какими-либо положениями, пожалуйста, прекратите использование бота.</p>
+                    </div>
+                </div>
 
-			<h2 id="main-functions">2. Основные функции</h2>
-			<ul>
-				<li><b>Расчёт топлива:</b> расчёт топлива для поездки с учётом расстояния, расхода, цены топлива и пассажиров, управление поездками.</li>
-				<li><b>Ваш транспорт:</b> запись данных транспорта.</li>
-				<li><b>Траты и ремонт:</b> запись и анализ расходов на автомобиль, включая ремонты, управление записями.</li>
-				<li><b>Поиск транспорта:</b> сохранение местоположения транспорта и маршрута к нему.</li>
-				<li><b>Поиск мест:</b> определение ближайших точек, например, заправок, автомоек, автосервисов.</li>
-				<li><b>Погода:</b> прогноз погоды по геопозиции на сегодня, завтра, неделю или месяц.</li>
-				<li><b>Цены на топливо:</b> информация о стоимости топлива (АИ-92, АИ-95, и др.) в вашем городе.</li>
-				<li><b>Код региона:</b> определение региона по госномеру или его коду.</li>
-				<li><b>Анти-радар:</b> предупреждение о камерах ПДД с возможностью обновления геопозиции.</li>
-				<li><b>Напоминания:</b> создание и управление напоминаниями для задач, связанных с авто.</li>
-				<li><b>Коды OBD2:</b> поиск и расшифровка кодов ошибок автомобиля.</li>
-			</ul>
+                <div class="agreement-block">
+                    <h2 id="main-functions"><i class="fas fa-cogs"></i> 2. Основные функции</h2>
+                    <div class="agreement-content">
+                        <ul>
+                            <li><strong>Расчет топлива:</strong> бот помогает рассчитать количество топлива для поездки с учетом расстояния, расхода топлива транспорта, цены на топливо и количества пассажиров. Также доступен просмотр и удаление ранее сохранённых поездок.</li>
+                            <li><strong>Ваш транспорт:</strong> добавляйте данные о вашем транспорте (марка, модель, год выпуска, госномер РФ), удаляйте ненужные записи и просматривайте список сохранённых транспортов.</li>
+                            <li><strong>Траты и ремонт:</strong> фиксируйте расходы на транспорт и ремонты по категориям, анализируйте данные, просматривайте и удаляйте записи.</li>
+                            <li><strong>Поиск транспорта:</strong> сохраните геопозицию вашего транспорта и получите ссылку на маршрут к вашему текущему местоположению. Это поможет, если вы забыли, где припарковались.</li>
+                            <li><strong>Поиск мест:</strong> найдите ближайшие интересующие вас места на основе вашей текущей геопозиции, например, автозаправочные станции, автомойки, автосервисы и так далее.</li>
+                            <li><strong>Погода:</strong> отправьте свою геопозицию, чтобы получить прогноз погоды на сегодня, завтра, неделю или месяц. Это удобно для планирования дальних поездок.</li>
+                            <li><strong>Цены на топливо:</strong> бот предоставляет актуальную информацию о стоимости различных видов топлива (АИ-92, АИ-95, АИ-98, АИ-100, ДТ, ГАЗ) в вашем городе.</li>
+                            <li><strong>Код региона:</strong> определите регион транспортного средства по госномеру РФ или узнайте регион по его коду.</li>
+                            <li><strong>Анти-радар:</strong> бот может отображать камеры видеофиксации нарушений ПДД, предупреждая о возможных штрафах. Геопозиция обновляется вручную.</li>
+                            <li><strong>Напоминания:</strong> создавайте напоминания о важных задачах или событиях, связанных с автомобилем, указывая дату, время и текст. Можно просматривать и удалять напоминания.</li>
+                            <li><strong>Коды ошибок OBD2:</strong> поддерживает диагностику автомобиля через поиск и расшифровку кодов ошибок OBD2. Удобно для владельцев, желающих самостоятельно понять причину неисправности.</li>
+                        </ul>
+                    </div>
+                </div>
 
-			<h2 id="user-obligations">3. Обязанности пользователя</h2>
-			<ul>
-				<li>Использовать бота исключительно в соответствии с действующим законодательством.</li>
-				<li>Предоставлять только достоверные и актуальные данные, в том числе геопозицию.</li>
-				<li>Не передавать третьим лицам доступ к данным.</li>
-				<li>Не использовать бота для распространения незаконной информации, спама или мошеннических действий.</li>
-			</ul>
+                <div class="agreement-block">
+                    <h2 id="additional-functions"><i class="fas fa-plus-circle"></i> 3. Дополнительные функции</h2>
+                    <div class="agreement-content">
+                        <ul>
+                            <li><strong>Новости:</strong> пользователь может просматривать актуальные новости, выбирая соответствующие интерактивные элементы интерфейса. Новости обновляются в режиме реального времени и редактируются администратором.</li>
+                            <li><strong>Рекламные заявки:</strong> пользователь может подать заявку на размещение рекламы, после чего администратор получает уведомление для рассмотрения. Пользователь также может просматривать и отзывать свои заявки.</li>
+                            <li><strong>Чат с администратором:</strong> пользователь может инициировать чат с администратором до трех раз в течение 24 часов для решения критических вопросов. Несоответствующие заявки будут отклонены. Администратор также может связаться с пользователем напрямую, и пользователь должен принять или отклонить запрос на чат.</li>
+                        </ul>
+                    </div>
+                </div>
 
-			<h2 id="confidens">4. Конфиденциальность</h2>
-			<p>
-				Разработчик обязуется не передавать ваши персональные данные третьим лицам, за исключением случаев, предусмотренных 
-				законодательством. Собранные данные используются исключительно для предоставления функций бота.
-			</p>
+                <div class="agreement-block">
+                    <h2 id="notification-system"><i class="fas fa-bell"></i> 4. Система уведомлений</h2>
+                    <div class="agreement-content">
+                        <ul>
+                            <li><strong>Уведомления о неактивности:</strong> система отслеживает активность пользователя и отправляет уведомление о неактивности, если пользователь неактивен более 3 дней. Данные пользователя будут удалены через месяц при сохранении неактивности.</li>
+                            <li><strong>Уведомления о погоде и ценах на топливо:</strong> система предоставляет персонализированные уведомления о погоде и ценах на топливо на основе данных, предоставленных пользователем. Уведомления формируются автоматически из актуальных данных внешних источников.</li>
+                        </ul>
+                    </div>
+                </div>
 
-			<h2 id="liability-limits">5. Ограничение ответственности</h2>
-			<ul>
-				<li>Разработчик не несет ответственности за ошибки, вызванные некорректным вводом данных пользователем.</li>
-				<li>Бот предоставляется "как есть", без каких-либо гарантий, явных или подразумеваемых.</li>
-				<li>Разработчик не несет ответственности за возможные убытки, вызванные использованием или невозможностью использования бота.</li>
-			</ul>
+                <div class="agreement-block">
+                    <h2 id="admin-functions"><i class="fas fa-user-shield"></i> 5. Административные функции</h2>
+                    <div class="agreement-content">
+                        <ul>
+                            <li><strong>Экстренная остановка бота:</strong> администратор может остановить бота экстренно, если что-то пойдет не так.</li>
+                            <li><strong>Бан и разбан пользователей:</strong> администратор может забанить и разбанить пользователя за нарушение правил бота. Вы не сможете пользоваться ни одной функцией. За помощью по разбану можно написать в личные сообщения из описания бота.</li>
+                            <li><strong>Удаление данных пользователя:</strong> администратор может вручную удалить все ваши данные по запросу, а также по неактивности и за нарушение правил использования бота.</li>
+                            <li><strong>Ограничение доступа к функциям:</strong> администратор может ограничить доступ к функции на время, в целях разработки, доработки, устранения неисправностей.</li>
+                            <li><strong>Управление подписками:</strong> администратор может добавить или удалить подписку по своему усмотрению.</li>
+                            <li><strong>Запросы на чат:</strong> администратор может отправить вам запрос на чат неограниченное количество раз.</li>
+                        </ul>
+                    </div>
+                </div>
 
-			<h2 id="agreement-changes">6. Изменения условий соглашения</h2>
-			<p>
-				Разработчик оставляет за собой право изменять условия настоящего соглашения. Обновленная версия соглашения будет доступна 
-				через функционал бота. Продолжение использования бота после внесения изменений означает 
-				ваше согласие с обновленными условиями. 			
-			</p>
+                <div class="agreement-block">
+                    <h2 id="user-obligations"><i class="fas fa-user-check"></i> 6. Обязанности пользователя</h2>
+                    <div class="agreement-content">
+                        <ul>
+                            <li>Использовать бота исключительно в соответствии с действующим законодательством.</li>
+                            <li>Предоставлять только достоверные и актуальные данные, в том числе геопозицию.</li>
+                            <li>Не передавать третьим лицам доступ к данным.</li>
+                            <li>Не использовать бота для распространения незаконной информации, спама или мошеннических действий.</li>
+                        </ul>
+                    </div>
+                </div>
 
+                <div class="agreement-block">
+                    <h2 id="confidens"><i class="fas fa-lock"></i> 7. Конфиденциальность</h2>
+                    <div class="agreement-content">
+                        <p>Разработчик обязуется не передавать ваши персональные данные третьим лицам, за исключением случаев, предусмотренных законодательством. Собранные данные используются исключительно для предоставления функций бота.</p>
+                    </div>
+                </div>
 
-			<p id="conclusion"><strong>Заключение:</strong></p>
-			<p>
-				Используя данного бота, вы подтверждаете своё согласие с условиями настоящего Пользовательского соглашения. 
-				Мы стремимся обеспечить конфиденциальность ваших данных и предоставить качественный сервис.
-			</p>
-			<p>
-				Если у вас возникли вопросы, предложения или замечания, связанные с использованием бота или обработкой данных, 
-				пожалуйста, свяжитесь с нами через указанные контактные данные. Мы открыты для диалога и готовы помочь.
-			</p>
-		</section>
+                <div class="agreement-block">
+                    <h2 id="liability-limits"><i class="fas fa-exclamation-triangle"></i> 8. Ограничение ответственности</h2>
+                    <div class="agreement-content">
+                        <ul>
+                            <li>Разработчик не несет ответственности за ошибки, вызванные некорректным вводом данных пользователем.</li>
+                            <li>Бот предоставляется "как есть", без каких-либо гарантий, явных или подразумеваемых.</li>
+                            <li>Разработчик не несет ответственности за возможные убытки, вызванные использованием или невозможностью использования бота.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="agreement-block">
+                    <h2 id="agreement-changes"><i class="fas fa-sync-alt"></i> 9. Изменения условий соглашения</h2>
+                    <div class="agreement-content">
+                        <p>Разработчик оставляет за собой право изменять условия настоящего соглашения. Обновленная версия соглашения будет доступна через функционал бота. Продолжение использования бота после внесения изменений означает ваше согласие с обновленными условиями.</p>
+                    </div>
+                </div>
+
+                <div class="agreement-block">
+                    <h2 id="conclusion"><i class="fas fa-check-circle"></i> Заключение</h2>
+                    <div class="agreement-content">
+                        <p>Используя данного бота, вы подтверждаете своё согласие с условиями настоящего Пользовательского соглашения. Мы стремимся обеспечить конфиденциальность ваших данных и предоставить качественный сервис.</p>
+                        <p>Если у вас возникли вопросы, предложения или замечания, связанные с использованием бота или обработкой данных, пожалуйста, свяжитесь с нами через указанные контактные данные. Мы открыты для диалога и готовы помочь.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Раздел "Политика конфиденциальности" -->
-		<section id="privacy">
-			<h1>Политика конфиденциальности</h1>
-			<p class="update"> <strong>Последнее обновление:</strong> 01 января 2025 года</p>
-			<p>Настоящая Политика конфиденциальности описывает порядок обработки данных пользователей мессенджерного бота в Telegram, меры их защиты, права пользователей и условия использования собранных данных. Пожалуйста, внимательно ознакомьтесь с настоящей Политикой перед использованием бота. Используя бота, вы подтверждаете, что согласны с указанными условиями.</p>
+        <section id="privacy" class="corporate-section">
+            <div class="section-header">
+                <h1><i class="fas fa-shield-alt"></i> Политика конфиденциальности</h1>
+                <p class="update-text"><i class="fas fa-history"></i> <strong>Последнее обновление:</strong> 01 января 2025 года</p>
+            </div>
+            <div class="section-content">
+                <p>Настоящая Политика конфиденциальности описывает порядок обработки данных пользователей мессенджерного бота в Telegram, меры их защиты, права пользователей и условия использования собранных данных. Пожалуйста, внимательно ознакомьтесь с настоящей Политикой перед использованием бота. Используя бота, вы подтверждаете, что согласны с указанными условиями.</p>
 
-			<h2 id="data-collection">1. Сбор и использование данных</h2>
-			<p id="data-types"><strong>1.1. Категории данных, собираемых ботом:</strong></p>
-			<div class="indent">
-				<ul>
-					<li><strong>Данные для расчета топлива:</strong> начальное и конечное местоположение, дата, расстояние, тип топлива, цена топлива за литр, расход топлива на 100 км, количество пассажиров.</li>
-					<li><strong>Данные о ваших транспортах:</strong> марка, модель, год, госномер.</li>
-					<li><strong>Данные о тратах и ремонтах:</strong> категория, название, дата, сумма, описание.</li>
-					<li><strong>Данные для поиска транспорта:</strong> геопозиция пользователя и транспорта.</li>
-					<li><strong>Данные о поиске мест:</strong> геопозиция для поиска мест и маршрутов.</li>										
-					<li><strong>Данные о погоде:</strong> геопозиция для получения прогноза погоды на сегодня, завтра, на неделю или месяц.</li>	
-					<li><strong>Данные для цен на топливо:</strong> город для получения актуальных цен.</li>		
-					<li><strong>Данные для кода региона:</strong> госномер автомобиля или код региона для поиска информации.</li>		
-					<li><strong>Данные для анти-радара:</strong> геопозиция для получения координат и вычисление до ближайших камер.</li>						
-					<li><strong>Данные для напоминаний:</strong> текст напоминания, дата и время напоминания.</li>
-					<li><strong>Данные об ошибках OBD2:</strong> запрашиваемые коды ошибок для диагностики автомобиля через систему OBD2.</li>
-				</ul>
-			</div>
+                <div class="privacy-block">
+                    <h2 id="data-collection"><i class="fas fa-database"></i> 1. Сбор и использование данных</h2>
+                    <div class="privacy-content">
+                        <h3 id="data-types">1.1. Категории данных, собираемых ботом:</h3>
+                        <ul>
+                            <li><strong>Данные для расчета топлива:</strong> начальное и конечное местоположение, дата, расстояние, тип топлива, цена топлива за литр, расход топлива на 100 км, количество пассажиров.</li>
+                            <li><strong>Данные о ваших транспортах:</strong> марка, модель, год, госномер.</li>
+                            <li><strong>Данные о тратах и ремонтах:</strong> категория, название, дата, сумма, описание.</li>
+                            <li><strong>Данные для поиска транспорта:</strong> геопозиция пользователя и транспорта.</li>
+                            <li><strong>Данные о поиске мест:</strong> геопозиция для поиска мест и маршрутов.</li>
+                            <li><strong>Данные о погоде:</strong> геопозиция для получения прогноза погоды на сегодня, завтра, на неделю или месяц.</li>
+                            <li><strong>Данные для цен на топливо:</strong> город для получения актуальных цен.</li>
+                            <li><strong>Данные для кода региона:</strong> госномер автомобиля или код региона для поиска информации.</li>
+                            <li><strong>Данные для анти-радара:</strong> геопозиция для получения координат и вычисление до ближайших камер.</li>
+                            <li><strong>Данные для напоминаний:</strong> текст напоминания, дата и время напоминания.</li>
+                            <li><strong>Данные об ошибках OBD2:</strong> запрашиваемые коды ошибок для диагностики автомобиля через систему OBD2.</li>
+                            <li><strong>Данные для новостей:</strong> информация о просмотренных новостях и запросах на размещение рекламы.</li>
+                            <li><strong>Данные для чата с администратором:</strong> история переписки и запросы на чат.</li>
+                        </ul>
 
-			<p id="data-purposes"><strong>1.2. Цели сбора данных:</strong></p>
-			<div class="indent">
-				<ul>
-					<li>Все собранные данные используются исключительно для выполнения функционала бота, который включает:</li>
-					<ul>
-						<li>Расчет топлива на поездки.</li>
-						<li>Учет и аналитика трат и ремонтов.</li>
-						<li>Поиск мест и транспорта.</li>						
-						<li>Прогнозирование погоды.</li>
-						<li>Диагностика ошибок автомобиля через OBD2.</li>
-						<li>Напоминания.</li>
-						<li>Отображение актуальных цен на топливо и другие функции.</li>
-					</ul>
-				</ul>
-			</div>
+                        <h3 id="data-purposes">1.2. Цели сбора данных:</h3>
+                        <ul>
+                            <li>Все собранные данные используются исключительно для выполнения функционала бота, который включает:</li>
+                            <ul>
+                                <li>Расчет топлива на поездки.</li>
+                                <li>Учет и аналитика трат и ремонтов.</li>
+                                <li>Поиск мест и транспорта.</li>
+                                <li>Прогнозирование погоды.</li>
+                                <li>Диагностика ошибок автомобиля через OBD2.</li>
+                                <li>Напоминания.</li>
+                                <li>Отображение актуальных цен на топливо и другие функции.</li>
+                                <li>Предоставление актуальных новостей и обработка запросов на размещение рекламы.</li>
+                                <li>Обработка запросов на чат с администратором.</li>
+                            </ul>
+                        </ul>
 
-			<p id="data-sources"><strong>1.3. Источники данных:</strong></p>
-			<div class="indent">
-				<p>Данные собираются через взаимодействие пользователя с ботом. Пользователь напрямую предоставляет данные, включая геопозицию и информацию для других функций.</p>
-			</div>
+                        <h3 id="data-sources">1.3. Источники данных:</h3>
+                        <p>Данные собираются через взаимодействие пользователя с ботом. Пользователь напрямую предоставляет данные, включая геопозицию и информацию для других функций.</p>
+                    </div>
+                </div>
 
-			<h2 id="data-protection">2. Защита данных</h2>
-			<p id="security-measures"><strong>2.1. Меры по защите данных:</strong></p>
-			<div class="indent">
-				<p>Все собранные данные хранятся на зашифрованном сервере с ограниченным доступом, что предотвращает несанкционированный доступ. Регулярно проводятся проверки безопасности и обновления системы для защиты данных от утечек и атак.</p>
-			</div>
+                <div class="privacy-block">
+                    <h2 id="data-protection"><i class="fas fa-lock"></i> 2. Защита данных</h2>
+                    <div class="privacy-content">
+                        <h3 id="security-measures">2.1. Меры по защите данных:</h3>
+                        <p>Все собранные данные хранятся на зашифрованном сервере с ограниченным доступом, что предотвращает несанкционированный доступ. Регулярно проводятся проверки безопасности и обновления системы для защиты данных от утечек и атак.</p>
 
-			<p id="user-responsibility"><strong>2.2. Риски и ограничения:</strong></p>
-			<div class="indent">
-				<p>Пользователь несет ответственность за предоставление корректной и точной информации при использовании бота. В случае ошибок в данных бот не может гарантировать точность расчетов или рекомендаций.</p>
-			</div>
+                        <h3 id="user-responsibility">2.2. Риски и ограничения:</h3>
+                        <p>Пользователь несет ответственность за предоставление корректной и точной информации при использовании бота. В случае ошибок в данных бот не может гарантировать точность расчетов или рекомендаций.</p>
+                    </div>
+                </div>
 
-			<h2 id="data-disclosure">3. Разглашение данных</h2>
-			<p>Собранные данные <strong>не передаются третьим лицам</strong>, за исключением случаев, предусмотренных законом, например, по запросу правоохранительных органов в рамках судебных или иных официальных разбирательств.</p>
+                <div class="privacy-block">
+                    <h2 id="data-disclosure"><i class="fas fa-share-alt"></i> 3. Разглашение данных</h2>
+                    <div class="privacy-content">
+                        <p>Собранные данные <strong>не передаются третьим лицам</strong>, за исключением случаев, предусмотренных законом, например, по запросу правоохранительных органов в рамках судебных или иных официальных разбирательств.</p>
+                    </div>
+                </div>
 
-			<h2 id="data-storage">4. Обработка и хранение данных</h2>
-			<p id="data-retention"><strong>4.1. Сроки хранения данных:</strong></p>
-			<div class="indent">
-				<p>Данные хранятся до тех пор, пока пользователь не решит их удалить самостоятельно или пока не обратится напрямую к разработчику (администратору).</p>
-			</div>
+                <div class="privacy-block">
+                    <h2 id="data-storage"><i class="fas fa-hdd"></i> 4. Обработка и хранение данных</h2>
+                    <div class="privacy-content">
+                        <h3 id="data-retention">4.1. Сроки хранения данных:</h3>
+                        <p>Данные хранятся до тех пор, пока пользователь не решит их удалить самостоятельно или пока не обратится напрямую к разработчику (администратору).</p>
 
-			<p id="data-deletion"><strong>4.2. Удаление данных пользователем:</strong></p>
-			<div class="indent">
-				<p>Пользователь может запросить удаление своих данных в любой момент через бот. Для этого следует использовать соответствующие команды в интерфейсе бота.</p>
-			</div>
+                        <h3 id="data-deletion">4.2. Удаление данных пользователем:</h3>
+                        <p>Пользователь может запросить удаление своих данных в любой момент через бот. Для этого следует использовать соответствующие команды в интерфейсе бота.</p>
+                    </div>
+                </div>
 
-			<h2 id="user-rights">5. Права пользователя</h2>
-			<p>Пользователь имеет следующие права:</p>
-			<div class="indent">
-				<ul>
-					<li>Запрашивать информацию о хранящихся данных.</li>
-					<li>Требовать их изменения или удаления.</li>
-					<li>Отказаться от использования бота и, соответственно, прекратить сбор и обработку данных.</li>
-				</ul>
-			</div>
+                <div class="privacy-block">
+                    <h2 id="user-rights"><i class="fas fa-user-cog"></i> 5. Права пользователя</h2>
+                    <div class="privacy-content">
+                        <p>Пользователь имеет следующие права:</p>
+                        <ul>
+                            <li>Запрашивать информацию о хранящихся данных.</li>
+                            <li>Требовать их изменения или удаления.</li>
+                            <li>Отказаться от использования бота и, соответственно, прекратить сбор и обработку данных.</li>
+                            <li>Получать уведомления о изменениях в Политике конфиденциальности.</li>
+                            <li>Обращаться к администратору для разрешения вопросов, связанных с конфиденциальностью данных.</li>
+                        </ul>
+                    </div>
+                </div>
 
-			<h2 id="policy-changes">6. Изменения политики</h2>
-			<p>Любые изменения данной Политики конфиденциальности будут опубликованы на данной странице, и пользователи будут уведомлены о них. Новая версия вступает в силу с момента ее публикации.</p>
+                <div class="privacy-block">
+                    <h2 id="policy-changes"><i class="fas fa-exchange-alt"></i> 6. Изменения политики</h2>
+                    <div class="privacy-content">
+                        <p>Любые изменения данной Политики конфиденциальности будут опубликованы на данной странице, и пользователи будут уведомлены о них. Новая версия вступает в силу с момента ее публикации.</p>
+                    </div>
+                </div>
 
-			<div class="conclusion">
-				<p><strong>Заключение:</strong></p>
-				<p>Используя бота, вы соглашаетесь с условиями данной Политики конфиденциальности. Мы ценим вашу конфиденциальность и прилагаем все усилия для обеспечения безопасности ваших данных. В случае вопросов или пожеланий по поводу обработки ваших данных, пожалуйста, свяжитесь с нами через указанные контактные данные.</p>
-			</div>
-		</section>
-    </main>
+                <div class="privacy-block">
+                    <h2 id="conclusion"><i class="fas fa-check-circle"></i> Заключение</h2>
+                    <div class="privacy-content">
+                        <p>Используя бота, вы соглашаетесь с условиями данной Политики конфиденциальности. Мы ценим вашу конфиденциальность и прилагаем все усилия для обеспечения безопасности ваших данных. В случае вопросов или пожеланий по поводу обработки ваших данных, пожалуйста, свяжитесь с нами через указанные контактные данные.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+                    <div class="contact-section">
+                        <h2><i class="fas fa-envelope"></i> Контактная информация</h2>
+                        <p>Если у вас есть вопросы, предложения или требуется помощь, свяжитесь с нами:</p>
+                        <div class="contact-links">
+                            <a href="https://t.me/x_evgenyalex_x" class="contact-link"><i class="fab fa-telegram"></i> @x_evgenyalex_x</a>
+                            <a href="https://vk.com/evgeny.alexandrin" class="contact-link"><i class="fab fa-vk"></i> @evgeny.alexandrin</a>
+                        </div>
+                    </div>
+		
+        </main>
+    </div>
 
-    <footer>
-        <p>&copy; 2025 CAR MANAGER. Все права защищены.</p>
+    <footer class="corporate-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <i class="fas fa-car"></i>
+                <span>CAR MANAGER</span>
+            </div>
+            <div class="footer-links">
+                <a href="#about">О боте</a>
+                <a href="#instructions">Инструкция</a>
+                <a href="#agreement">Соглашение</a>
+                <a href="#privacy">Конфиденциальность</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://t.me/x_evgenyalex_x" class="social-icon"><i class="fab fa-telegram"></i></a>
+                <a href="https://vk.com/evgeny.alexandrin" class="social-icon"><i class="fab fa-vk"></i></a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2025 CAR MANAGER. Все права защищены.</p>
+        </div>
     </footer>
-	<button id="scrollToTop" title="Наверх">▲</button>
+
+    <button id="scrollToTop" title="Наверх"><i class="fas fa-arrow-up"></i></button>
 </body>
 </html>
