@@ -344,8 +344,8 @@
     background-color: white;
     border-radius: var(--border-radius);
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 1; /* Изменить с 0 на 1 */
+    transform: none; /* Убрать начальное смещение */
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
   
@@ -383,6 +383,7 @@
     z-index: 1;
     color: white;
     margin-bottom: 0;
+    width: 100%;
   }
   
   .section-content {
@@ -1458,4 +1459,72 @@
       color: white;
       margin-bottom: 0;
       width: 100%;
+  }
+  
+  /* Стили для блоков инструкций с обводкой */
+  .instruction-block {
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      background-color: #ffffff;
+      transition: box-shadow 0.3s ease;
+      position: relative;
+  }
+  
+  .instruction-block:hover {
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Стиль для заголовка внутри обведённого блока */
+  .instruction-block > h2,
+  .instruction-block > h3,
+  .instruction-block > h4 {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.8rem;
+      margin-top: 0;
+      margin-left: -1rem;
+      margin-right: -1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      background-color: #f9f9f9;
+  }
+  
+  /* Вложенные блоки инструкций */
+  .instruction-block .instruction-block {
+      margin: 1rem 0;
+      border-left: 3px solid var(--secondary-color);
+      background-color: #f9fcff;
+  }
+  
+  /* Содержимое инструкции внутри обведённого блока */
+  .instruction-block .instruction-content {
+      padding: 0.5rem 0 0 0;
+      margin-top: 0.5rem;
+  }
+  
+  /* Для вложенных instruction-block, чтобы они выделялись */
+  .instruction-block .instruction-block > h3,
+  .instruction-block .instruction-block > h4 {
+      background-color: #f5f9ff;
+      margin-top: 0;
+  }
+  
+  /* Цветовые акценты для блоков разного уровня */
+  .instruction-block {
+      border-left: 4px solid var(--primary-color);
+  }
+  
+  .instruction-block .instruction-block {
+      border-left: 4px solid var(--secondary-color);
+  }
+  
+  .instruction-block .instruction-block .instruction-block {
+      border-left: 4px solid var(--info-color);
+  }
+  
+  .instruction-block .instruction-block .instruction-block .instruction-block {
+      border-left: 4px solid var(--success-color);
   }
