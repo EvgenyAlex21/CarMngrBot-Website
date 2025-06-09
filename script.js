@@ -525,6 +525,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 e.stopPropagation();
     
+                // Найдем родительский instruction-block для текущего заголовка
+                const currentBlock = header.closest('.instruction-block');
+                // Найдем родительский контейнер всех блоков
+                const parentContainer = currentBlock.parentElement;
+                // Получим уровень заголовка (h2, h3, h4)
+                const headerTag = header.tagName.toLowerCase();
+    
                 // Определяем, что раскрывать: .instruction-content или элементы после заголовка
                 let toToggle = [];
                 let sibling = header.nextElementSibling;
@@ -533,12 +540,43 @@ document.addEventListener('DOMContentLoaded', function() {
                     sibling = sibling.nextElementSibling;
                 }
                 // Если есть .instruction-content прямо под этим блоком — тоже добавим
-                const parentBlock = header.closest('.instruction-block');
-                const content = parentBlock.querySelector(':scope > .instruction-content');
+                const content = currentBlock.querySelector(':scope > .instruction-content');
                 if (content) toToggle.push(content);
     
-                // Переключаем видимость
+                // Проверяем, открыт ли текущий раздел
                 const isOpen = toToggle.some(el => el.style.display === 'block');
+    
+                // Если мы собираемся открыть раздел, сначала закроем другие блоки на том же уровне
+                if (!isOpen) {
+                    // Находим все блоки того же уровня, кроме текущего
+                    parentContainer.querySelectorAll(`:scope > .instruction-block > ${headerTag}`).forEach(otherHeader => {
+                        // Пропускаем текущий заголовок
+                        if (otherHeader === header) return;
+                        
+                        const otherBlock = otherHeader.closest('.instruction-block');
+                        
+                        // Закрываем контент других блоков
+                        const otherContent = otherBlock.querySelector(':scope > .instruction-content');
+                        if (otherContent) {
+                            otherContent.style.display = 'none';
+                        }
+                        
+                        // Закрываем элементы после заголовка
+                        let otherSibling = otherHeader.nextElementSibling;
+                        while (otherSibling && !['H2','H3','H4'].includes(otherSibling.tagName)) {
+                            otherSibling.style.display = 'none';
+                            otherSibling = otherSibling.nextElementSibling;
+                        }
+                        
+                        // Возвращаем стрелку в исходное положение
+                        const otherIcon = otherHeader.querySelector('.toggle-icon');
+                        if (otherIcon) {
+                            otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                }
+    
+                // Переключаем видимость текущего раздела
                 toToggle.forEach(el => el.style.display = isOpen ? 'none' : 'block');
     
                 // Поворачиваем стрелку
@@ -547,6 +585,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
     // Анимация карточек при прокрутке
     function animateOnScroll() {
         const isMobile = window.innerWidth <= 768;

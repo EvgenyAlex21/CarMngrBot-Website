@@ -93,7 +93,9 @@
   .content-wrapper {
     display: flex;
     min-height: calc(100vh - var(--header-height) - var(--footer-height));
-    margin-top: var(--header-height);
+    /* margin-top: var(--header-height); */ /* Убираем отсюда, будет управляться медиа-запросом */
+    margin-top: 0; /* По умолчанию (для ПК) отступ сверху 0. */
+                   /* Внимание: это может привести к перекрытию контента шапкой на ПК. */
     position: relative;
   }
   
@@ -233,14 +235,14 @@
     box-shadow: 2px 0 10px var(--shadow-color);
     padding: 1.5rem 0;
     position: sticky;
-    top: var(--header-height);
+    top: calc(var(--header-height) + 1px); /* Добавляем небольшой отступ сверху */
     overflow-y: auto;
     z-index: 900;
     border-right: 1px solid var(--border-color);
   }
   
   .sidebar-header {
-    padding: 0 1.5rem 1rem;
+    padding: 0 1.8rem 1rem 1.5rem; /* Изменено: top, right, bottom, left. padding-right увеличен с 1.5rem до 1.8rem */
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 1rem;
   }
@@ -270,8 +272,7 @@
   }
   
   .sidebar-nav {
-    padding: 1rem;
-    padding-bottom: 2rem;
+    padding: 1rem 1.8rem 2rem 1.5rem; /* Изменено: top, right, bottom, left. padding-left 1.5rem, padding-right 1.8rem */
   }
   
   .sidebar-nav ul {
@@ -784,9 +785,9 @@
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 35%;
     background: linear-gradient(135deg, #4dabf7 0%, #2c3e50 100%);
     color: white;
     border: none;
@@ -1493,6 +1494,10 @@
   @media (max-width: 480px) {
     .header-title {
       font-size: 1rem;
+    }
+    
+    .content-wrapper {
+      margin-top: var(--header-height);
     }
     
     .logo-icon {
