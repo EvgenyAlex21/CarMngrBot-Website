@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Константы для элементов с проверкой на существование
+    // Константы для элементов
     const DOM = {
         menu: document.querySelector('.corporate-nav ul.menu'),
         hamburger: document.querySelector('.hamburger'),
@@ -19,16 +19,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Инициализация при загрузке
     function init() {
-        if (DOM.hamburger && DOM.menu) setupMobileMenu();
+        setupMobileMenu();
         setupSmoothScroll();
-        if (DOM.scrollToTopBtn) setupScrollToTop();
-        if (DOM.sections.length) setupSectionObserver();
-        if (DOM.featureCards.length) setupFeatureCards();
-        if (DOM.instructionBlocks.length) setupCollapsibleBlocks();
+        setupScrollToTop();
+        setupSectionObserver();
+        setupFeatureCards();
+        setupCollapsibleBlocks();
         animateOnScroll();
         highlightActiveSection();
         setupClickOutsideHandler();
 
+        // Добавляем обработчик для открытия боковой панели через кнопку
         const sidebarToggle = document.querySelector('.sidebar-toggle');
         if (sidebarToggle) {
             sidebarToggle.addEventListener('click', toggleSidebar);
@@ -43,24 +44,22 @@ document.addEventListener('DOMContentLoaded', function() {
             const hamburger = document.querySelector('.hamburger');
             const overlay = document.querySelector('.sidebar-overlay');
 
-            if (menu && hamburger && overlay && sidebar) {
-                if (
-                    !e.target.closest('.corporate-sidebar') &&
-                    !e.target.closest('.corporate-nav ul.menu') &&
-                    !e.target.closest('.hamburger') &&
-                    !e.target.closest('.sidebar-toggle')
-                ) {
-                    if (menu.classList.contains('active')) {
-                        menu.classList.remove('active');
-                        hamburger.classList.remove('active');
-                        overlay.classList.remove('active');
-                    }
-                    if (sidebar.classList.contains('active')) {
-                        sidebar.classList.remove('active');
-                        overlay.classList.remove('active');
-                    }
-                    document.body.style.overflow = '';
+            if (
+                !e.target.closest('.corporate-sidebar') &&
+                !e.target.closest('.corporate-nav ul.menu') &&
+                !e.target.closest('.hamburger') &&
+                !e.target.closest('.sidebar-toggle')
+            ) {
+                if (menu.classList.contains('active')) {
+                    menu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    overlay.classList.remove('active');
                 }
+                if (sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+                document.body.style.overflow = '';
             }
         });
     }
@@ -69,54 +68,44 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupMobileMenu() {
         DOM.hamburger.addEventListener('click', toggleMenu);
 
-        const links = DOM.menu.querySelectorAll('a');
-        if (links.length) {
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth <= 1024) {
-                        toggleMenu();
-                    }
-                });
+        // Закрытие меню при клике на пункт
+        DOM.menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    toggleMenu();
+                }
             });
-        }
+        });
     }
 
     function toggleMenu() {
-        if (DOM.menu && DOM.hamburger && document.querySelector('.sidebar-overlay')) {
-            DOM.menu.classList.toggle('active');
-            DOM.hamburger.classList.toggle('active');
-            document.querySelector('.sidebar-overlay').classList.toggle('active');
-            document.body.style.overflow = DOM.menu.classList.contains('active') ? 'hidden' : '';
-        }
+        DOM.menu.classList.toggle('active');
+        DOM.hamburger.classList.toggle('active');
+        document.querySelector('.sidebar-overlay').classList.toggle('active');
+        document.body.style.overflow = DOM.menu.classList.contains('active') ? 'hidden' : '';
     }
 
     // Переключение боковой панели
     function toggleSidebar() {
         const sidebar = document.querySelector('.corporate-sidebar');
-        const overlay = document.querySelector('.sidebar-overlay');
-        if (sidebar && overlay) {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
-        }
+        sidebar.classList.toggle('active');
+        document.querySelector('.sidebar-overlay').classList.toggle('active'); // Управляем затемнением
+        document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
     }
 
     // Плавная прокрутка
     function setupSmoothScroll() {
-        const anchors = document.querySelectorAll('a[href^="#"]');
-        if (anchors.length) {
-            anchors.forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
 
-                    if (targetElement) {
-                        scrollToElement(targetElement);
-                    }
-                });
+                if (targetElement) {
+                    scrollToElement(targetElement);
+                }
             });
-        }
+        });
     }
 
     function scrollToElement(element, offset = 90) {
@@ -128,15 +117,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Кнопка "Наверх"
     function setupScrollToTop() {
-        if (DOM.scrollToTopBtn) {
-            window.addEventListener('scroll', throttle(handleScroll, 100));
-            DOM.scrollToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+        window.addEventListener('scroll', throttle(handleScroll, 100));
+        DOM.scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-        }
+        });
     }
 
     function handleScroll() {
@@ -144,37 +131,33 @@ document.addEventListener('DOMContentLoaded', function() {
         state.scrollDirection = currentScrollPosition > state.lastScrollPosition ? 'down' : 'up';
         state.lastScrollPosition = currentScrollPosition;
 
-        if (DOM.scrollToTopBtn) {
-            if (currentScrollPosition > 300) {
-                DOM.scrollToTopBtn.classList.add('show');
-            } else {
-                DOM.scrollToTopBtn.classList.remove('show');
-            }
+        if (currentScrollPosition > 300) {
+            DOM.scrollToTopBtn.classList.add('show');
+        } else {
+            DOM.scrollToTopBtn.classList.remove('show');
         }
     }
 
     // Intersection Observer для секций
     function setupSectionObserver() {
         const options = {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.05 // Уменьшил порог срабатывания
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
         };
-      
+
         const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('in-view');
-              observer.unobserve(entry.target); // Прекращаем наблюдение после появления
-            }
-          });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
         }, options);
-      
-        // Наблюдаем за всеми секциями, включая инструкции
-        document.querySelectorAll('.corporate-section').forEach(section => {
-          observer.observe(section);
+
+        DOM.sections.forEach(section => {
+            observer.observe(section);
         });
-      }
+    }
 
     // Подсветка активного раздела
     function highlightActiveSection() {
@@ -202,31 +185,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Карточки функций
     function setupFeatureCards() {
         DOM.featureCards.forEach(card => {
-            const instructionContent = card.querySelector('.instruction-content');
-            if (instructionContent) {
-                card.addEventListener('click', function(e) {
-                    e.stopPropagation();
+            card.addEventListener('click', function(e) {
+                e.stopPropagation();
 
-                    if (state.activeCard && state.activeCard !== this) {
-                        state.activeCard.classList.remove('active');
-                    }
+                if (state.activeCard && state.activeCard !== this) {
+                    state.activeCard.classList.remove('active');
+                }
 
-                    this.classList.toggle('active');
-                    state.activeCard = this.classList.contains('active') ? this : null;
+                this.classList.toggle('active');
+                state.activeCard = this.classList.contains('active') ? this : null;
 
-                    if (this.classList.contains('active')) {
-                        setTimeout(() => {
-                            this.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'nearest',
-                                inline: 'nearest'
-                            });
-                        }, 100);
-                    }
-                });
-            } else {
-                console.warn('Instruction content not found in card:', card);
-            }
+                if (this.classList.contains('active')) {
+                    setTimeout(() => {
+                        this.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                            inline: 'nearest'
+                        });
+                    }, 100);
+                }
+            });
         });
 
         document.addEventListener('click', () => {
@@ -237,45 +215,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Сворачиваемые блоки
+    // Сворачиваемые блоки (инструкции, соглашение, политика)
     function setupCollapsibleBlocks() {
         DOM.instructionBlocks.forEach(block => {
-            const header = block.querySelector('h2, h3');
+            const header = block.querySelector('h2');
             const content = block.querySelector('.instruction-content, .agreement-content, .privacy-content');
-    
-            if (header && content) {
-                const icon = document.createElement('i');
-                icon.className = 'fas fa-chevron-down';
-                header.prepend(icon);
-    
-                // Открываем "Инструкцию" по умолчанию, если это первый блок или секция instructions
-                if (block.closest('#instructions')) {
-                    block.classList.add('active');
-                    content.classList.add('active');
-                    icon.className = 'fas fa-chevron-down';
-                    // Прокрутка к секции после инициализации
-                    setTimeout(() => {
-                        block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 100);
-                }
-    
-                header.addEventListener('click', () => {
-                    const isActive = block.classList.contains('active');
-                    block.classList.toggle('active');
-                    content.classList.toggle('active');
-                    icon.className = isActive ? 'fas fa-chevron-right' : 'fas fa-chevron-down';
-                });
-            } else {
-                console.warn('// Header or content not found in block:', block);
+
+            if (!content) {
+                console.warn('Content not found in block:', block);
+                return;
             }
+
+            // Добавляем иконку
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-chevron-down';
+            header.prepend(icon);
+
+            // Устанавливаем начальное состояние: развернуто
+            block.classList.add('active');
+            content.classList.add('active');
+            icon.className = 'fas fa-chevron-down';
+
+            // Обработчик клика
+            header.addEventListener('click', () => {
+                const isActive = block.classList.contains('active');
+                block.classList.toggle('active');
+                content.classList.toggle('active');
+                icon.className = isActive ? 'fas fa-chevron-right' : 'fas fa-chevron-down';
+            });
         });
     }
 
     // Анимация карточек при прокрутке
     function animateOnScroll() {
-        const isMobile = window.innerWidth <= 768;
-        if (isMobile) return; // Пропускаем анимацию на мобильных
-    
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -285,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }, { threshold: 0.1 });
-    
+
         DOM.featureCards.forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(20px)';
@@ -317,13 +289,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     window.addEventListener('resize', function() {
-        const menu = document.querySelector('.corporate-nav ul.menu');
-        const sidebar = document.querySelector('.corporate-sidebar');
-        const hamburger = document.querySelector('.hamburger');
-        if (window.innerWidth > 1024 && menu && sidebar && hamburger) {
-            menu.classList.remove('active');
-            hamburger.classList.remove('active');
-            sidebar.classList.remove('active');
+        if (window.innerWidth > 1024) {
+            DOM.menu.classList.remove('active');
+            DOM.hamburger.classList.remove('active');
+            document.querySelector('.corporate-sidebar').classList.remove('active');
         }
     });
 
