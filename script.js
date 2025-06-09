@@ -24,9 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (DOM.scrollToTopBtn) setupScrollToTop();
         if (DOM.sections.length) setupSectionObserver();
         if (DOM.featureCards.length) setupFeatureCards();
-        if (DOM.instructionBlocks.length) setupCollapsibleBlocks();
+        if (document.querySelectorAll('.instruction-block').length) {
+            setupCollapsibleBlocks();
+        }
         animateOnScroll();
-        highlightActiveSection();
+        // highlightActiveSection(); // Закомментировано
         setupClickOutsideHandler();
 
         const sidebarToggle = document.querySelector('.sidebar-toggle');
@@ -177,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
     // Подсветка активного раздела
+    /* Закомментировано
     function highlightActiveSection() {
         window.addEventListener('scroll', throttle(() => {
             let current = '';
@@ -198,6 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }, 100));
     }
+    */
 
     // Карточки функций
     function setupFeatureCards() {
@@ -239,31 +243,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Сворачиваемые блоки
     function setupCollapsibleBlocks() {
-        DOM.instructionBlocks.forEach(block => {
-            const header = block.querySelector('h2, h3');
-            const content = block.querySelector('.instruction-content, .agreement-content, .privacy-content');
-    
-            if (header && content) {
-                const icon = document.createElement('i');
-                icon.className = 'fas fa-chevron-down';
-                header.prepend(icon);
-    
-                // Открываем "Инструкцию" по умолчанию, если это первый блок или секция instructions
-                if (block.closest('#instructions')) {
-                    block.classList.add('active');
-                    content.classList.add('active');
-                    icon.className = 'fas fa-chevron-down';
+        const blocks = document.querySelectorAll('.instruction-block');
+        
+        blocks.forEach(block => {
+            const headers = block.querySelectorAll('h2, h3, h4');
+            
+            headers.forEach(header => {
+                // Добавляем иконку стрелки
+                if (!header.querySelector('.toggle-icon')) {
+                    const toggleIcon = document.createElement('i');
+                    toggleIcon.className = 'fas fa-chevron-right toggle-icon';
+                    toggleIcon.style.marginLeft = '10px';
+                    toggleIcon.style.transition = 'transform 0.3s ease';
+                    header.appendChild(toggleIcon);
                 }
-    
-                header.addEventListener('click', () => {
-                    const isActive = block.classList.contains('active');
-                    block.classList.toggle('active');
-                    content.classList.toggle('active');
-                    icon.className = isActive ? 'fas fa-chevron-right' : 'fas fa-chevron-down';
-                });
-            } else {
-                console.warn('// Header or content not found in block:', block);
-            }
+
+                // Находим ближайший контент после заголовка
+                const content = header.nextElementSibling;
+                if (content) {
+                    // Изначально скрываем все подсекции (h3, h4)
+                    if (header.tagName === 'H3' || header.tagName === 'H4') {
+                        content.style.display = 'none';
+                        header.parentElement.classList.remove('active');
+                    }
+
+                    header.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        const parentBlock = header.closest('.instruction-block');
+                        const wasActive = parentBlock.classList.contains('active');
+
+                        // Закрываем все блоки на том же уровне
+                        if (parentBlock) {
+                            const siblings = Array.from(parentBlock.parentElement.children)
+                                .filter(child => child.classList.contains('instruction-block'));
+                            
+                            siblings.forEach(sibling => {
+                                if (sibling !== parentBlock) {
+                                    sibling.classList.remove('active');
+                                    const siblingIcon = sibling.querySelector('.toggle-icon');
+                                    if (siblingIcon) {
+                                        siblingIcon.style.transform = 'rotate(0deg)';
+                                    }
+                                    const siblingContent = sibling.querySelector('.instruction-content');
+                                    if (siblingContent) {
+                                        siblingContent.style.display = 'none';
+                                    }
+                                }
+                            });
+                        }
+
+                        // Переключаем состояние текущего блока
+                        parentBlock.classList.toggle('active');
+                        
+                        // Показываем/скрываем контент
+                        if (content) {
+                            content.style.display = wasActive ? 'none' : 'block';
+                        }
+
+                        // Поворачиваем иконку
+                        const toggleIcon = header.querySelector('.toggle-icon');
+                        if (toggleIcon) {
+                            toggleIcon.style.transform = wasActive ? 'rotate(0deg)' : 'rotate(90deg)';
+                        }
+                    });
+                }
+            });
         });
     }
 

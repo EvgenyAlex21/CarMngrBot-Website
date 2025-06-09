@@ -306,11 +306,13 @@
     color: var(--secondary-color);
   }
   
+  /* 
   .sidebar-nav a.active {
     background-color: rgba(52, 152, 219, 0.15);
     color: var(--secondary-color);
     font-weight: 500;
-  }
+  } 
+  */
   
   .sidebar-nav a strong {
     font-weight: 600;
@@ -322,9 +324,11 @@
     transition: transform 0.2s ease;
   }
   
+  /* 
   .sidebar-nav a.active i.fas {
     color: var(--secondary-color);
-  }
+  } 
+  */
   
   /* ====== Основное содержимое ====== */
   .corporate-main {
@@ -491,23 +495,6 @@
     color: var(--primary-color);
   }
   
-  .instruction-content ol,
-  .instruction-content ul {
-    margin-left: 1.2rem;
-    margin-bottom: 0.8rem;
-  }
-  
-  .instruction-content li {
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-  }
-  
-  .instruction-content p {
-    margin-top: 0.8rem;
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-  
   /* ====== Блоки инструкций, соглашений и политик ====== */
   .instruction-block,
   .agreement-block,
@@ -557,15 +544,15 @@
   .instruction-content.active,
   .agreement-content.active,
   .privacy-content.active {
-    max-height: 2000px;
-    padding: 0.5rem 0.5rem;
+    max-height: 2000px; /* Достаточно большое значение для контента */
+    padding: 0.5rem;
   }
   
   .instruction-block.active .instruction-content,
   .agreement-block.active .agreement-content,
   .privacy-block.active .privacy-content {
     max-height: 2000px;
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem;
   }
   
   .instruction-content h3,
@@ -977,4 +964,93 @@
       animation: none !important;
     }
   
+  }
+  
+  /* Обновляем стили для блоков инструкций */
+  .instruction-block .instruction-content {
+      display: none;
+      padding: 0.5rem 1rem;
+      /* Убираем max-height и overflow для корректного отображения */
+      max-height: none !important;
+      overflow: visible !important;
+  }
+  
+  .instruction-block.active > .instruction-content {
+      display: block;
+      animation: slideDown 0.3s ease;
+  }
+  
+  /* Обновляем стили для вложенных списков */
+  .instruction-block ol,
+  .instruction-block ul {
+      margin-left: 1.2rem;
+      margin-bottom: 1rem;
+      list-style-position: outside;
+  }
+  
+  .instruction-block li {
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
+  }
+  
+  /* Стили для команд */
+  .instruction-block code {
+      background-color: #f5f5f5;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      color: #d63384;
+  }
+  
+  /* Улучшаем стили для вложенных блоков */
+  .instruction-block .instruction-block {
+      margin: 1rem 0 1rem 1.5rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--border-color);
+  }
+  
+  /* Стили для сворачиваемых подсекций */
+  .instruction-block h3,
+  .instruction-block h4 {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: var(--border-radius);
+      transition: background-color 0.3s ease;
+  }
+  
+  .instruction-block h3:hover,
+  .instruction-block h4:hover {
+      background-color: rgba(52, 152, 219, 0.05);
+  }
+  
+  .toggle-icon {
+      font-size: 0.8rem !important;
+      color: var(--text-light) !important;
+      margin-left: auto !important;
+  }
+  
+  .instruction-block.active > h3 > .toggle-icon,
+  .instruction-block.active > h4 > .toggle-icon {
+      transform: rotate(90deg);
+  }
+  
+  /* Анимация для контента */
+  @keyframes slideDown {
+      from {
+          opacity: 0;
+          transform: translateY(-10px);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+  
+  .instruction-block .instruction-content {
+      animation: slideDown 0.3s ease;
   }
