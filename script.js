@@ -113,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Функция для разворачивания только целевого блока инструкций в основном контенте
     function expandOnlyTargetInstructionBlock(targetId) {
-        console.log('Разворачиваем блок:', targetId); // Для отладки
         
         // Сворачиваем все блоки инструкций
         document.querySelectorAll('.instruction-block .instruction-content').forEach(content => {
@@ -141,9 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Блок не найден:', targetId);
             return;
         }
-        
-        console.log('Найден блок:', targetBlock); // Для отладки
-        
+                
         // Разворачиваем целевой блок
         if (targetBlock.classList.contains('instruction-content')) {
             targetBlock.style.display = 'block';
@@ -492,98 +489,212 @@ document.addEventListener('DOMContentLoaded', function() {
             // Удаляем существующую стрелку, если она есть
             const existingIcon = header.querySelector('.toggle-icon');
             if (existingIcon) existingIcon.remove();
-    
+
             // Создаем новую стрелку с правильным позиционированием
             const toggleIcon = document.createElement('i');
             toggleIcon.className = 'fas fa-chevron-right toggle-icon';
             toggleIcon.style.cssText = 'margin-left: 10px; transition: transform 0.3s ease; float: right;';
             header.appendChild(toggleIcon);
         });
-    
-        // Скрываем все .instruction-content и все элементы после h3/h4/h2 до следующего такого же или выше уровня
-        document.querySelectorAll('.instruction-block').forEach(block => {
-            // Скрываем .instruction-content если есть
-            const content = block.querySelector(':scope > .instruction-content');
-            if (content) content.style.display = 'none';
-    
-            // Скрываем всё после h3/h4/h2 до следующего такого же или выше уровня
-            ['h2','h3','h4'].forEach(tag => {
-                const header = block.querySelector(':scope > ' + tag);
-                if (header) {
-                    let sibling = header.nextElementSibling;
-                    while (sibling && !['H2','H3','H4'].includes(sibling.tagName)) {
-                        sibling.style.display = 'none';
-                        sibling = sibling.nextElementSibling;
-                    }
-                }
-            });
-        });
-    
+
+        // Изначально скрываем все содержимое
+        hideAllContent();
+
+        // Переменная для отслеживания текущего открытого раздела верхнего уровня
+        let currentOpenTopLevel = null;
+
         // Обработка клика по заголовкам
         document.querySelectorAll('.instruction-block h2, .instruction-block h3, .instruction-block h4').forEach(header => {
             header.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-    
-                // Найдем родительский instruction-block для текущего заголовка
+
                 const currentBlock = header.closest('.instruction-block');
-                // Найдем родительский контейнер всех блоков
-                const parentContainer = currentBlock.parentElement;
-                // Получим уровень заголовка (h2, h3, h4)
-                const headerTag = header.tagName.toLowerCase();
-    
-                // Определяем, что раскрывать: .instruction-content или элементы после заголовка
-                let toToggle = [];
-                let sibling = header.nextElementSibling;
-                while (sibling && !['H2','H3','H4'].includes(sibling.tagName)) {
-                    toToggle.push(sibling);
-                    sibling = sibling.nextElementSibling;
+                const headerLevel = getHeaderLevel(header);
+                
+                // Если это заголовок верхнего уровня (h2 или первый уровень в иерархии)
+                if (isTopLevelHeader(header)) {
+                    // Если кликнули по уже открытому разделу верхнего уровня - закрываем его
+                    if (currentOpenTopLevel === currentBlock) {
+                        hideAllContent();
+                        currentOpenTopLevel = null;
+                        return;
+                    }
+                    
+                    // Закрываем все содержимое
+                    hideAllContent();
+                    
+                    // Открываем новый раздел верхнего уровня
+                    showBlockContent(currentBlock);
+                    currentOpenTopLevel = currentBlock;
+                } else {
+                    // Для подразделов - применяем улучшенный аккордеон-эффект
+                    handleAdvancedAccordion(currentBlock, header);
                 }
-                // Если есть .instruction-content прямо под этим блоком — тоже добавим
-                const content = currentBlock.querySelector(':scope > .instruction-content');
-                if (content) toToggle.push(content);
-    
-                // Проверяем, открыт ли текущий раздел
-                const isOpen = toToggle.some(el => el.style.display === 'block');
-    
-                // Если мы собираемся открыть раздел, сначала закроем другие блоки на том же уровне
-                if (!isOpen) {
-                    // Находим все блоки того же уровня, кроме текущего
-                    parentContainer.querySelectorAll(`:scope > .instruction-block > ${headerTag}`).forEach(otherHeader => {
-                        // Пропускаем текущий заголовок
-                        if (otherHeader === header) return;
-                        
-                        const otherBlock = otherHeader.closest('.instruction-block');
-                        
-                        // Закрываем контент других блоков
-                        const otherContent = otherBlock.querySelector(':scope > .instruction-content');
-                        if (otherContent) {
-                            otherContent.style.display = 'none';
-                        }
-                        
-                        // Закрываем элементы после заголовка
-                        let otherSibling = otherHeader.nextElementSibling;
-                        while (otherSibling && !['H2','H3','H4'].includes(otherSibling.tagName)) {
-                            otherSibling.style.display = 'none';
-                            otherSibling = otherSibling.nextElementSibling;
-                        }
-                        
-                        // Возвращаем стрелку в исходное положение
-                        const otherIcon = otherHeader.querySelector('.toggle-icon');
-                        if (otherIcon) {
-                            otherIcon.style.transform = 'rotate(0deg)';
-                        }
-                    });
-                }
-    
-                // Переключаем видимость текущего раздела
-                toToggle.forEach(el => el.style.display = isOpen ? 'none' : 'block');
-    
-                // Поворачиваем стрелку
-                const icon = header.querySelector('.toggle-icon');
-                if (icon) icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
             });
         });
+
+        // Улучшенная функция для обработки аккордеона подразделов любого уровня
+        function handleAdvancedAccordion(currentBlock, clickedHeader) {
+            const clickedLevel = getHeaderLevel(clickedHeader);
+            
+            // Находим все блоки на том же уровне вложенности
+            const siblingBlocks = findSameLevelSiblings(currentBlock, clickedLevel);
+            
+            // Закрываем все сиблинги на том же уровне
+            siblingBlocks.forEach(sibling => {
+                if (sibling !== currentBlock) {
+                    hideBlockContentRecursively(sibling);
+                }
+            });
+
+            // Переключаем текущий блок
+            toggleBlockContent(currentBlock);
+        }
+
+        // Функция для поиска блоков на том же уровне вложенности
+        function findSameLevelSiblings(currentBlock, targetLevel) {
+            const siblings = [];
+            
+            // Определяем контейнер для поиска (родительский блок или секция)
+            let container = currentBlock.parentElement;
+            
+            // Ищем подходящий контейнер (instruction-content или section-content)
+            while (container && !container.classList.contains('instruction-content') && 
+                   !container.classList.contains('section-content')) {
+                container = container.parentElement;
+            }
+            
+            if (!container) return siblings;
+            
+            // Находим все instruction-block в этом контейнере
+            const allBlocks = container.querySelectorAll('.instruction-block');
+            
+            allBlocks.forEach(block => {
+                const header = block.querySelector(':scope > h2, :scope > h3, :scope > h4');
+                if (header && getHeaderLevel(header) === targetLevel) {
+                    // Проверяем, что блок находится на том же уровне вложенности
+                    if (isOnSameNestingLevel(currentBlock, block)) {
+                        siblings.push(block);
+                    }
+                }
+            });
+            
+            return siblings;
+        }
+
+        // Функция для проверки, находятся ли блоки на одном уровне вложенности
+        function isOnSameNestingLevel(block1, block2) {
+            const parent1 = findDirectParentInstructionBlock(block1);
+            const parent2 = findDirectParentInstructionBlock(block2);
+            
+            return parent1 === parent2;
+        }
+
+        // Функция для поиска прямого родительского instruction-block
+        function findDirectParentInstructionBlock(block) {
+            let parent = block.parentElement;
+            
+            while (parent && !parent.classList.contains('section-content')) {
+                if (parent.classList.contains('instruction-block') && parent !== block) {
+                    return parent;
+                }
+                parent = parent.parentElement;
+            }
+            
+            return null; // Если нет родительского instruction-block
+        }
+
+        // Функция для рекурсивного скрытия содержимого блока и всех вложенных блоков
+        function hideBlockContentRecursively(block) {
+            // Скрываем содержимое текущего блока
+            hideBlockContent(block);
+            
+            // Находим и скрываем все вложенные instruction-block
+            const nestedBlocks = block.querySelectorAll('.instruction-block');
+            nestedBlocks.forEach(nestedBlock => {
+                hideBlockContent(nestedBlock);
+            });
+        }
+
+        // Функция для определения уровня заголовка
+        function getHeaderLevel(header) {
+            return parseInt(header.tagName.substring(1)); // H2 -> 2, H3 -> 3, etc.
+        }
+
+        // Функция для определения, является ли заголовок верхнего уровня
+        function isTopLevelHeader(header) {
+            // Проверяем, что это прямой дочерний элемент section-content
+            const block = header.closest('.instruction-block');
+            if (!block) return false;
+            
+            const parent = block.parentElement;
+            return parent && parent.classList.contains('section-content');
+        }
+
+        // Функция для скрытия всего содержимого
+        function hideAllContent() {
+            document.querySelectorAll('.instruction-block').forEach(block => {
+                hideBlockContent(block);
+            });
+        }
+
+        // Функция для скрытия содержимого блока
+        function hideBlockContent(block) {
+            // Скрываем .instruction-content
+            const content = block.querySelector(':scope > .instruction-content');
+            if (content) content.style.display = 'none';
+
+            // Скрываем элементы после заголовка
+            const header = block.querySelector(':scope > h2, :scope > h3, :scope > h4');
+            if (header) {
+                let sibling = header.nextElementSibling;
+                while (sibling && !['H2','H3','H4'].includes(sibling.tagName)) {
+                    sibling.style.display = 'none';
+                    sibling = sibling.nextElementSibling;
+                }
+
+                // Поворачиваем стрелку в исходное положение
+                const icon = header.querySelector('.toggle-icon');
+                if (icon) icon.style.transform = 'rotate(0deg)';
+            }
+
+            block.classList.remove('active');
+        }
+
+        // Функция для показа содержимого блока
+        function showBlockContent(block) {
+            // Показываем .instruction-content
+            const content = block.querySelector(':scope > .instruction-content');
+            if (content) content.style.display = 'block';
+
+            // Показываем элементы после заголовка
+            const header = block.querySelector(':scope > h2, :scope > h3, :scope > h4');
+            if (header) {
+                let sibling = header.nextElementSibling;
+                while (sibling && !['H2','H3','H4'].includes(sibling.tagName)) {
+                    sibling.style.display = 'block';
+                    sibling = sibling.nextElementSibling;
+                }
+
+                // Поворачиваем стрелку
+                const icon = header.querySelector('.toggle-icon');
+                if (icon) icon.style.transform = 'rotate(90deg)';
+            }
+
+            block.classList.add('active');
+        }
+
+        // Функция для переключения видимости содержимого блока
+        function toggleBlockContent(block) {
+            const isVisible = block.classList.contains('active');
+            
+            if (isVisible) {
+                hideBlockContentRecursively(block);
+            } else {
+                showBlockContent(block);
+            }
+        }
     }
     
     // Анимация карточек при прокрутке

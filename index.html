@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Manager Bot</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logo/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/logo/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
@@ -13,7 +15,7 @@
         <div class="header-container">
             <div class="logo-container">
                 <a href="https://t.me/CarMngrBot" target="_blank" class="logo-link">
-                    <i class="fas fa-car logo-icon"></i>
+                    <img src="images/logo/logo.png" alt="Car Manager Bot Logo" class="logo-image">
                     <span class="header-title">CAR MANAGER BOT</span>
                 </a>
             </div>
@@ -57,7 +59,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">
+                        <a href="#documents" class="dropdown-toggle">
                             Документы <i class="fas fa-chevron-down"></i>
                         </a>
                         <ul class="dropdown-menu">
@@ -2199,6 +2201,9 @@
                         </div>
                         <div class="section-content">
                             <div class="instruction-block" id="instruction-start">
+                                <div class="system-badge">
+                                    <i class="fas fa-server"></i> СИСТЕМНОЕ
+                                </div>
                                 <h2><i class="fas fa-play"></i> 1. Как начать использовать бота</h2>
                                 <div class="instruction-content active">
                                     <p>Для начала работы с ботом выполните следующие шаги:</p>
@@ -2214,9 +2219,15 @@
                             </div>
                     
                             <div class="instruction-block" id="instruction-subscription">
+                                <div class="subscription-badge">
+                                    <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                </div>
                                 <h2><i class="fas fa-crown"></i> 2. Подписка на бота</h2>
                                 <div class="instruction-content active">
                                     <div class="instruction-block" id="instruction-subscription-buy">
+                                        <div class="subscription-badge">
+                                            <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                        </div>
                                         <h3><i class="fas fa-shopping-cart"></i> 2.1. Купить подписку</h3>
                                         <p>Для покупки подписки выполните следующие действия:</p>
                                         <ol>
@@ -2271,9 +2282,15 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Для оплаты используется Telegram Payments с платежным шлюзом PayMaster. Бот не имеет и не хранит данные ваших банковских карт!</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-subscription-view">
+                                        <div class="subscription-badge">
+                                            <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                        </div>
                                         <h3><i class="fas fa-eye"></i> 2.2. Ваши подписки</h3>
                                         <div class="instruction-content">
                                             <div class="instruction-block" id="instruction-subscription-view-active">
+                                                <div class="subscription-badge">
+                                                    <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                                </div>
                                                 <h4><i class="fas fa-eye"></i> 2.2.1. Просмотр активных подписок</h4>
                                                 <p>Для просмотра активных подписок:</p>
                                                 <ol>
@@ -2292,6 +2309,9 @@
                                                 <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Отображение ваших активных подписок с подробностями.</small></p>
                                             </div>
                                             <div class="instruction-block" id="instruction-subscription-view-history">
+                                                <div class="subscription-badge">
+                                                    <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                                </div>
                                                 <h4><i class="fas fa-history"></i> 2.2.2. Просмотр истёкших подписок</h4>
                                                 <p>Для просмотра истёкших подписок:</p>
                                                 <ol>
@@ -2312,9 +2332,15 @@
                                         </div>
                                     </div>
                                     <div class="instruction-block" id="instruction-subscription-refund">
+                                        <div class="subscription-badge">
+                                            <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                        </div>
                                         <h3><i class="fas fa-undo"></i> 2.3. Возврат</h3>
                                         <div class="instruction-content"> 
                                             <div class="instruction-block" id="instruction-subscription-refund-cancel">
+                                                <div class="subscription-badge">
+                                                    <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                                </div>
                                                 <h4><i class="fas fa-times"></i> 2.3.1. Отмена подписок</h4>
                                                 <p>Для отмены подписки выполните следующие шаги:</p>
                                                 <ol>
@@ -2361,6 +2387,9 @@
                                                 </small></p>
                                             </div>
                                             <div class="instruction-block" id="instruction-subscription-refund-cancelhistory">
+                                                <div class="subscription-badge">
+                                                    <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                                </div>
                                                 <h4><i class="fas fa-list"></i> 2.3.2. История возвратов</h4>
                                                 <p>Для просмотра истории возвратов:</p>
                                                 <ol>
@@ -2391,6 +2420,9 @@
                                         </div> 
                                     </div>
                                     <div class="instruction-block" id="instruction-subscription-store">
+                                        <div class="subscription-badge">
+                                            <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                        </div>
                                         <h3><i class="fas fa-store"></i> 2.4. Магазин</h3>
                                         <p>Для покупки в магазине:</p>
                                         <ol>
@@ -2432,9 +2464,15 @@
                                         </small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-subscription-points">
+                                        <div class="subscription-badge">
+                                            <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                        </div>
                                         <h3><i class="fas fa-star"></i> 2.5. Баллы</h3>
                                         <div class="instruction-content">
                                             <div class="instruction-block" id="exchange-points">
+                                                <div class="subscription-badge">
+                                                    <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                                </div>
                                                 <h4><i class="fas fa-exchange-alt"></i> 2.5.1. Обменять баллы</h4>
                                                 <p>Для обмена баллов:</p>
                                                 <ol>
@@ -2502,6 +2540,9 @@
                                                 <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Баллы начисляются за активность в боте, а также за покупки в магазине и подписки.</small></p>
                                             </div>
                                             <div class="instruction-block" id="gifts-points">
+                                                <div class="subscription-badge">
+                                                    <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                                </div>
                                                 <h4><i class="fas fa-gift"></i> 2.5.2. Подарки</h4>
                                                 <p>Для дарения баллов или времени:</p>
                                                 <ol>
@@ -2548,6 +2589,9 @@
                                         </div>
                                     </div>
                                     <div class="instruction-block" id="instruction-subscription-promocodes">
+                                        <div class="subscription-badge">
+                                            <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                        </div>
                                         <h3><i class="fas fa-ticket-alt"></i> 2.6. Промокоды</h3>
                                         <p>Для работы с промокодами:</p>
                                         <ol>
@@ -2588,6 +2632,9 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Промокоды могут быть получены через акции, реферальную систему или от администраторов бота. Получения скидки до 100% в зависимости от самого промокода. Действие 30 дней, сгорает без покупки. Уникальность, срок (30 дней), лимит использований, пользователь. Ограничения: 1 промокод действует на 30 дней, скидка сгорает через 30 дней без покупки</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-subscription-referrals">
+                                        <div class="subscription-badge">
+                                            <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                        </div>
                                         <h3><i class="fas fa-users"></i> 2.7. Реферальная система</h3>
                                         <p>Для участия в реферальной системе:</p>
                                         <ol>
@@ -2642,6 +2689,9 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Реферальная система позволяет получать бонусы за приглашение новых пользователей. Бонусы начисляются автоматически при выполнении условий.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-subscription-channels">
+                                        <div class="subscription-badge">
+                                            <i class="fas fa-store"></i> ЦЕНТР ПОДПИСОК
+                                        </div>
                                         <h3><i class="fas fa-bullhorn"></i> 2.8. Рекламные каналы</h3>
                                         <p>Для получения бонусов за подписку на рекламные каналы:</p>
                                         <ol>
@@ -2662,10 +2712,17 @@
                             </div>
 
                             <div class="instruction-block" id="instruction-calculators">
+                                <div class="mixed-badge">
+                                    <span class="free-part"><i class="fas fa-gift"></i> БЕСПЛАТНО</span>
+                                    <span class="premium-part"><i class="fas fa-crown"></i> ПРЕМИУМ</span>
+                                </div>
                                 <h2><i class="fas fa-calculator"></i> 3. Калькуляторы</h2>
                                 <div class="instruction-content active">
                             
                                     <div class="instruction-block" id="instruction-calculators-fuel">
+                                        <div class="premium-badge">
+                                            <i class="fas fa-crown"></i> ПРЕМИУМ
+                                        </div>
                                         <h3><i class="fas fa-gas-pump"></i> 3.1. Расход топлива</h3>
                                         <p>Для расчета расхода топлива:</p>
                                         <ol>
@@ -2753,6 +2810,9 @@
 
                             <!-- 3.2. Алкоголь -->
                             <div class="instruction-block" id="instruction-calculators-alcohol">
+                                <div class="free-badge">
+                                    <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                </div>
                                 <h3><i class="fas fa-wine-glass-alt"></i> 3.2. Алкоголь</h3>
                                 <p>Для расчета уровня алкоголя в крови (промилле) по формуле Видмарка:</p>
                                 <ol>
@@ -2883,6 +2943,9 @@
                             
                                     <!-- 3.3. Автокредит -->
                                     <div class="instruction-block" id="instruction-calculators-autocredit">
+                                        <div class="premium-badge">
+                                            <i class="fas fa-crown"></i> ПРЕМИУМ
+                                        </div>
                                         <h3><i class="fas fa-car-side"></i> 3.3. Автокредит</h3>
                                         <p>Для расчета параметров автокредита:</p>
                                         <ol>
@@ -3004,6 +3067,9 @@
 
                                     <!-- 3.4. Налог -->
                                     <div class="instruction-block" id="instruction-calculators-tax">
+                                        <div class="free-badge">
+                                            <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                        </div>
                                         <h3><i class="fas fa-money-check-alt"></i> 3.4. Налог</h3>
                                         <p>Для расчета транспортного налога:</p>
                                         <ol>
@@ -3161,6 +3227,9 @@
 
                                     <!-- 3.5. Растаможка -->
                                     <div class="instruction-block" id="instruction-calculators-customs">
+                                        <div class="premium-badge">
+                                            <i class="fas fa-crown"></i> ПРЕМИУМ
+                                        </div>
                                         <h3><i class="fas fa-shipping-fast"></i> 3.5. Растаможка</h3>
                                         <p>Для расчета таможенных платежей:</p>
                                         <ol>
@@ -3306,6 +3375,9 @@
                             
                                     <!-- 3.6. ОСАГО -->
                                     <div class="instruction-block" id="instruction-calculators-osago">
+                                        <div class="premium-badge">
+                                            <i class="fas fa-crown"></i> ПРЕМИУМ
+                                        </div>
                                         <h3><i class="fas fa-car-crash"></i> 3.6. ОСАГО</h3>
                                         <p>Для расчета стоимости полиса ОСАГО:</p>
                                         <ol>
@@ -3497,7 +3569,10 @@
                                     </div>
                             
                                     <!-- 3.7. Шины -->
-                                    <div class="instruction-block" id="instruction-calculators-osago">
+                                    <div class="instruction-block" id="instruction-calculators-tires">
+                                        <div class="premium-badge">
+                                            <i class="fas fa-crown"></i> ПРЕМИУМ
+                                        </div>
                                         <h3><i class="fas fa-tachometer-alt"></i> 3.7. Шины</h3>
                                         <p>Для сравнения текущих и новых шин/дисков:</p>
                                         <ol>
@@ -3695,9 +3770,15 @@
                             </div>
                     
                             <div class="instruction-block" id="instruction-expenses-repairs">
+                                <div class="premium-badge">
+                                    <i class="fas fa-crown"></i> ПРЕМИУМ
+                                </div>
                                 <h2><i class="fas fa-wrench"></i> 4. Траты и ремонты</h2>
                                 <div class="instruction-content active">
                                     <div class="instruction-block" id="instruction-expenses-repairs-vehicle">
+                                        <div class="premium-badge">
+                                            <i class="fas fa-crown"></i> ПРЕМИУМ
+                                        </div>
                                         <h3><i class="fas fa-car"></i> 4.1. Ваш транспорт</h3>
                                         <p>Для работы с транспортом:</p>
                                         <ol>
@@ -3742,6 +3823,9 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Транспорт, добавленный вами, используется для функционирования трат и ремонтов.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-expenses-repairs-costs">
+                                        <div class="premium-badge">
+                                            <i class="fas fa-crown"></i> ПРЕМИУМ
+                                        </div>
                                         <h3><i class="fas fa-money-bill"></i> 4.2. Траты</h3>
                                         <p>Для работы с тратами:</p>
                                         <ol>
@@ -3808,6 +3892,9 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Траты используются как подробная записная книжка о транспорте.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-expenses-repairs-repairs">
+                                        <div class="premium-badge">
+                                            <i class="fas fa-crown"></i> ПРЕМИУМ
+                                        </div>
                                         <h3><i class="fas fa-tools"></i> 4.3. Ремонты</h3>
                                         <p>Для работы с ремонтами:</p>
                                         <ol>
@@ -3875,8 +3962,10 @@
                                     </div>
                                 </div>
                             </div>
-                    
                             <div class="instruction-block" id="instruction-findvehicle">
+                                <div class="free-badge">
+                                    <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                </div>
                                 <h2><i class="fas fa-search"></i> 5. Найти транспорт</h2>
                                 <div class="instruction-content active">
                                     <p>Для поиска транспорта:</p>
@@ -3889,8 +3978,10 @@
                                     <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Для поиска транспорта используется сервис - Яндекс.Карты.</small></p>
                                 </div>
                             </div>
-                    
                             <div class="instruction-block" id="instruction-findplaces">
+                                <div class="premium-badge">
+                                    <i class="fas fa-crown"></i> ПРЕМИУМ
+                                </div>
                                 <h2><i class="fas fa-map-marker-alt"></i> 6. Поиск мест</h2>
                                 <div class="instruction-content active">
                                     <p>Для поиска мест:</p>
@@ -3914,8 +4005,11 @@
                                     <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Для поиска мест используется сервис - Яндекс.Карты.</small></p>
                                 </div>
                             </div>
-                    
+                            
                             <div class="instruction-block" id="instruction-weather">
+                                <div class="premium-badge">
+                                    <i class="fas fa-crown"></i> ПРЕМИУМ
+                                </div>
                                 <h2><i class="fas fa-cloud"></i> 7. Погода</h2>
                                 <div class="instruction-content active">
                                     <p>Для получения прогноза погоды:</p>
@@ -3944,8 +4038,11 @@
                                     <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Основные данные для прогноза погоды берутся с сайта - OpenWeatherMap, а Open-Meteo и WeatherAPI - резервные. На месячный прогноз погоды имеются ограничения.</small></p>
                                 </div>
                             </div>
-                    
+                            
                             <div class="instruction-block" id="instruction-fuelprices">
+                                <div class="premium-badge">
+                                    <i class="fas fa-crown"></i> ПРЕМИУМ
+                                </div>
                                 <h2><i class="fas fa-dollar-sign"></i> 8. Цены на топливо</h2>
                                 <div class="instruction-content active">
                                     <p>Для получения цен на топливо:</p>
@@ -3967,8 +4064,10 @@
                                     <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Основной сайт для цен на топливо - fuelprice, а petrolplus - резервный. Данные цен на топливо обновляются 1 раз в 24 часа. Функция может работать некорректно из-за блокировок запросов бота к сайтам.</small></p>
                                 </div>
                             </div>
-                    
                             <div class="instruction-block" id="instruction-regioncode">
+                                <div class="free-badge">
+                                    <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                </div>
                                 <h2><i class="fas fa-map"></i> 9. Код региона</h2>
                                 <div class="instruction-content active">
                                     <p>Для определения региона:</p>
@@ -3985,8 +4084,11 @@
                                     <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Для проверки авто по госномеру используется сервис - AvtoCod.</small></p>
                                 </div>
                             </div>
-                    
+                            
                             <div class="instruction-block" id="instruction-obd2">
+                                <div class="free-badge">
+                                    <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                </div>
                                 <h2><i class="fas fa-diagnoses"></i> 10. Коды OBD2</h2>
                                 <div class="instruction-content active">
                                     <p>Для диагностики ошибок:</p>
@@ -3998,8 +4100,10 @@
                                     <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Для расшифровки кодов OBD2 используется заранее подготовленный список с описанием ошибок.</small></p>
                                 </div>
                             </div>
-                    
                             <div class="instruction-block" id="instruction-reminders">
+                                <div class="free-badge">
+                                    <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                </div>
                                 <h2><i class="fas fa-bell"></i> 11. Напоминания</h2>
                                 <div class="instruction-content active">
                                     <p>Для работы с напоминаниями:</p>
@@ -4030,8 +4134,11 @@
                                     <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Уведомления отправляются автоматически по заданной дате, типу и времени</small></p>
                                 </div>
                             </div>
-                    
+                            
                             <div class="instruction-block" id="instruction-antiradar">
+                                <div class="free-badge">
+                                    <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                </div>
                                 <h2><i class="fas fa-camera"></i> 12. Антирадар</h2>
                                 <div class="instruction-content active">
                                     <p>Для использования антирадара:</p>
@@ -4052,9 +4159,16 @@
                             </div>
                     
                             <div class="instruction-block" id="instruction-misc">
+                                <div class="mixed-badge">
+                                    <span class="free-part"><i class="fas fa-gift"></i> БЕСПЛАТНО</span>
+                                    <span class="premium-part"><i class="fas fa-crown"></i> ПРЕМИУМ</span>
+                                </div>
                                 <h2><i class="fas fa-ellipsis-h"></i> 13. Прочее</h2>
                                 <div class="instruction-content active">
                                     <div class="instruction-block" id="instruction-misc-news">
+                                        <div class="free-badge">
+                                            <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                        </div>
                                         <h3><i class="fas fa-newspaper"></i> 13.1. Новости</h3>
                                         <p>Для просмотра новостей:</p>
                                         <ol>
@@ -4066,6 +4180,9 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Новости могут не обновляться по техническим причинам.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-misc-currency">
+                                        <div class="free-badge">
+                                            <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                        </div>
                                         <h3><i class="fas fa-money-bill"></i> 13.2. Курсы валют</h3>
                                         <p>Для просмотра курсов валют:</p>
                                         <ol>
@@ -4076,6 +4193,9 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Основной сайт для курсов валют - ЦБ РФ, а MOEX - резервный. Обновление происходит 1 раз в 24 часа.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-misc-notifications">
+                                        <div class="premium-badge">
+                                            <i class="fas fa-crown"></i> ПРЕМИУМ
+                                        </div>
                                         <h3><i class="fas fa-bell"></i> 13.3. Уведомления</h3>
                                         <p>Для управления уведомлениями:</p>
                                         <ol>
@@ -4086,6 +4206,9 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Уведомления отправляются в 07:30, 13:00, 17:00.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-misc-forms">
+                                        <div class="free-badge">
+                                            <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                        </div>
                                         <h3><i class="fas fa-file-alt"></i> 13.4. Бланки</h3>
                                         <p>Для получения бланков документов:</p>
                                         <ol>
@@ -4103,6 +4226,9 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Бланки документов предоставляются в актуальной форме согласно законодательству РФ. Они могут быть распечатаны и заполнены вручную. Рекомендуется проверять актуальность форм на официальных сайтах государственных органов.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-misc-ads">
+                                        <div class="free-badge">
+                                            <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                        </div>
                                         <h3><i class="fas fa-ad"></i> 13.5. Реклама</h3>
                                         <p>Для работы с рекламой:</p>
                                         <ol>
@@ -4122,6 +4248,9 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Бронируйте время рекламы заранее, как заявка будет сформирована, администратор получит уведомление. Для обсуждения заявки и оплаты нужно обязательно связаться с администратором <a href="https://t.me/x_evgenyalex_x">@x_evgenyalex_x</a></small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-misc-adminchat">
+                                        <div class="free-badge">
+                                            <i class="fas fa-gift"></i> БЕСПЛАТНО
+                                        </div>
                                         <h3><i class="fas fa-comments"></i> 13.6. Чат с админом</h3>
                                         <p>Для связи с администратором:</p>
                                         <ol>
@@ -4141,10 +4270,19 @@
                                     </div>
                                 </div>
                             </div>
+                             
                             <div class="instruction-block" id="instruction-auxiliary">
+                                <div class="system-badge">
+                                    <i class="fas fa-server"></i>
+                                    СИСТЕМНОЕ
+                                </div>
                                 <h2><i class="fas fa-cogs"></i> 14. Вспомогательные функции</h2>
                                 <div class="instruction-content active">
                                     <div class="instruction-block" id="instruction-auxiliary-status">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-check-circle"></i> 14.1. Состояние функций</h3>
                                         <p>Проверка доступности функций:</p>
                                         <ol>
@@ -4158,6 +4296,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Функции могут быть временно недоступны из-за технического обслуживания или обновления. При этом пользователь получает информативное сообщение о причине недоступности.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-statistics">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-chart-line"></i> 14.2. Статистика функций</h3>
                                         <p>Учёт использования функций:</p>
                                         <ol>
@@ -4172,6 +4314,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Все данные собираются в обезличенной форме и используются исключительно для улучшения работы бота. Персональная информация пользователей при этом не раскрывается.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-userblock">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-ban"></i> 14.3. Блокировка пользователей</h3>
                                         <p>Проверка статуса пользователя:</p>
                                         <ol>
@@ -4186,6 +4332,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Блокировка применяется в случаях нарушения правил использования бота, массовой рассылки запросов или неправомерных действий. Для разблокировки необходимо связаться с администратором через указанные контакты.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-activity">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-user-clock"></i> 14.4. Обновление активности</h3>
                                         <p>Отслеживание активности пользователя:</p>
                                         <ol>
@@ -4200,6 +4350,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Данная функция необходима для корректной работы уведомлений о неактивности и предотвращения автоматического удаления данных через 30 дней бездействия.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-activitynotifications">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-bell-slash"></i> 14.5. Уведомления о неактивности</h3>
                                         <p>Для управления неактивностью:</p>
                                         <ol>
@@ -4209,6 +4363,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Для возобновления активности достаточно прописать команду <code>/start</code> или использовать любую из функций.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-chatstate">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-comments"></i> 14.6. Состояние чата для общения</h3>
                                         <p>Контроль состояния диалога:</p>
                                         <ol>
@@ -4223,6 +4381,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Данная функция предотвращает путаницу в диалоге и дублирование ответов. Если бот не отвечает более 30 секунд, рекомендуется отправить запрос повторно.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-errors">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-bug"></i> 14.7. Логирование ошибок</h3>
                                         <p>Регистрация событий и ошибок:</p>
                                         <ol>
@@ -4242,6 +4404,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Логи содержат только технические данные и не включают личную информацию пользователя. Срок хранения логов составляет 30 дней, после чего они автоматически удаляются.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-botblock">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-user-slash"></i> 14.8. Блокировка бота</h3>
                                         <p>Обработка случаев блокировки бота:</p>
                                         <ol>
@@ -4256,6 +4422,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> При разблокировке бота в течение 30-дневного периода все данные и настройки сохраняются. Для возобновления работы достаточно отправить любое сообщение или команду <code>/start</code>.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-check">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-key"></i> 14.9. Проверка функций</h3>
                                         <p>Проверка доступа к функциям:</p>
                                         <ol>
@@ -4270,6 +4440,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Система автоматически отслеживает срок действия подписки и за 2 дня до её окончания отправляет уведомление с предложением продления.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-channel">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-rss"></i> 14.10. Подписка на Telegram канал</h3>
                                         <p>Проверка статуса подписки на канал:</p>
                                         <ol>
@@ -4283,6 +4457,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Подписка на канал является обязательным условием использования бота, так как через канал рассылается важная информация об обновлениях и изменениях в работе сервиса.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-messages">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-text-height"></i> 14.11. Текстовые сообщения</h3>
                                         <p>Обработка типов сообщений:</p>
                                         <ol>
@@ -4297,6 +4475,10 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Данное ограничение необходимо для корректной работы бота и предотвращения ошибок в обработке команд. В разделах, где поддерживается прием мультимедийных сообщений, будет указано соответствующее уведомление.</small></p>
                                     </div>
                                     <div class="instruction-block" id="instruction-auxiliary-captcha">
+                                        <div class="system-badge">
+                                            <i class="fas fa-server"></i>
+                                            СИСТЕМНОЕ
+                                        </div>
                                         <h3><i class="fas fa-shield-alt"></i> 14.12. Капча</h3>
                                         <p>Защита от массовых запросов:</p>
                                         <ol>
@@ -4312,7 +4494,8 @@
                                         <p><small><i class="fas fa-info-circle"></i> <strong>Примечание:</strong> Данный механизм защищает бота от перегрузки и автоматизированных атак. При добросовестном использовании пользователь редко сталкивается с капчей. Если капча появляется слишком часто, рекомендуется делать паузы между запросами.</small></p>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
+                             
                         </div>
                     </section>
 
@@ -4747,8 +4930,8 @@
             <footer class="corporate-footer">
                 <div class="footer-container">
                     <div class="footer-logo">
-                        <i class="fas fa-car"></i>
-                        <span>CAR MANAGER</span>
+                        <img src="images/logo/logo.png" alt="Car Manager Bot Logo" class="footer-logo-image">
+                        <span>CAR MANAGER BOT</span>
                     </div>
                     <div class="footer-links">
                         <a href="#about">О боте</a>
