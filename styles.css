@@ -1008,6 +1008,10 @@
       margin: 1rem 0 1rem 1.5rem;
       padding-left: 1rem;
       border-left: 2px solid var(--border-color);
+      display: block !important;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: none;
   }
   
   /* Стили для сворачиваемых подсекций */
@@ -1053,4 +1057,29 @@
   
   .instruction-block .instruction-content {
       animation: slideDown 0.3s ease;
+  }
+  
+  /* Исправляем отображение вложенных instruction-block элементов */
+  .instruction-block .instruction-block {
+      display: block !important;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: none;
+  }
+  
+  /* Показываем содержимое вложенных блоков */
+  .instruction-block .instruction-block > * {
+      display: block;
+  }
+  
+  /* Убираем скрытие для вложенных instruction-content */
+  .instruction-block .instruction-block .instruction-content {
+      display: block;
+      padding: 0.5rem 1rem;
+      max-height: none !important;
+  }
+  
+  /* Убираем animation для более гладкого отображения */
+  .instruction-block .instruction-block.active > .instruction-content {
+      animation: none;
   }
