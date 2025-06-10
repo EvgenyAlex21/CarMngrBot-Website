@@ -1,5 +1,5 @@
+// Константы для элементов с проверкой на существование
 document.addEventListener('DOMContentLoaded', function() {
-    // Константы для элементов с проверкой на существование
     const DOM = {
         menu: document.querySelector('.corporate-nav ul.menu'),
         hamburger: document.querySelector('.hamburger'),
@@ -10,12 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         instructionBlocks: document.querySelectorAll('.instruction-block, .agreement-block, .privacy-block')
     };
 
-    // Состояние приложения
     const state = {
         activeCard: null,
         lastScrollPosition: 0,
         scrollDirection: 'down',
-        currentActiveMenuItem: null // Добавляем отслеживание текущего активного элемента меню
+        currentActiveMenuItem: null 
     };
 
     // Обеспечиваем создание оверлея
@@ -25,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
             overlay.className = 'sidebar-overlay';
             document.body.appendChild(overlay);
             
-            // Добавляем слушатель на оверлей для закрытия меню
             overlay.addEventListener('click', function() {
                 const menu = document.querySelector('.corporate-nav ul.menu');
                 const sidebar = document.querySelector('.corporate-sidebar');
@@ -50,21 +48,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const loginForm = document.getElementById('adminLoginForm');
         const loginError = document.getElementById('loginError');
         
-        // Открытие модального окна
         adminLoginBtn.addEventListener('click', function() {
             adminLoginModal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Запрет прокрутки страницы
+            document.body.style.overflow = 'hidden'; 
         });
         
-        // Закрытие модального окна по клику на крестик
         closeModalBtn.addEventListener('click', function() {
             adminLoginModal.style.display = 'none';
-            document.body.style.overflow = ''; // Восстановление прокрутки
-            loginError.textContent = ''; // Очистка ошибок
-            loginForm.reset(); // Очистка формы
+            document.body.style.overflow = ''; 
+            loginError.textContent = ''; 
+            loginForm.reset(); 
         });
         
-        // Закрытие модального окна по клику вне его содержимого
         window.addEventListener('click', function(event) {
             if (event.target === adminLoginModal) {
                 adminLoginModal.style.display = 'none';
@@ -74,33 +69,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Обработка отправки формы
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
             
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // Проверка учетных данных
             if (username === 'EACMB' && password === 'EA!04!CMB!25') {
-                // Успешный вход
                 loginError.textContent = '';
                 loginError.style.color = 'var(--success-color)';
                 loginError.textContent = 'Вход выполнен успешно! Перенаправление...';
                 
-                // Сохранение состояния авторизации в localStorage
                 localStorage.setItem('adminLoggedIn', 'true');
                 
-                // Перенаправление на страницу админа через 1 секунду
                 setTimeout(function() {
                     window.location.href = 'admin.html';
                 }, 1000);
             } else {
-                // Неверные учетные данные
                 loginError.style.color = 'var(--danger-color)';
                 loginError.textContent = 'Неверный логин или пароль!';
                 
-                // Анимация ошибки
                 loginForm.classList.add('error-shake');
                 setTimeout(function() {
                     loginForm.classList.remove('error-shake');
@@ -112,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация при загрузке
     function init() {
         ensureOverlayExists();
-        setupAdminLogin(); // Перемещаем сюда вызов setupAdminLogin
+        setupAdminLogin(); 
         if (DOM.hamburger && DOM.menu) setupMobileMenu();
         setupSmoothScroll();
         if (DOM.scrollToTopBtn) setupScrollToTop();
@@ -129,35 +117,27 @@ document.addEventListener('DOMContentLoaded', function() {
             sidebarToggle.addEventListener('click', toggleSidebar);
         }
 
-        // УБИРАЕМ вызов collapseAllMenuItems() - не сворачиваем меню при загрузке
-        // collapseAllMenuItems(); // Закомментировали эту строку
-        expandMenuItemByHash(); // Только разворачиваем нужное
+        expandMenuItemByHash(); 
         
-        // Добавляем глобальный обработчик для всех ссылок с якорями
         setupGlobalAnchorLinks();
     }
     
     // Новая функция для обработки всех якорных ссылок глобально
     function setupGlobalAnchorLinks() {
-        // Ищем все якорные ссылки в футере и других частях сайта (кроме меню)
         document.querySelectorAll('a[href^="#"]:not(.sidebar-nav a):not(.corporate-nav a)').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 
-                // Проверяем, не пустой ли якорь
                 if (targetId === '#') return;
                 
-                // Обновляем URL
                 window.location.hash = targetId.substring(1);
                 
-                // Находим целевой элемент
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    // Прокручиваем к элементу
+
                     scrollToElement(targetElement);
                     
-                    // Подсвечиваем и убеждаемся, что элемент видим
                     setTimeout(() => {
                         ensureElementVisible(targetElement);
                         highlightElement(targetElement);
@@ -169,7 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Функция для сворачивания всех пунктов меню в сайдбаре
     function collapseAllMenuItems() {
-        // Сворачиваем все вложенные ul в сайдбаре
         document.querySelectorAll('.sidebar-nav ul ul').forEach(ul => {
             ul.style.display = 'none';
         });
@@ -184,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const nestedUl = parentLi.querySelector('ul');
             
             if (nestedUl) {
-                // Добавляем стрелку для обозначения раскрывающегося меню
                 if (!link.querySelector('.expand-arrow')) {
                     const arrow = document.createElement('i');
                     arrow.className = 'fas fa-chevron-right expand-arrow';
@@ -193,12 +171,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     link.appendChild(arrow);
                 }
                 
-                // Изначально скрываем вложенные меню
                 nestedUl.style.display = 'none';
                 
-                // Добавляем обработчик клика
                 link.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 1024) { // Только на мобильных
+                    if (window.innerWidth <= 1024) { 
                         e.preventDefault();
                         
                         const arrow = this.querySelector('.expand-arrow');
@@ -208,7 +184,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             nestedUl.style.display = 'none';
                             if (arrow) arrow.style.transform = 'rotate(0deg)';
                         } else {
-                            // Сворачиваем другие открытые меню
                             document.querySelectorAll('.sidebar-nav ul ul').forEach(ul => {
                                 if (ul !== nestedUl) {
                                     ul.style.display = 'none';
@@ -228,22 +203,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Изменяем функцию для работы без предварительного сворачивания
     function expandMenuItemByHash() {
-        // Получаем текущий хэш из URL
         const hash = window.location.hash;
         if (!hash) return;
         
-        // Ищем ссылку в сайдбаре, соответствующую текущему хэшу
         const targetLink = document.querySelector(`.sidebar-nav a[href="${hash}"]`);
         if (!targetLink) return;
         
-        // Сохраняем текущий активный элемент
         if (state.currentActiveMenuItem) {
             state.currentActiveMenuItem.classList.remove('active-menu-item');
         }
         targetLink.classList.add('active-menu-item');
         state.currentActiveMenuItem = targetLink;
         
-        // Разворачиваем только родительские ul элементы для целевой ссылки
         let parent = targetLink.parentElement;
         while (parent && !parent.classList.contains('sidebar-nav')) {
             if (parent.tagName === 'LI') {
@@ -260,20 +231,17 @@ document.addEventListener('DOMContentLoaded', function() {
             parent = parent.parentElement;
         }
         
-        // Разворачиваем соответствующий блок инструкции в основном контенте
-        const targetId = hash.substring(1); // Удаляем символ #
+        const targetId = hash.substring(1); 
         expandOnlyTargetInstructionBlock(targetId);
     }
     
     // Функция для разворачивания только целевого блока инструкций в основном контенте
     function expandOnlyTargetInstructionBlock(targetId) {
         
-        // Сворачиваем все блоки инструкций
         document.querySelectorAll('.instruction-block .instruction-content').forEach(content => {
             content.style.display = 'none';
         });
         
-        // Сворачиваем все элементы после заголовков
         document.querySelectorAll('.instruction-block h2, .instruction-block h3, .instruction-block h4').forEach(header => {
             let sibling = header.nextElementSibling;
             while (sibling && !['H2','H3','H4'].includes(sibling.tagName)) {
@@ -281,25 +249,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 sibling = sibling.nextElementSibling;
             }
             
-            // Поворачиваем стрелки в исходное положение
             const icon = header.querySelector('.toggle-icon');
             if (icon) {
                 icon.style.transform = 'rotate(0deg)';
             }
         });
         
-        // Находим целевой блок инструкции
         const targetBlock = document.getElementById(targetId);
         if (!targetBlock) {
-            console.log('Блок не найден:', targetId);
             return;
         }
                 
-        // Разворачиваем целевой блок
         if (targetBlock.classList.contains('instruction-content')) {
             targetBlock.style.display = 'block';
             
-            // Найдем родительский instruction-block
             const parentBlock = targetBlock.closest('.instruction-block');
             if (parentBlock) {
                 const header = parentBlock.querySelector(':scope > h2, :scope > h3, :scope > h4');
@@ -311,13 +274,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         } else {
-            // Если целевой блок - это instruction-block
             const content = targetBlock.querySelector(':scope > .instruction-content');
             if (content) {
                 content.style.display = 'block';
             }
             
-            // Разворачиваем элементы после заголовка
             const header = targetBlock.querySelector(':scope > h2, :scope > h3, :scope > h4');
             if (header) {
                 let sibling = header.nextElementSibling;
@@ -332,8 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-        
-        // Разворачиваем родительские instruction-block
+
         let block = targetBlock.parentElement;
         while (block) {
             if (block.classList.contains('instruction-block')) {
@@ -342,7 +302,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     content.style.display = 'block';
                 }
                 
-                // Разворачиваем элементы после заголовка родительского блока
                 const header = block.querySelector(':scope > h2, :scope > h3, :scope > h4');
                 if (header) {
                     let sibling = header.nextElementSibling;
@@ -358,7 +317,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            // Прерываем цикл, если дошли до section-content или corporate-main
             if (block.classList.contains('section-content') || block.classList.contains('corporate-main')) {
                 break;
             }
@@ -366,7 +324,6 @@ document.addEventListener('DOMContentLoaded', function() {
             block = block.parentElement;
         }
         
-        // После разворачивания, делаем блок видимым на экране
         setTimeout(() => {
             const element = document.getElementById(targetId);
             if (element) {
@@ -376,30 +333,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
     
-    // Мобильное меню - улучшенная версия с отладкой
+    // Мобильное меню - улучшенная версия
     function setupMobileMenu() {
-        console.log('🔧 Инициализация мобильного меню...');
-        
         if (DOM.hamburger) {
             DOM.hamburger.addEventListener('click', function(e) {
                 e.stopPropagation();
-                e.preventDefault(); // Добавляем preventDefault
+                e.preventDefault(); 
                 toggleMenu();
             });
-            console.log('✅ Гамбургер меню настроено');
         }
 
-        // Добавляем обработку выпадающих меню для мобильных устройств
         const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-        console.log(`🔍 Найдено ${dropdownToggles.length} выпадающих меню`);
         
         dropdownToggles.forEach((toggle, index) => {
-            console.log(`📋 Настройка меню ${index + 1}: ${toggle.textContent.trim()}`);
-            
             toggle.addEventListener('click', function(e) {
-                console.log(`📱 Клик по меню: ${this.textContent.trim()}, ширина: ${window.innerWidth}px`);
-                
-                // Только для мобильных устройств
                 if (window.innerWidth <= 1024) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -407,119 +354,89 @@ document.addEventListener('DOMContentLoaded', function() {
                     const parent = this.parentElement;
                     const dropdownMenu = parent.querySelector('.dropdown-menu');
                     
-                    console.log(`🎯 Родительский элемент:`, parent);
-                    console.log(`📋 Выпадающее меню:`, dropdownMenu);
-                    
                     if (!dropdownMenu) {
-                        console.warn('⚠️ Выпадающее меню не найдено!');
                         return;
                     }
                     
-                    // Закрываем другие открытые выпадающие меню с анимацией
                     dropdownToggles.forEach(otherToggle => {
                         if (otherToggle !== toggle) {
                             const otherParent = otherToggle.parentElement;
                             const otherMenu = otherParent.querySelector('.dropdown-menu');
                             if (otherMenu && otherParent.classList.contains('mobile-active')) {
-                                console.log('🔒 Закрываем другое меню');
                                 otherParent.classList.remove('mobile-active');
-                                // Плавное закрытие
                                 otherMenu.style.maxHeight = '0';
                             }
                         }
                     });
                     
-                    // Переключаем текущее выпадающее меню с анимацией
                     const wasActive = parent.classList.contains('mobile-active');
                     parent.classList.toggle('mobile-active');
                     
                     if (parent.classList.contains('mobile-active')) {
-                        console.log('🔓 Открываем меню');
-                        // Плавное открытие
                         setTimeout(() => {
                             dropdownMenu.style.maxHeight = dropdownMenu.scrollHeight + 'px';
                         }, 10);
                     } else {
-                        console.log('🔒 Закрываем меню');
-                        // Плавное закрытие
                         dropdownMenu.style.maxHeight = '0';
                     }
-                } else {
-                    console.log('🖥️ Десктопная версия - стандартное поведение');
                 }
             });
         });
 
-        // Обрабатываем клики по ВСЕМ ссылкам в мобильном меню
         if (DOM.menu) {
             const links = DOM.menu.querySelectorAll('a');
-            console.log(`🔗 Настройка ${links.length} ссылок в меню`);
             
             links.forEach(link => {
                 link.addEventListener('click', function(e) {
                     if (window.innerWidth <= 1024) {
                         const href = this.getAttribute('href');
                         
-                        // Если это выпадающее меню, пропускаем обработку
                         if (this.classList.contains('dropdown-toggle')) {
                             return;
                         }
                         
-                        // Если это кнопка "Содержание"
                         if (this.classList.contains('sidebar-menu-toggle')) {
                             e.preventDefault();
-                            console.log('📋 Открываем боковую панель');
                             
-                            // Закрываем мобильное меню
                             toggleMenu();
                             
-                            // Открываем боковую панель через небольшую задержку
                             setTimeout(() => {
                                 toggleSidebar();
                             }, 300);
                             return;
                         }
                         
-                        // Если это якорная ссылка
                         if (href && href.startsWith('#')) {
                             e.preventDefault();
                             
-                            // Запоминаем целевую секцию
                             const targetId = href.substring(1);
-                            console.log(`🎯 Переход к секции: ${targetId}`);
                             
-                            // Сначала закрываем меню
                             toggleMenu();
                             
-                            // Ждем завершения анимации закрытия меню и потом скроллим
                             setTimeout(() => {
                                 const targetElement = document.getElementById(targetId);
                                 if (targetElement) {
-                                    // Обновляем хеш
+
                                     window.location.hash = href;
                                     
-                                    // Разворачиваем меню сайдбара если нужно
                                     expandMenuItemByHash();
                                     
-                                    // Прокручиваем к элементу
                                     scrollToElement(targetElement);
                                     
-                                    // Обеспечиваем видимость элемента
                                     setTimeout(() => {
                                         ensureElementVisible(targetElement);
                                         highlightElement(targetElement);
                                     }, 700);
                                 }
-                            }, 300); // Ждем завершения анимации закрытия меню
+                            }, 300); 
                         }
                     }
                 });
             });
         }
-        
-        console.log('✅ Мобильное меню полностью настроено');
     }
 
+    // Функция toggleMenu
     function toggleMenu() {
         const overlay = ensureOverlayExists();
         
@@ -531,7 +448,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 DOM.hamburger.classList.toggle('active');
             }
             
-            // Управляем оверлеем только для меню, не для сайдбара
             const sidebar = document.querySelector('.corporate-sidebar');
             const sidebarActive = sidebar && sidebar.classList.contains('active');
             
@@ -539,12 +455,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 overlay.classList.add('active', 'menu-overlay');
                 document.body.style.overflow = 'hidden';
             } else if (!sidebarActive) {
-                // Убираем оверлей только если сайдбар тоже не активен
                 overlay.classList.remove('active', 'menu-overlay');
                 document.body.style.overflow = '';
             }
             
-            // При закрытии меню сбрасываем состояния выпадающих подменю
             if (wasActive) {
                 resetDropdowns();
             }
@@ -558,7 +472,6 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdown.classList.remove('mobile-active');
             const menu = dropdown.querySelector('.dropdown-menu');
             if (menu) {
-                // Плавное закрытие
                 menu.style.maxHeight = '0';
             }
         });
@@ -573,7 +486,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const wasActive = sidebar.classList.contains('active');
             sidebar.classList.toggle('active');
             
-            // Управляем оверлеем только для сайдбара, не для меню
             const menu = document.querySelector('.corporate-nav ul.menu');
             const menuActive = menu && menu.classList.contains('active');
             
@@ -581,7 +493,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 overlay.classList.add('active', 'sidebar-overlay-active');
                 document.body.style.overflow = 'hidden';
             } else if (!menuActive) {
-                // Убираем оверлей только если меню тоже не активно
                 overlay.classList.remove('active', 'sidebar-overlay-active');
                 document.body.style.overflow = '';
             }
@@ -597,14 +508,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
                     
-                    // Обновляем URL, чтобы правильно сработала функция по хэшу
                     if (targetId !== "#") {
                         window.location.hash = targetId.substring(1);
                         
-                        // НЕ сворачиваем все меню, только разворачиваем нужное
                         expandMenuItemByHash();
                         
-                        // Прокручиваем к выбранному элементу
                         const targetElement = document.querySelector(targetId);
                         if (targetElement) {
                             scrollToElement(targetElement);
@@ -623,9 +531,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function ensureElementVisible(element) {
         const rect = element.getBoundingClientRect();
         const header = document.querySelector('.corporate-header');
-        const headerHeight = header ? header.offsetHeight + 20 : 70; // Добавляем запас
+        const headerHeight = header ? header.offsetHeight + 20 : 70; 
         
-        // Если верхняя часть элемента не видна, дополнительно прокручиваем
         if (rect.top < headerHeight) {
             window.scrollBy({
                 top: rect.top - headerHeight,
@@ -636,15 +543,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Новая функция для подсветки элемента
     function highlightElement(element) {
-        // Удаляем класс подсветки с любых ранее подсвеченных элементов
         document.querySelectorAll('.highlight-pulse').forEach(el => {
             el.classList.remove('highlight-pulse');
         });
         
-        // Определяем, какой элемент подсвечивать
         let targetElement = element;
         
-        // Если это заголовок внутри блока, подсвечиваем весь блок
         if (element.tagName === 'H2' || element.tagName === 'H3' || element.tagName === 'H4') {
             const parentBlock = element.closest('.feature-card, .instruction-block, .agreement-block, .privacy-block');
             if (parentBlock) {
@@ -652,22 +556,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Для карточек функций (feature-card) делаем особую обработку
         if (targetElement.classList.contains('feature-card')) {
-            // Если есть активная карточка и это не текущая, делаем её неактивной
             if (state.activeCard && state.activeCard !== targetElement) {
                 state.activeCard.classList.remove('active');
             }
             
-            // Делаем текущую карточку активной
             targetElement.classList.add('active');
             state.activeCard = targetElement;
         }
         
-        // Добавляем класс подсветки
         targetElement.classList.add('highlight-pulse');
-        
-        // Удаляем класс после завершения анимации (3 моргания)
+
         setTimeout(() => {
             targetElement.classList.remove('highlight-pulse');
         }, 3000);
@@ -677,35 +576,29 @@ document.addEventListener('DOMContentLoaded', function() {
     function scrollToElement(element, customOffset = null) {
         if (!element) return;
         
-        // Получаем высоту шапки
         const header = document.querySelector('.corporate-header');
         const headerHeight = header ? header.offsetHeight : 0;
         
-        // Настройка отступа в зависимости от типа элемента
         let offset = customOffset;
         if (offset === null) {
-            // Базовое значение отступа
-            offset = 120; // Увеличиваем с 90 до 120
             
-            // Дополнительные отступы для определенных элементов
+            offset = 120; 
+            
             if (element.classList.contains('feature-card')) {
-                offset = 150; // Больший отступ для карточек функций
+                offset = 150; 
             } else if (element.id === 'function' || element.closest('.section-header')) {
-                offset = 160; // Еще больший отступ для заголовков секций
+                offset = 160; 
             }
         }
         
-        // Рассчитываем конечную позицию с учетом шапки
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.scrollY - offset;
         
-        // Плавная прокрутка
         window.scrollTo({
             top: offsetPosition,
             behavior: 'smooth'
         });
         
-        // Сохраняем позицию прокрутки для корректного определения направления
         state.lastScrollPosition = window.scrollY;
     }
 
@@ -735,7 +628,6 @@ function handleScroll() {
         }
     }
     
-    // Если футер виден, останавливаем автоматическую анимацию секций
     const footer = document.querySelector('.corporate-footer');
     if (footer) {
         const footerRect = footer.getBoundingClientRect();
@@ -754,19 +646,18 @@ function handleScroll() {
         const options = {
           root: null,
           rootMargin: '0px',
-          threshold: 0.05 // Уменьшил порог срабатывания
+          threshold: 0.05 
         };
       
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               entry.target.classList.add('in-view');
-              observer.unobserve(entry.target); // Прекращаем наблюдение после появления
+              observer.unobserve(entry.target); 
             }
           });
         }, options);
       
-        // Наблюдаем за всеми секциями, включая инструкции
         document.querySelectorAll('.corporate-section').forEach(section => {
           observer.observe(section);
         });
@@ -797,8 +688,6 @@ function handleScroll() {
                         }, 100);
                     }
                 });
-            } else {
-                console.warn('Instruction content not found in card:', card);
             }
         });
 
@@ -813,7 +702,6 @@ function handleScroll() {
     // Хэндлер для закрытия активных элементов при клике вне меню
     function setupClickOutsideHandler() {
         document.addEventListener('click', function(e) {
-            // Проверяем клики более точно
             const isMenuClick = e.target.closest('.corporate-nav') || 
                                e.target.closest('.hamburger') ||
                                e.target === DOM.hamburger;
@@ -821,12 +709,10 @@ function handleScroll() {
                                   e.target.closest('.sidebar-toggle');
             const isOverlayClick = e.target.classList.contains('sidebar-overlay');
             
-            // Закрываем меню если клик был вне его области или на оверлее
             if ((!isMenuClick || isOverlayClick) && DOM.menu && DOM.menu.classList.contains('active')) {
                 toggleMenu();
             }
             
-            // Закрываем сайдбар если клик был вне его области или на оверлее
             if ((!isSidebarClick || isOverlayClick)) {
                 const sidebar = document.querySelector('.corporate-sidebar');
                 if (sidebar && sidebar.classList.contains('active')) {
@@ -834,7 +720,6 @@ function handleScroll() {
                 }
             }
             
-            // Закрываем активную карточку
             if (state.activeCard && !e.target.closest('.feature-card')) {
                 state.activeCard.classList.remove('active');
                 state.activeCard = null;
@@ -844,51 +729,43 @@ function handleScroll() {
 
     // Сворачиваемые блоки
     function setupCollapsibleBlocks() {
-        // Добавляем стрелки ко всем h2, h3, h4
-        document.querySelectorAll('.instruction-block h2, .instruction-block h3, .instruction-block h4').forEach(header => {
-            // Удаляем существующую стрелку, если она есть
+
+        document.querySelectorAll('.instruction-block h2, .instruction-block h3, .instruction-block h4, .agreement-block h2, .agreement-block h3, .agreement-block h4, .privacy-block h2, .privacy-block h3, .privacy-block h4').forEach(header => {
+
             const existingIcon = header.querySelector('.toggle-icon');
             if (existingIcon) existingIcon.remove();
 
-            // Создаем новую стрелку с правильным позиционированием
             const toggleIcon = document.createElement('i');
             toggleIcon.className = 'fas fa-chevron-right toggle-icon';
             toggleIcon.style.cssText = 'margin-left: 10px; transition: transform 0.3s ease; float: right;';
             header.appendChild(toggleIcon);
         });
 
-        // Изначально скрываем все содержимое
         hideAllContent();
 
-        // Переменная для отслеживания текущего открытого раздела верхнего уровня
         let currentOpenTopLevel = null;
 
         // Обработка клика по заголовкам
-        document.querySelectorAll('.instruction-block h2, .instruction-block h3, .instruction-block h4').forEach(header => {
+        document.querySelectorAll('.instruction-block h2, .instruction-block h3, .instruction-block h4, .agreement-block h2, .agreement-block h3, .agreement-block h4, .privacy-block h2, .privacy-block h3, .privacy-block h4').forEach(header => {
             header.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                const currentBlock = header.closest('.instruction-block');
+                const currentBlock = header.closest('.instruction-block, .agreement-block, .privacy-block');
                 const headerLevel = getHeaderLevel(header);
                 
-                // Если это заголовок верхнего уровня (h2 или первый уровень в иерархии)
                 if (isTopLevelHeader(header)) {
-                    // Если кликнули по уже открытому разделу верхнего уровня - закрываем его
                     if (currentOpenTopLevel === currentBlock) {
                         hideAllContent();
                         currentOpenTopLevel = null;
                         return;
                     }
                     
-                    // Закрываем все содержимое
                     hideAllContent();
                     
-                    // Открываем новый раздел верхнего уровня
                     showBlockContent(currentBlock);
                     currentOpenTopLevel = currentBlock;
                 } else {
-                    // Для подразделов - применяем улучшенный аккордеон-эффект
                     handleAdvancedAccordion(currentBlock, header);
                 }
             });
@@ -898,17 +775,14 @@ function handleScroll() {
         function handleAdvancedAccordion(currentBlock, clickedHeader) {
             const clickedLevel = getHeaderLevel(clickedHeader);
             
-            // Находим все блоки на том же уровне вложенности
             const siblingBlocks = findSameLevelSiblings(currentBlock, clickedLevel);
             
-            // Закрываем все сиблинги на том же уровне
             siblingBlocks.forEach(sibling => {
                 if (sibling !== currentBlock) {
                     hideBlockContentRecursively(sibling);
                 }
             });
 
-            // Переключаем текущий блок
             toggleBlockContent(currentBlock);
         }
 
@@ -916,24 +790,22 @@ function handleScroll() {
         function findSameLevelSiblings(currentBlock, targetLevel) {
             const siblings = [];
             
-            // Определяем контейнер для поиска (родительский блок или секция)
             let container = currentBlock.parentElement;
             
-            // Ищем подходящий контейнер (instruction-content или section-content)
             while (container && !container.classList.contains('instruction-content') && 
-                   !container.classList.contains('section-content')) {
+              !container.classList.contains('agreement-content') && 
+              !container.classList.contains('privacy-content') && 
+              !container.classList.contains('section-content')) {
                 container = container.parentElement;
             }
             
             if (!container) return siblings;
             
-            // Находим все instruction-block в этом контейнере
-            const allBlocks = container.querySelectorAll('.instruction-block');
+            const allBlocks = container.querySelectorAll('.instruction-block, .agreement-block, .privacy-block');
             
             allBlocks.forEach(block => {
                 const header = block.querySelector(':scope > h2, :scope > h3, :scope > h4');
                 if (header && getHeaderLevel(header) === targetLevel) {
-                    // Проверяем, что блок находится на том же уровне вложенности
                     if (isOnSameNestingLevel(currentBlock, block)) {
                         siblings.push(block);
                     }
@@ -945,33 +817,35 @@ function handleScroll() {
 
         // Функция для проверки, находятся ли блоки на одном уровне вложенности
         function isOnSameNestingLevel(block1, block2) {
-            const parent1 = findDirectParentInstructionBlock(block1);
-            const parent2 = findDirectParentInstructionBlock(block2);
+            const parent1 = findDirectParentBlock(block1);
+            const parent2 = findDirectParentBlock(block2);
             
             return parent1 === parent2;
         }
 
-        // Функция для поиска прямого родительского instruction-block
-        function findDirectParentInstructionBlock(block) {
+        // Функция для поиска прямого родительского блока
+        function findDirectParentBlock(block) {
             let parent = block.parentElement;
             
             while (parent && !parent.classList.contains('section-content')) {
-                if (parent.classList.contains('instruction-block') && parent !== block) {
+                if ((parent.classList.contains('instruction-block') || 
+                    parent.classList.contains('agreement-block') || 
+                    parent.classList.contains('privacy-block')) && 
+                    parent !== block) {
                     return parent;
                 }
                 parent = parent.parentElement;
             }
             
-            return null; // Если нет родительского instruction-block
+            return null; 
         }
 
         // Функция для рекурсивного скрытия содержимого блока и всех вложенных блоков
         function hideBlockContentRecursively(block) {
-            // Скрываем содержимое текущего блока
+
             hideBlockContent(block);
-            
-            // Находим и скрываем все вложенные instruction-block
-            const nestedBlocks = block.querySelectorAll('.instruction-block');
+
+            const nestedBlocks = block.querySelectorAll('.instruction-block, .agreement-block, .privacy-block');
             nestedBlocks.forEach(nestedBlock => {
                 hideBlockContent(nestedBlock);
             });
@@ -979,13 +853,12 @@ function handleScroll() {
 
         // Функция для определения уровня заголовка
         function getHeaderLevel(header) {
-            return parseInt(header.tagName.substring(1)); // H2 -> 2, H3 -> 3, etc.
+            return parseInt(header.tagName.substring(1)); 
         }
 
         // Функция для определения, является ли заголовок верхнего уровня
         function isTopLevelHeader(header) {
-            // Проверяем, что это прямой дочерний элемент section-content
-            const block = header.closest('.instruction-block');
+            const block = header.closest('.instruction-block, .agreement-block, .privacy-block');
             if (!block) return false;
             
             const parent = block.parentElement;
@@ -994,18 +867,23 @@ function handleScroll() {
 
         // Функция для скрытия всего содержимого
         function hideAllContent() {
-            document.querySelectorAll('.instruction-block').forEach(block => {
+            document.querySelectorAll('.instruction-block, .agreement-block, .privacy-block').forEach(block => {
                 hideBlockContent(block);
             });
         }
 
         // Функция для скрытия содержимого блока
         function hideBlockContent(block) {
-            // Скрываем .instruction-content
-            const content = block.querySelector(':scope > .instruction-content');
+            let contentClass = '.instruction-content';
+            if (block.classList.contains('agreement-block')) {
+                contentClass = '.agreement-content';
+            } else if (block.classList.contains('privacy-block')) {
+                contentClass = '.privacy-content';
+            }
+            
+            const content = block.querySelector(`:scope > ${contentClass}`);
             if (content) content.style.display = 'none';
 
-            // Скрываем элементы после заголовка
             const header = block.querySelector(':scope > h2, :scope > h3, :scope > h4');
             if (header) {
                 let sibling = header.nextElementSibling;
@@ -1014,7 +892,6 @@ function handleScroll() {
                     sibling = sibling.nextElementSibling;
                 }
 
-                // Поворачиваем стрелку в исходное положение
                 const icon = header.querySelector('.toggle-icon');
                 if (icon) icon.style.transform = 'rotate(0deg)';
             }
@@ -1024,8 +901,15 @@ function handleScroll() {
 
         // Функция для показа содержимого блока
         function showBlockContent(block) {
-            // Показываем .instruction-content
-            const content = block.querySelector(':scope > .instruction-content');
+            let contentClass = '.instruction-content';
+            if (block.classList.contains('agreement-block')) {
+                contentClass = '.agreement-content';
+            } else if (block.classList.contains('privacy-block')) {
+                contentClass = '.privacy-content';
+            }
+            
+            // Показываем содержимое
+            const content = block.querySelector(`:scope > ${contentClass}`);
             if (content) content.style.display = 'block';
 
             // Показываем элементы после заголовка
@@ -1037,7 +921,6 @@ function handleScroll() {
                     sibling = sibling.nextElementSibling;
                 }
 
-                // Поворачиваем стрелку
                 const icon = header.querySelector('.toggle-icon');
                 if (icon) icon.style.transform = 'rotate(90deg)';
             }
@@ -1060,8 +943,8 @@ function handleScroll() {
     // Анимация карточек при прокрутке
     function animateOnScroll() {
         const isMobile = window.innerWidth <= 768;
-        if (isMobile) return; // Пропускаем анимацию на мобильных
-    
+        if (isMobile) return; 
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1071,12 +954,35 @@ function handleScroll() {
                 }
             });
         }, { threshold: 0.1 });
-    
+
+        // Анимация для карточек функций
         DOM.featureCards.forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(20px)';
-            card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+            card.style.transition = `opacity 0.4s ease ${index * 0.08}s, transform 0.4s ease ${index * 0.08}s`;
             observer.observe(card);
+        });
+        
+        // Анимация для блоков инструкций, соглашения и политики
+        const contentBlocks = document.querySelectorAll('.instruction-block, .agreement-block, .privacy-block');
+        contentBlocks.forEach((block, index) => {
+            if (block.closest('.instruction-content, .agreement-content, .privacy-content')) {
+                return;
+            }
+            
+            block.style.opacity = '0';
+            block.style.transform = 'translateY(20px)'; 
+            block.style.transition = `opacity 0.4s ease ${index * 0.02}s, transform 0.4s ease ${index * 0.02}s`; 
+            observer.observe(block);
+        });
+        
+        // Анимация для основных секций
+        const mainSections = document.querySelectorAll('#instructions > .section-header, #agreement > .section-header, #privacy > .section-header');
+        mainSections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(15px)'; 
+            section.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; 
+            observer.observe(section);
         });
     }
 
@@ -1118,7 +1024,6 @@ function handleScroll() {
             }
             document.body.style.overflow = '';
             
-            // Сбрасываем стили выпадающих меню при переходе к десктопной версии
             document.querySelectorAll('.dropdown-menu').forEach(menu => {
                 menu.style.maxHeight = '';
             });
@@ -1130,15 +1035,12 @@ function handleScroll() {
         }
     });
 
-    // Запуск приложения
     init();
     
     // Добавляем обработчик изменения хэша в URL
     window.addEventListener('hashchange', function() {
-        // НЕ сворачиваем все, только разворачиваем нужное
         expandMenuItemByHash();
         
-        // Добавляем прокрутку к элементу по хэшу
         const hash = window.location.hash;
         if (hash) {
             const targetElement = document.querySelector(hash);
@@ -1158,7 +1060,6 @@ function handleScroll() {
     if (window.location.hash) {
         setTimeout(() => {
             expandMenuItemByHash();
-            // Также добавляем прокрутку к начальному хэшу
             const targetElement = document.querySelector(window.location.hash);
             if (targetElement) {
                 scrollToElement(targetElement);
