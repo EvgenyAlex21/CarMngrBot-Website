@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded', function() {
         expandMenuItemByHash(); 
         
         setupGlobalAnchorLinks();
+        
+        // Добавьте вызов функции здесь
+        preserveGridLayout();
     }
     
     // Новая функция для обработки всех якорных ссылок глобально
@@ -233,6 +236,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const targetId = hash.substring(1); 
         expandOnlyTargetInstructionBlock(targetId);
+        
+        // Добавьте вызов функции для сохранения сетки
+        preserveGridLayout();
     }
     
     // Функция для разворачивания только целевого блока инструкций в основном контенте
@@ -685,6 +691,8 @@ function handleScroll() {
                                 block: 'nearest',
                                 inline: 'nearest'
                             });
+                            // Добавьте вызов функции здесь
+                            preserveGridLayout();
                         }, 100);
                     }
                 });
@@ -695,6 +703,8 @@ function handleScroll() {
             if (state.activeCard) {
                 state.activeCard.classList.remove('active');
                 state.activeCard = null;
+                // Добавьте вызов функции здесь
+                preserveGridLayout();
             }
         });
     }
@@ -1050,6 +1060,8 @@ function handleScroll() {
                     setTimeout(() => {
                         ensureElementVisible(targetElement);
                         highlightElement(targetElement);
+                        // Добавьте вызов функции здесь
+                        preserveGridLayout();
                     }, 400);
                 }, 200);
             }

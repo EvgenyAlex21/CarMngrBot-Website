@@ -583,6 +583,7 @@ a:hover {
 /* ====== Карточки функций ====== */
 .feature-card-container {
   margin: 2.5rem 0;
+  position: relative;
 }
 
 .feature-card-container h2 {
@@ -597,9 +598,29 @@ a:hover {
 }
 
 .feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+  gap: 1.5rem !important;
+  position: relative;
+  width: 100%;
+}
+
+.feature-grid .feature-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+.instruction-block .feature-grid,
+.instruction-content .feature-grid,
+.corporate-section .feature-grid,
+.section-content .feature-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
 }
 
 .feature-card {
