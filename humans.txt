@@ -1,0 +1,17 @@
+/* TEAM */
+    Developer: Car Manager Bot
+    Contact: https://t.me/CarMngrBot
+    Location: Cheboksary, Russia
+
+/* THANKS */
+    FontAwesome for icons
+    Modern CSS Grid for layout
+    JavaScript ES6+ for functionality
+
+/* SITE */
+    Last update: 2025/01/13
+    Language: Russian
+    Doctype: HTML5
+    Standards: HTML5, CSS3, ES6+
+    Components: JavaScript, CSS Grid, FontAwesome
+    Software: Visual Studio Code

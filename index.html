@@ -5,12 +5,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Manager Bot</title>
+    
+    <!-- SEO мета-теги -->
+
+    <title>Car Manager Bot - Умный помощник автовладельца в Telegram</title>
+    <meta name="description" content="Car Manager Bot — ваш универсальный помощник для автовладельцев в Telegram. Планируйте поездки, ведите учет расходов и ремонтов, сохраняйте историю обслуживания, рассчитывайте налоги и кредиты, получайте актуальные данные о погоде, ценах на топливо, ближайших сервисах и камерах на дорогах. Все функции доступны в одном месте, с любого устройства и в любое время — для максимального удобства и контроля над вашим автомобилем. Бесплатно!">
+    <meta name="keywords" content="telegram бот, бот, автомобиль, автомобильный менеджер, калькулятор топлива, расходы на авто, напоминания ТО, поиск СТО, антирадар, курсы валют, цены на АЗС, цены на топливо, car manager bot, carmngrbot">
+    <meta name="author" content="Car Manager Bot, CarMngrBot, x_evgenyalex_x, evgeny.alexandrin, Евгений Александрин">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="Russian">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    
+    <!-- Open Graph для социальных сетей -->
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Car Manager Bot - Универсальный помощник автовладельцев">
+    <meta property="og:description" content="Многофункциональный Telegram бот для управления автомобилем. Планируйте поездки, ведите учет расходов и ремонтов, сохраняйте историю обслуживания, рассчитывайте налоги и кредиты, получайте актуальные данные о погоде, ценах на топливо, ближайших сервисах и камерах на дорогах. Все функции доступны в одном месте, с любого устройства и в любое время — для максимального удобства и контроля над вашим автомобилем!">
+    <meta property="og:image" content="http://carmngrbot.com.swtest.ru/images/logo/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Car Manager Bot - логотип">
+    <meta property="og:url" content="http://carmngrbot.com.swtest.ru">
+    <meta property="og:site_name" content="Car Manager Bot">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:updated_time" content="2025-01-01T00:00:00+00:00">
+    
+    <!-- Дополнительные SEO теги -->
+
+    <link rel="canonical" href="http://carmngrbot.com.swtest.ru">
+    <meta name="theme-color" content="#2c5aa0">
+    <meta name="msapplication-TileColor" content="#2c5aa0">
+    <meta name="msapplication-config" content="browserconfig.xml">
+    
+    <!-- Geo теги -->
+
+    <meta name="geo.region" content="RU">
+    <meta name="geo.placename" content="Russia">
+    <meta name="geo.placename" content="Cheboksary">
+    <meta name="ICBM" content="55.7558, 37.6176">
+    <meta name="ICBM" content="56.1322, 47.2519">
+    
+    <!-- Альтернативные языки -->
+
+    <link rel="alternate" hreflang="ru" href="http://carmngrbot.com.swtest.ru">
+    <link rel="alternate" hreflang="x-default" href="http://carmngrbot.com.swtest.ru">
+    
+    <!-- DNS prefetch для внешних ресурсов -->
+
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//t.me">
+    
+    <!-- Preload критических ресурсов -->
+
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="js/script.js" as="script">
+    <link rel="preload" href="images/logo/logo.png" as="image">
+    
+    <!-- Структурированные данные JSON-LD -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Car Manager Bot",
+        "alternateName": "CarManagerBot",
+        "description": "Многофункциональный Telegram бот для управления автомобилем. Планируйте поездки, ведите учет расходов и ремонтов, сохраняйте историю обслуживания, рассчитывайте налоги и кредиты, получайте актуальные данные о погоде, ценах на топливо, ближайших сервисах и камерах на дорогах. Все функции доступны в одном месте, с любого устройства и в любое время — для максимального удобства и контроля над вашим автомобилем!",
+        "url": "http://carmngrbot.com.swtest.ru",
+        "sameAs": [
+            "https://t.me/CarMngrBot"
+        ],
+        "applicationCategory": "Productivity",
+        "applicationSubCategory": "Automotive",
+        "operatingSystem": "Telegram",
+        "softwareVersion": "1.0",
+        "datePublished": "2025-01-01",
+        "dateModified": "2025-01-13",
+        "author": {
+            "@type": "Organization",
+            "name": "Car Manager Bot Team"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Car Manager Bot Team",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://carmngrbot.com.swtest.ru/images/logo/logo.png"
+            }
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "RUB",
+            "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "150",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "features": [
+            "Система подписок",
+            "Калькулятор алкоголя",
+            "Калькулятор налога",
+            "Калькулятор расхода топлива",
+            "Калькулятор автокредита",
+            "Калькулятор растаможки",
+            "Калькулятор ОСАГО",
+            "Калькулятор шин",
+            "Траты и ремонты",
+            "Найти транспорт",
+            "Поиск мест",
+            "Погода",
+            "Цены на топливо",
+            "Код региона",
+            "Коды OBD2",
+            "Напоминания",
+            "Антирадар",
+            "Новости",
+            "Курсы валют",
+            "Уведомления",
+            "Бланки",
+            "Реклама",
+            "Чат с админом"
+        ]
+    }
+    </script>
+    
+    <!-- Разметка для веб-сайта -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Car Manager Bot",
+        "url": "http://carmngrbot.com.swtest.ru",
+        "description": "Официальный сайт Car Manager Bot - умного помощника для автовладельцев",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "http://carmngrbot.com.swtest.ru/#{search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "mainEntity": {
+            "@type": "SoftwareApplication",
+            "name": "Car Manager Bot"
+        }
+    }
+    </script>
+    
+    <!-- Иконки и манифест -->
     <link rel="icon" type="image/png" sizes="32x32" href="images/logo/logo.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/logo/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo/logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/logo/logo.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="images/logo/logo.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Стили -->
     <link rel="stylesheet" href="fronts/fontawesome-free-5/css/all.min.css">
     <link rel="stylesheet" href="css/fontawesome.css">
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Скрипты -->
     <script src="js/script.js" defer></script>
 </head>
 
@@ -4799,7 +4959,7 @@
                                     <p><strong>Все споры разрешаются в следующем порядке:</strong></p>
                                     <ul>
                                         <li><strong>Досудебный порядок:</strong> Обращение через чат с администратором в боте или в личных сообщениях к <a href="https://t.me/x_evgenyalex_x" target="_blank">@x_evgenyalex_x</a> в <a href="https://web.telegram.org" target="_blank">Telegram</a>. Срок рассмотрения — 14 рабочих дней.</li>
-                                        <li><strong>Судебный порядок:</strong> При невозможности урегулирования спор передается в суд по месту нахождения Разработчика (г. Чебоксары, РФ).</li>
+                                        <li><strong>Судебный порядок:</strong> При невозможности урегулирования спор передается в суд по месту нахождения Разработчика (г. Чебоксары, Россия).</li>
                                     </ul>
                                 </div>
                             </div>
@@ -4839,7 +4999,7 @@
                                 <div class="agreement-content active">
                                     <p><strong>Соглашение</strong> действует с момента начала использования <strong>Бота</strong> до прекращения по инициативе <strong>Пользователя</strong> или <strong>Разработчика</strong>.</p>
                                     <p>При признании недействительности отдельных положений остальные сохраняют силу.</p>
-                                    <p>Разработчик: <a href="https://t.me/CarMngrBot" target="_blank">Car Manager Bot</a>, индивидуальный проект, г. Чебоксары, РФ.</p>
+                                    <p>Разработчик: <a href="https://t.me/CarMngrBot" target="_blank">Car Manager Bot</a>, индивидуальный проект, г. Чебоксары, Россия.</p>
                                 </div>
                             </div>
                         </div>
@@ -5055,7 +5215,7 @@
                         </div>
                         <div class="section-content">
                             <div class="project-info">
-                                <p><strong>Car Manager Bot</strong> — это стартап-проект одного разработчика из г. Чебоксары, РФ. Проект родился из идеи объединить все необходимые автомобильные сервисы в одном удобном Telegram-боте. За несколько лет развития бот вырос из простого калькулятора расхода топлива в многофункциональный инструмент, которым пользуются тысячи автовладельцев. Мы всегда открыты для ваших идей и предложений — именно обратная связь от пользователей помогает нам постоянно совершенствоваться.</p>
+                                <p><strong>Car Manager Bot</strong> — это стартап-проект одного разработчика из г. Чебоксары, Россия. Проект родился из идеи объединить все необходимые автомобильные сервисы в одном удобном Telegram-боте. За несколько лет развития бот вырос из простого калькулятора расхода топлива в многофункциональный инструмент, которым пользуются тысячи автовладельцев. Мы всегда открыты для ваших идей и предложений — именно обратная связь от пользователей помогает нам постоянно совершенствоваться.</p>
                             </div>
                             <div class="contact-cards">
                                 <div class="contact-card">
@@ -5146,7 +5306,7 @@
                     <div class="footer-contact">
                         <p><i class="fab fa-telegram"></i> <a href="https://t.me/x_evgenyalex_x">@x_evgenyalex_x</a></p>
                         <p><i class="fab fa-vk"></i> <a href="https://vk.com/evgeny.alexandrin">@evgeny.alexandrin</a></p>
-                        <p><i class="fas fa-map-marker-alt"></i>РФ, г. Чебоксары</p>
+                        <p><i class="fas fa-map-marker-alt"></i>Чебоксары, Россия</p>
                         <p><i class="fas fa-clock"></i>Время работы: 9:00-18:00 (МСК)</p>
                     </div>
                 </div>

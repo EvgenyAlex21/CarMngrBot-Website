@@ -1,0 +1,174 @@
+# Car Manager Bot - Apache Configuration
+# Последнее обновление: 01 января 2025
+
+# Включаем rewrite engine
+RewriteEngine On
+
+# Принудительное использование SSL (если доступен)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Принудительное добавление www (раскомментировать при необходимости)
+# RewriteCond %{HTTP_HOST} !^www\.
+# RewriteRule ^(.*)$ http://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# =============== СЖАТИЕ ===============
+
+<IfModule mod_deflate.c>
+    # Включаем сжатие для различных типов файлов
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/atom_xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/x-httpd-php
+    AddOutputFilterByType DEFLATE application/x-httpd-fastphp
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+    
+    # Исключаем уже сжатые файлы
+    SetEnvIfNoCase Request_URI \
+        \.(?:gif|jpe?g|png|zip|gz|bz2|rar|swf|flv)$ no-gzip dont-vary
+    SetEnvIfNoCase Request_URI \
+        \.(?:exe|t?gz|zip|bz2|sit|rar)$ no-gzip dont-vary
+</IfModule>
+
+# =============== КЭШИРОВАНИЕ ===============
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    
+    # Изображения
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # Стили и скрипты
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType application/x-javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    
+    # Шрифты
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    
+    # HTML и документы
+    ExpiresByType text/html "access plus 1 week"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType text/xml "access plus 1 week"
+    ExpiresByType application/xml "access plus 1 week"
+    ExpiresByType application/json "access plus 1 day"
+    
+    # Видео и аудио
+    ExpiresByType video/mp4 "access plus 1 year"
+    ExpiresByType audio/mpeg "access plus 1 year"
+    
+    # Архивы
+    ExpiresByType application/zip "access plus 1 year"
+    ExpiresByType application/x-rar-compressed "access plus 1 year"
+</IfModule>
+
+# =============== ЗАГОЛОВКИ КЭШИРОВАНИЯ ===============
+
+<IfModule mod_headers.c>
+    # Кэш для статических ресурсов
+    <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|webp|svg|js|css|swf|woff|woff2|ttf|eot)$">
+        Header set Cache-Control "max-age=31536000, public, immutable"
+    </FilesMatch>
+    
+    # Кэш для HTML
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "max-age=604800, public"
+    </FilesMatch>
+    
+    # Безопасность
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    
+    # CSP заголовок
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: t.me; connect-src 'self' t.me"
+</IfModule>
+
+# =============== MIME ТИПЫ ===============
+
+<IfModule mod_mime.c>
+    AddType application/javascript .js
+    AddType text/css .css
+    AddType image/svg+xml .svg
+    AddType application/font-woff .woff
+    AddType application/font-woff2 .woff2
+    AddType application/json .json
+    AddType application/manifest+json .webmanifest
+</IfModule>
+
+# =============== ПЕРЕПИСЫВАНИЕ URL ===============
+
+# Убираем расширение .html из URL
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]+)$ $1.html [NC,L]
+
+# Перенаправляем с .html на чистый URL
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R=301]
+
+# =============== БЕЗОПАСНОСТЬ ===============
+
+# Запрещаем доступ к системным файлам
+<FilesMatch "(^#.*#|\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|sw[op])|~)$">
+    Order allow,deny
+    Deny from all
+    Satisfy All
+</FilesMatch>
+
+# Защита от hotlinking изображений (раскомментировать при необходимости)
+# RewriteCond %{HTTP_REFERER} !^$
+# RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?carmngrbot.com.swtest.ru [NC]
+# RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?google.com [NC]
+# RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?yandex.ru [NC]
+# RewriteRule \.(jpg|jpeg|png|gif|webp)$ - [NC,F,L]
+
+# =============== ОПТИМИЗАЦИЯ ===============
+
+# Отключаем server signature
+ServerSignature Off
+
+# Отключаем ETag для лучшего кэширования
+FileETag None
+
+# Включаем Keep-Alive
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>
+
+# =============== РЕДИРЕКТЫ ===============
+
+# Основные редиректы (при необходимости)
+# Redirect 301 /old-page.html /new-page
+# Redirect 301 /admin /admin.html
+
+# =============== CUSTOM ERROR PAGES ===============
+
+# ErrorDocument 404 /404.html
+# ErrorDocument 403 /403.html
+# ErrorDocument 500 /500.html
+
+# =============== КОНЕЦ ФАЙЛА ===============

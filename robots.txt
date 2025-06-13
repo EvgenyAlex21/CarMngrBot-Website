@@ -1,0 +1,75 @@
+# Car Manager Bot - Robots.txt
+# Последнее обновление: 01 января 2025
+
+# Основные правила для всех роботов
+User-agent: *
+Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /fronts/
+Disallow: /admin.html
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /backup/
+Disallow: /*.log$
+Disallow: /*.tmp$
+Disallow: /*?
+Disallow: /cgi-bin/
+
+# Специальные правила для Google
+User-agent: Googlebot
+Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Disallow: /admin.html
+Disallow: /admin/
+Crawl-delay: 1
+
+# Специальные правила для Yandex
+User-agent: Yandex
+Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Disallow: /admin.html
+Disallow: /admin/
+Crawl-delay: 2
+Clean-param: utm_source&utm_medium&utm_campaign
+
+# Правила для Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /admin.html
+Disallow: /admin/
+Crawl-delay: 1
+
+# Правила для социальных сетей
+User-agent: facebookexternalhit
+Allow: /
+Allow: /images/
+
+# Блокировка плохих ботов
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# Карта сайта
+Sitemap: http://carmngrbot.com.swtest.ru/sitemap.xml
+
+# Общая задержка между запросами
+Crawl-delay: 1
+
+# Дополнительная информация
+# Host: carmngrbot.com.swtest.ru
+# Contact: https://t.me/CarMngrBot

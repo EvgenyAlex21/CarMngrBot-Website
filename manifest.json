@@ -1,0 +1,133 @@
+{
+  "name": "Car Manager Bot - Умный помощник автовладельца",
+  "short_name": "CarMngrBot",
+  "description": "Многофункциональный Telegram бот для управления автомобилем. Планируйте поездки, ведите учет расходов и ремонтов, сохраняйте историю обслуживания, рассчитывайте налоги и кредиты, получайте актуальные данные о погоде, ценах на топливо, ближайших сервисах и камерах на дорогах. Все функции доступны в одном месте, с любого устройства и в любое время — для максимального удобства и контроля над вашим автомобилем!",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2c5aa0",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ru",
+  "dir": "ltr",
+  "categories": ["productivity", "utilities", "automotive", "lifestyle"],
+  "icons": [
+    {
+      "src": "images/logo/logo.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo/logo.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo/logo.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo/logo.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo/logo.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/logo/logo.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Функции бота",
+      "short_name": "Функции",
+      "description": "Посмотреть все функции Car Manager Bot",
+      "url": "/#function",
+      "icons": [
+        {
+          "src": "images/logo/logo.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Калькуляторы",
+      "short_name": "Калькуляторы",
+      "description": "Автомобильные калькуляторы",
+      "url": "/#function-calculators",
+      "icons": [
+        {
+          "src": "images/logo/logo.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Инструкции",
+      "short_name": "Помощь",
+      "description": "Инструкции по использованию бота",
+      "url": "/#instructions",
+      "icons": [
+        {
+          "src": "images/logo/logo.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Открыть бота",
+      "short_name": "Бот",
+      "description": "Перейти к Car Manager Bot в Telegram",
+      "url": "https://t.me/CarMngrBot",
+      "icons": [
+        {
+          "src": "images/logo/logo.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "telegram",
+      "url": "https://t.me/CarMngrBot",
+      "id": "CarMngrBot"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
+}

@@ -1,0 +1,6 @@
+Contact: https://t.me/CarMngrBot
+Expires: 2025-12-31T23:59:59.000Z
+Preferred-Languages: ru, en
+Canonical: http://carmngrbot.com.swtest.ru/.well-known/security.txt
+Agreement: http://carmngrbot.com.swtest.ru/#agreement
+Policy: http://carmngrbot.com.swtest.ru/#privacy
