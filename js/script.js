@@ -1020,6 +1020,34 @@ function handleScroll() {
         });
     }
 
+    // Функция для сохранения макета сетки
+    function preserveGridLayout() {
+        // Проверяем, есть ли элементы с классом grid или подобными
+        const gridElements = document.querySelectorAll('.grid, .features-grid, .calculator-grid, .function-grid');
+        
+        gridElements.forEach(grid => {
+            // Принудительно обновляем layout
+            if (grid.style.display === 'grid' || window.getComputedStyle(grid).display === 'grid') {
+                // Временно скрываем и показываем элемент для обновления layout
+                const originalDisplay = grid.style.display;
+                grid.style.display = 'none';
+                grid.offsetHeight; // Принуждаем браузер пересчитать layout
+                grid.style.display = originalDisplay || 'grid';
+            }
+        });
+        
+        // Также обрабатываем flexbox элементы
+        const flexElements = document.querySelectorAll('.flex, .features-container, .calculator-container');
+        flexElements.forEach(flex => {
+            if (flex.style.display === 'flex' || window.getComputedStyle(flex).display === 'flex') {
+                const originalDisplay = flex.style.display;
+                flex.style.display = 'none';
+                flex.offsetHeight;
+                flex.style.display = originalDisplay || 'flex';
+            }
+        });
+    }
+
     // Вспомогательные функции
     function throttle(func, limit) {
         let lastFunc;
