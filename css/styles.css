@@ -318,6 +318,31 @@ a:hover {
   color: var(--light-color);
 }
 
+/* Стили для кнопки выхода */
+#adminLogoutBtn {
+  background-color: rgba(231, 76, 60, 0.1) !important;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  border-radius: 6px !important;
+  margin-left: 10px;
+}
+
+#adminLogoutBtn:hover {
+  background-color: var(--danger-color) !important;
+  color: white !important;
+  border-color: var(--danger-color);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+#adminLogoutBtn i {
+  color: var(--danger-color);
+  transition: color 0.3s ease;
+}
+
+#adminLogoutBtn:hover i {
+  color: white;
+}
+
 /* Стили для выпадающего меню */
 .dropdown {
   position: relative;

@@ -80,7 +80,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 loginError.style.color = 'var(--success-color)';
                 loginError.textContent = 'Вход выполнен успешно! Перенаправление...';
                 
-                localStorage.setItem('adminLoggedIn', 'true');
+                // Устанавливаем данные авторизации
+                localStorage.setItem('adminAuthenticated', 'true');
+                localStorage.setItem('adminAuthTime', new Date().getTime().toString());
                 
                 setTimeout(function() {
                     window.location.href = 'admin.html';
@@ -97,10 +99,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Функция для настройки выхода из админ-панели
+    function setupAdminLogout() {
+        const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+        
+        if (adminLogoutBtn) {
+            adminLogoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (confirm('Вы действительно хотите выйти из админ-панели?')) {
+                    // Очищаем данные авторизации
+                    localStorage.removeItem('adminAuthenticated');
+                    localStorage.removeItem('adminAuthTime');
+                    
+                    // Перенаправляем на главную страницу
+                    alert('Вы успешно вышли из админ-панели!');
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+    }
+
     // Инициализация при загрузке
     function init() {
         ensureOverlayExists();
         setupAdminLogin(); 
+        setupAdminLogout(); // Добавляем обработку выхода
         if (DOM.hamburger && DOM.menu) setupMobileMenu();
         setupSmoothScroll();
         if (DOM.scrollToTopBtn) setupScrollToTop();

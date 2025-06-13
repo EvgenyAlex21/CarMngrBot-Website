@@ -81,10 +81,86 @@
     <link rel="stylesheet" href="fronts/fontawesome-free-5/css/all.min.css">
     <link rel="stylesheet" href="css/fontawesome.css">
     <link rel="stylesheet" href="css/styles.css">
-    
-    <!-- Скрипты -->
+
+      <!-- Скрипты -->
 
     <script src="js/script.js" defer></script>
+
+      <!-- Защита админ-панели -->
+
+    <style>
+        body {
+            visibility: hidden;
+        }
+        body.authenticated {
+            visibility: visible;
+        }
+        
+        .access-denied {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .access-denied-content {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .access-denied h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .access-denied p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+
+    <script>
+        (function() {
+            const isAuthenticated = localStorage.getItem('adminAuthenticated') === 'true';
+            const authTimestamp = localStorage.getItem('adminAuthTime');
+            const currentTime = new Date().getTime();
+            const sessionExpiry = 24 * 60 * 60 * 1000; 
+            
+            if (!isAuthenticated || !authTimestamp || (currentTime - parseInt(authTimestamp)) > sessionExpiry) {
+                localStorage.removeItem('adminAuthenticated');
+                localStorage.removeItem('adminAuthTime');
+                
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.body.innerHTML = `
+                        <div class="access-denied">
+                            <div class="access-denied-content">
+                                <h1><i class="fas fa-shield-alt"></i></h1>
+                                <h1>Доступ запрещен!</h1>
+                                <p>Для доступа к админ-панели необходима авторизация!</p>
+                                <p>Вы будете перенаправлены на главную страницу...</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                setTimeout(function() {
+                    window.location.href = 'index.html';
+                }, 3000);
+            } else {
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.body.classList.add('authenticated');
+                });
+            }
+        })();
+    </script>
 </head>
 
 <!-- МЕНЮ -->   
@@ -97,8 +173,7 @@
                     <img src="images/logo/logo.png" alt="Car Manager Bot Logo" class="logo-image">
                     <span class="header-title">CAR MANAGER BOT ADMIN</span>
                 </a>
-            </div>
-            <nav class="corporate-nav">
+            </div>            <nav class="corporate-nav">
                 <button class="hamburger"><i class="fas fa-bars"></i></button>
                 <ul class="menu">
                     <li><a href="index.html"></i> Главная</a></li>
@@ -152,9 +227,9 @@
                             <li><a href="#instruction-emergency">Экстренная остановка</a></li>
                             <li><a href="#instruction-exit">Выход</a></li>
                             <li><a href="#instruction-auxiliary">Вспомогательные функции</a></li>
-                        </ul>
-                    </li>
+                        </ul>                    </li>
                     <li><a href="#contact">Контакты</a></li>
+                    <li><a href="#" id="adminLogoutBtn"><i class="fas fa-sign-out-alt"></i> Выход</a></li>
                 </ul>
             </nav>
         </div>
